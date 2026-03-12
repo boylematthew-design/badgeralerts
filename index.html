@@ -1,341 +1,1038 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BadgerBuild | Precision Digital Marketing</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BadgerAlerts | Precision Digital Marketing</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(135deg, #10b981, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #10b981, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-pattern {
+        background-color: #f8fafc;
+        background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
+        background-size: 24px 24px;
+      }
+      .notification-blur {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      @keyframes pulse-slow {
+        0%,
+        100% {
+          opacity: 1;
         }
-        .hero-pattern {
-            background-color: #f8fafc;
-            background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
+        50% {
+          opacity: 0.5;
         }
-        .notification-blur {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .live-indicator {
-            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 10px;
-        }
+      }
+      .live-indicator {
+        animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
     </style>
-</head>
-<body class="bg-slate-50 text-slate-900">
-
+  </head>
+  <body class="bg-slate-50 text-slate-900">
     <!-- Navigation -->
-    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto w-full relative z-20">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white p-1 shadow-lg shadow-slate-200">
-                <!-- Badger Brand Icon -->
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                    <path d="M12 3L4 10V21H20V10L12 3Z" fill="currentColor" fill-opacity="0.1"/>
-                    <path d="M12 3L7 8V21H10V11L12 9L14 11V21H17V8L12 3Z" fill="currentColor"/>
-                    <rect x="11" y="14" width="2" height="7" fill="currentColor"/>
-                </svg>
-            </div>
-            <div class="text-2xl font-800 tracking-tighter text-slate-900 uppercase">BADGER<span class="text-emerald-500">BUILD</span></div>
+    <nav
+      class="p-6 flex justify-between items-center max-w-7xl mx-auto w-full relative z-20"
+    >
+      <a href="/" class="flex items-center gap-2 group">
+        <div
+          class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white p-1 shadow-lg shadow-slate-200 transition-transform group-hover:scale-105"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            class="w-full h-full"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <!-- bell -->
+            <path
+              fill="currentColor"
+              d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z"
+            />
+            <path
+              fill="currentColor"
+              d="M20 18.2H4c.9-1 2.2-2.1 2.2-5.2V10.3A5.8 5.8 0 0 1 10.7 4.7V3.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v1.1a5.8 5.8 0 0 1 4.5 5.6V13c0 3.1 1.3 4.2 2.2 5.2Z"
+            />
+
+            <!-- alert dot (emerald) -->
+            <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
+          </svg>
         </div>
-        <div class="flex items-center gap-3">
-            <a href="#" class="text-slate-600 px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition">Sign in</a>
-            <a href="#" class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">Register</a>
+
+        <div
+          class="text-2xl font-800 tracking-tighter text-slate-900 uppercase transition-opacity group-hover:opacity-80"
+        >
+          BADGER<span class="text-emerald-500">ALERTS</span>
         </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="#"
+          class="text-slate-600 px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition"
+          >Sign in</a
+        >
+        <a
+          href="#"
+          class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100"
+          >Register</a
+        >
+      </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-pattern relative px-6 pt-12 pb-24 max-w-7xl mx-auto overflow-hidden">
-        <div class="max-w-4xl mx-auto text-center mb-12 relative z-10">
-            <h1 class="text-4xl md:text-6xl font-800 tracking-tight mb-4 leading-tight text-slate-900">
-                Your digital marketing AI consultant
-            </h1>
-            <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto">
-               Real-time suggestions for your website & brand.
-            </p>
-        </div>
+    <header
+      class="hero-pattern relative px-6 pt-12 pb-24 max-w-7xl mx-auto overflow-hidden"
+    >
+      <div class="max-w-4xl mx-auto text-center mb-12 relative z-10">
+        <h1
+          class="text-4xl md:text-6xl font-800 tracking-tight mb-4 leading-tight text-slate-900"
+        >
+          Your digital marketing AI consultant
+        </h1>
+        <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto">
+          Real-time suggestions for your website & brand.
+        </p>
+      </div>
 
-        <div class="max-w-2xl mx-auto relative z-10">
-            <div class="space-y-4">
-                <!-- Alert 1: Performance -->
-                <div class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default">
-                    <div class="w-10 h-10 bg-amber-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-amber-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-800 text-amber-600 uppercase tracking-wider">Performance Alert</span>
-                            <span class="text-[10px] text-slate-400 font-semibold">Today</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-900">Your page has a speed-score of 67/100</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mt-1">A slow-loading website can be frustrating. Optimization recommended.</p>
-                    </div>
-                </div>
-
-                <!-- Alert 2: Competitor -->
-                <div class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default">
-                    <div class="w-10 h-10 bg-pink-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-pink-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-800 text-pink-600 uppercase tracking-wider">Competitor Watch</span>
-                            <span class="text-[10px] text-slate-400 font-semibold">Yesterday</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-900">Your competitor’s TikTok video went viral</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mt-1">Gained 49,344 views in 7 days. Match their visibility now.</p>
-                    </div>
-                </div>
-
-                <!-- Alert 3: Content -->
-                <div class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default">
-                    <div class="w-10 h-10 bg-emerald-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-emerald-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-800 text-emerald-600 uppercase tracking-wider">Content Strategy</span>
-                            <span class="text-[10px] text-slate-400 font-semibold">2 days ago</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-900">49 new content gaps found</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mt-1">12 blog topics + 3 service pages recommended.</p>
-                    </div>
-                </div>
-
-                <!-- Alert 4: Ad Spend -->
-                <div class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default">
-                    <div class="w-10 h-10 bg-indigo-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-indigo-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-800 text-indigo-600 uppercase tracking-wider">Ad Intelligence</span>
-                            <span class="text-[10px] text-slate-400 font-semibold">3 days ago</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-900">Conversion costs on Meta are down 22%</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mt-1">Market conditions favor increased budget for your Retargeting set.</p>
-                    </div>
-                </div>
-
-                <!-- Alert 5: SEO -->
-                <div class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default">
-                    <div class="w-10 h-10 bg-blue-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-800 text-blue-600 uppercase tracking-wider">SEO Alert</span>
-                            <span class="text-[10px] text-slate-400 font-semibold">4 days ago</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-900">Ranking #2 for primary keyword</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mt-1">High conversion potential detected. Defend this position.</p>
-                    </div>
-                </div>
+      <div class="max-w-2xl mx-auto relative z-10">
+        <div class="space-y-4">
+          <!-- Alert 1: Performance -->
+          <div
+            class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default"
+          >
+            <div
+              class="w-10 h-10 bg-amber-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-amber-200"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
             </div>
-        </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-800 text-amber-600 uppercase tracking-wider"
+                  >Performance Alert</span
+                >
+                <span class="text-[10px] text-slate-400 font-semibold"
+                  >Today</span
+                >
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">
+                Your page has a speed-score of 67/100
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1">
+                A slow-loading website can be frustrating. Optimization
+                recommended.
+              </p>
+            </div>
+          </div>
 
-        <div class="absolute -z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-100 rounded-full blur-[120px] opacity-40"></div>
+          <!-- Alert 2: Competitor -->
+          <div
+            class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default"
+          >
+            <div
+              class="w-10 h-10 bg-pink-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-pink-200"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-800 text-pink-600 uppercase tracking-wider"
+                  >Competitor Watch</span
+                >
+                <span class="text-[10px] text-slate-400 font-semibold"
+                  >Yesterday</span
+                >
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">
+                Your competitor’s TikTok video went viral
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1">
+                Gained 49,344 views in 7 days. Match their visibility now.
+              </p>
+            </div>
+          </div>
+
+          <!-- Alert 3: Content -->
+          <div
+            class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default"
+          >
+            <div
+              class="w-10 h-10 bg-emerald-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-emerald-200"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-800 text-emerald-600 uppercase tracking-wider"
+                  >Content Strategy</span
+                >
+                <span class="text-[10px] text-slate-400 font-semibold"
+                  >2 days ago</span
+                >
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">
+                49 new content gaps found
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1">
+                12 blog topics + 3 service pages recommended.
+              </p>
+            </div>
+          </div>
+
+          <!-- Alert 4: Ad Spend -->
+          <div
+            class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default"
+          >
+            <div
+              class="w-10 h-10 bg-indigo-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-indigo-200"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-800 text-indigo-600 uppercase tracking-wider"
+                  >Ad Intelligence</span
+                >
+                <span class="text-[10px] text-slate-400 font-semibold"
+                  >3 days ago</span
+                >
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">
+                Conversion costs on Meta are down 22%
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1">
+                Market conditions favor increased budget for your Retargeting
+                set.
+              </p>
+            </div>
+          </div>
+
+          <!-- Alert 5: SEO -->
+          <div
+            class="notification-blur border border-white/50 shadow-xl rounded-2xl p-4 flex items-start gap-4 transition hover:scale-[1.02] cursor-default"
+          >
+            <div
+              class="w-10 h-10 bg-blue-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white shadow-lg shadow-blue-200"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-800 text-blue-600 uppercase tracking-wider"
+                  >SEO Alert</span
+                >
+                <span class="text-[10px] text-slate-400 font-semibold"
+                  >4 days ago</span
+                >
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">
+                Ranking #2 for primary keyword
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1">
+                High conversion potential detected. Defend this position.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="absolute -z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-100 rounded-full blur-[120px] opacity-40"
+      ></div>
     </header>
 
     <!-- Context Section -->
     <section class="bg-white py-24 px-6 border-y border-slate-200">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-800 tracking-tight mb-6">Get real-time suggestions <span class="gradient-text">for free.</span></h2>
-            <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-10">
-                BadgerBuild scans your website & brand using AI & offers suggestions.
-            </p>
-            
-            <div class="max-w-md mx-auto">
-                <form class="flex flex-col sm:flex-row gap-3">
-                    <input type="url" placeholder="yourwebsite.com" required class="flex-grow px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold">
-                    <button type="submit" class="bg-emerald-500 text-white px-8 py-4 rounded-2xl text-lg font-extrabold shadow-xl shadow-emerald-200 hover:bg-emerald-600 transition-all">
-                        Get started
-                    </button>
-                </form>
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-800 tracking-tight mb-6">
+          Get real-time suggestions <span class="gradient-text">for free.</span>
+        </h2>
+        <p
+          class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-10"
+        >
+          BadgerBuild scans your website & brand using AI & offers suggestions.
+        </p>
+
+        <div class="max-w-md mx-auto">
+          <form class="space-y-3" id="leadForm">
+            <!-- Website URL -->
+            <label for="website_url" class="sr-only">Website URL</label>
+            <input
+              id="website_url"
+              name="website_url"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://yourwebsite.com"
+              required
+              class="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
+            />
+
+            <!-- Name + Email -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="full_name" class="sr-only">Full name</label>
+                <input
+                  id="full_name"
+                  name="full_name"
+                  type="text"
+                  placeholder="Full name"
+                  autocomplete="name"
+                  required
+                  class="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="sr-only">Email address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email address"
+                  autocomplete="email"
+                  required
+                  class="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
+                />
+              </div>
             </div>
+
+            <!-- Consent box -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4">
+              <label class="flex items-start gap-3 text-sm text-slate-600">
+                <input
+                  name="agree_legal"
+                  type="checkbox"
+                  required
+                  class="mt-1 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                />
+                <span>
+                  I agree to the
+                  <a
+                    href="/terms.html"
+                    class="text-emerald-600 font-semibold hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Terms</a
+                  >
+                  and
+                  <a
+                    href="/privacy.html"
+                    class="text-emerald-600 font-semibold hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Privacy Policy</a
+                  >.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="w-full bg-emerald-500 text-white px-8 py-4 rounded-2xl text-lg font-extrabold shadow-xl shadow-emerald-200 hover:bg-emerald-600 transition-all"
+            >
+              Get started
+            </button>
+
+            <p class="text-xs text-slate-500 text-center">
+              Unsubscribe anytime.
+            </p>
+          </form>
         </div>
+      </div>
     </section>
 
     <!-- Dashboard Preview -->
     <section class="bg-slate-50 py-24 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-800 tracking-tight mb-4">Your personal dashboard</h2>
-                <p class="text-slate-500">Everything you need to scale, in one unified view.</p>
-            </div>
-
-            <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-200 overflow-hidden aspect-video flex">
-                <!-- Sidebar -->
-                <div class="w-64 bg-slate-900 p-6 flex-shrink-0 hidden md:flex flex-col gap-6">
-                    <div class="flex items-center gap-2 text-white mb-2">
-                        <div class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center p-1">
-                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                                <path d="M12 3L4 10V21H20V10L12 3Z" fill="currentColor" fill-opacity="0.2"/>
-                                <path d="M12 3L7 8V21H10V11L12 9L14 11V21H17V8L12 3Z" fill="currentColor"/>
-                                <rect x="11" y="14" width="2" height="7" fill="currentColor"/>
-                             </svg>
-                        </div>
-                        <span class="font-bold tracking-tight">BadgerBuild</span>
-                    </div>
-                    
-                    <nav class="space-y-1">
-                        <div class="flex items-center gap-3 text-white bg-white/10 p-2 rounded-lg cursor-pointer">
-                            <div class="w-4 h-4 bg-emerald-500/20 rounded"></div> 
-                            <span class="text-sm font-medium">Overview</span>
-                        </div>
-                        <div class="pt-4 pb-1 px-2">
-                            <span class="text-[11px] font-semibold text-slate-500 italic tracking-wide uppercase">Insights</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 transition-colors cursor-pointer group">
-                            <div class="w-4 h-4 bg-slate-800 rounded group-hover:bg-slate-700"></div>
-                            <span class="text-sm">SEO</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 transition-colors cursor-pointer group">
-                            <div class="w-4 h-4 bg-slate-800 rounded group-hover:bg-slate-700"></div>
-                            <span class="text-sm">Social</span>
-                        </div>
-                    </nav>
-                </div>
-
-                <!-- Main Content -->
-                <div class="flex-grow bg-slate-50/50 flex flex-col">
-                    <header class="h-16 border-b border-slate-200 px-8 flex items-center justify-between bg-white">
-                        <span class="font-bold text-slate-700">Notifications</span>
-                        <div class="w-8 h-8 rounded-full bg-slate-200 border border-slate-300"></div>
-                    </header>
-                    <main class="p-8 space-y-4 overflow-y-auto custom-scrollbar">
-                        <!-- Notification 1: Performance -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                            <div class="w-10 h-10 bg-amber-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="text-xs font-bold text-slate-900">Page speed is below 70</h4>
-                                <p class="text-[10px] text-slate-500">Your LCP is currently at 3.2s. Optimization needed.</p>
-                            </div>
-                        </div>
-                        <!-- Notification 2: Competitor -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                            <div class="w-10 h-10 bg-pink-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="text-xs font-bold text-slate-900">Competitor TikTok Viral</h4>
-                                <p class="text-[10px] text-slate-500">Gained 49k views. Plan your short-form response.</p>
-                            </div>
-                        </div>
-                        <!-- Notification 3: Content -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                            <div class="w-10 h-10 bg-emerald-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="text-xs font-bold text-slate-900">49 Content Gaps Found</h4>
-                                <p class="text-[10px] text-slate-500">Missing thousands of searches. View blog list.</p>
-                            </div>
-                        </div>
-                        <!-- Notification 4: Ad Spend -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                            <div class="w-10 h-10 bg-indigo-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="text-xs font-bold text-slate-900">Ad Spend Opportunity</h4>
-                                <p class="text-[10px] text-slate-500">Conversion costs on Meta are down by 22%.</p>
-                            </div>
-                        </div>
-                        <!-- Notification 5: SEO -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                            <div class="w-10 h-10 bg-blue-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="text-xs font-bold text-slate-900">SEO Milestone Hit</h4>
-                                <p class="text-[10px] text-slate-500">Ranking #2 for your most profitable keyword.</p>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-800 tracking-tight mb-4">
+            Your personal dashboard
+          </h2>
+          <p class="text-slate-500">
+            Everything you need to scale, in one unified view.
+          </p>
         </div>
+
+        <div
+          class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-200 overflow-hidden aspect-video flex"
+        >
+          <!-- Sidebar -->
+          <div
+            class="w-64 bg-slate-900 p-6 flex-shrink-0 hidden md:flex flex-col gap-6"
+          >
+            <div class="flex items-center gap-2 text-white mb-2">
+              <div
+                class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center p-1"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-full h-full"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill="#ffffff"
+                    d="M12 22c1.2 0 2.2-.85 2.45-2H9.55C9.8 21.15 10.8 22 12 22ZM20 18.25H4c.85-.95 2.15-2 2.15-5.1V10.6c0-2.85 1.9-5.2 4.55-5.85V3.6c0-.77.63-1.4 1.4-1.4s1.4.6 1.4 1.4v1.15c2.65.65 4.55 3 4.55 5.85v2.55c0 3.1 1.3 4.15 2.15 5.1Z"
+                  />
+                </svg>
+              </div>
+              <span class="font-bold tracking-tight">BadgerBuild</span>
+            </div>
+
+            <nav class="space-y-1">
+              <!-- Overview -->
+              <div
+                class="flex items-center gap-3 text-white bg-white/10 p-2 rounded-lg cursor-pointer"
+              >
+                <svg
+                  class="w-4 h-4 text-emerald-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+                <span class="text-sm font-medium">Overview</span>
+              </div>
+
+              <!-- Insights Section -->
+              <div class="pt-4 pb-1 px-2">
+                <span
+                  class="text-[11px] font-semibold text-slate-500 italic tracking-wide uppercase"
+                  >Insights</span
+                >
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <span class="text-sm">SEO</span>
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  />
+                </svg>
+                <span class="text-sm">Social</span>
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+                <span class="text-sm">Competitors</span>
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 17H8m8-4H8m4-4H8"
+                  />
+                </svg>
+                <span class="text-sm">Content Strategy</span>
+              </div>
+
+              <!-- Configuration Section -->
+              <div class="pt-4 pb-1 px-2">
+                <span
+                  class="text-[11px] font-semibold text-slate-500 italic tracking-wide uppercase"
+                  >Configuration</span
+                >
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span class="text-sm">Settings</span>
+              </div>
+
+              <div
+                class="flex items-center gap-3 text-slate-400 p-2 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group"
+              >
+                <svg
+                  class="w-4 h-4 text-slate-500 group-hover:text-slate-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+                <span class="text-sm">Team Members</span>
+              </div>
+            </nav>
+          </div>
+
+          <!-- Main Content -->
+          <div class="flex-grow bg-slate-50/50 flex flex-col">
+            <header
+              class="h-16 border-b border-slate-200 px-8 flex items-center justify-between bg-white"
+            >
+              <span class="font-bold text-slate-700">Notifications</span>
+              <div
+                class="w-8 h-8 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center border border-emerald-600 shadow-sm"
+                aria-label="User profile"
+                title="Alex Brown"
+              >
+                AB
+              </div>
+            </header>
+            <main class="p-8 space-y-4 overflow-y-auto custom-scrollbar">
+              <!-- Notification 1: Performance -->
+              <div
+                class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm"
+              >
+                <div
+                  class="w-10 h-10 bg-amber-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-slate-900">
+                    Page speed is below 70
+                  </h4>
+                  <p class="text-[10px] text-slate-500">
+                    Your LCP is currently at 3.2s. Optimization needed.
+                  </p>
+                </div>
+              </div>
+              <!-- Notification 2: Competitor -->
+              <div
+                class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm"
+              >
+                <div
+                  class="w-10 h-10 bg-pink-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-slate-900">
+                    Competitor TikTok Viral
+                  </h4>
+                  <p class="text-[10px] text-slate-500">
+                    Gained 49k views. Plan your short-form response.
+                  </p>
+                </div>
+              </div>
+              <!-- Notification 3: Content -->
+              <div
+                class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm"
+              >
+                <div
+                  class="w-10 h-10 bg-emerald-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-slate-900">
+                    49 Content Gaps Found
+                  </h4>
+                  <p class="text-[10px] text-slate-500">
+                    Missing thousands of searches. View blog list.
+                  </p>
+                </div>
+              </div>
+              <!-- Notification 4: Ad Spend -->
+              <div
+                class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm"
+              >
+                <div
+                  class="w-10 h-10 bg-indigo-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-slate-900">
+                    Ad Spend Opportunity
+                  </h4>
+                  <p class="text-[10px] text-slate-500">
+                    Conversion costs on Meta are down by 22%.
+                  </p>
+                </div>
+              </div>
+              <!-- Notification 5: SEO -->
+              <div
+                class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm"
+              >
+                <div
+                  class="w-10 h-10 bg-blue-500 rounded-xl flex-shrink-0 flex items-center justify-center text-white"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-slate-900">
+                    SEO Milestone Hit
+                  </h4>
+                  <p class="text-[10px] text-slate-500">
+                    Ranking #2 for your most profitable keyword.
+                  </p>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="bg-slate-900 py-24 px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="mb-16 text-center md:text-left">
-                <h2 class="text-3xl md:text-5xl font-800 text-white mb-6">Built for <span class="text-emerald-400">precision.</span></h2>
-                <p class="text-slate-400 max-w-xl text-lg">Sophisticated analysis engines simplified into actionable intelligence.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Feature Card 1 -->
-                <div class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-emerald-500 transition-colors">
-                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 text-emerald-400">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">SEO Optimizations</h3>
-                    <p class="text-slate-400 leading-relaxed">Identify profitable audience sub-segments and high-intent keywords automatically before the competition notices.</p>
-                </div>
-
-                <!-- Feature Card 2 -->
-                <div class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-indigo-500 transition-colors">
-                    <div class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 text-indigo-400">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Social Media Ideas</h3>
-                    <p class="text-slate-400 leading-relaxed">Optimize creative assets and hook structures in real-time as cultural trends and algorithm weights shift.</p>
-                </div>
-
-                <!-- Feature Card 3 -->
-                <div class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-amber-500 transition-colors">
-                    <div class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 text-amber-400">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Local Map Moats</h3>
-                    <p class="text-slate-400 leading-relaxed">Build a local search presence that dominates your geographic area, making it impossible for peers to compete.</p>
-                </div>
-            </div>
+    <section
+      id="features"
+      class="bg-slate-900 py-24 px-6 relative overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="mb-16 text-center md:text-left">
+          <h2 class="text-3xl md:text-5xl font-800 text-white mb-6">
+            Built for <span class="text-emerald-400">precision.</span>
+          </h2>
+          <p class="text-slate-400 max-w-xl text-lg">
+            Sophisticated analysis engines simplified into actionable
+            intelligence.
+          </p>
         </div>
-        
-        <!-- Decorative background element -->
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px]"></div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Feature Card 1 -->
+          <div
+            class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-emerald-500 transition-colors"
+          >
+            <div
+              class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 text-emerald-400"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">
+              SEO Optimizations
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              Identify profitable audience sub-segments and high-intent keywords
+              automatically before the competition notices.
+            </p>
+          </div>
+
+          <!-- Feature Card 2 -->
+          <div
+            class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-indigo-500 transition-colors"
+          >
+            <div
+              class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 text-indigo-400"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">
+              Social Media Ideas
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              Optimize creative assets and hook structures in real-time as
+              cultural trends and algorithm weights shift.
+            </p>
+          </div>
+
+          <!-- Feature Card 3 -->
+          <div
+            class="group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-amber-500 transition-colors"
+          >
+            <div
+              class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 text-amber-400"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Local Map Moats</h3>
+            <p class="text-slate-400 leading-relaxed">
+              Build a local search presence that dominates your geographic area,
+              making it impossible for peers to compete.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative background element -->
+      <div
+        class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px]"
+      ></div>
     </section>
 
     <!-- Footer -->
-    <footer class="p-12 text-center text-slate-500 text-sm border-t border-slate-200 bg-white">
-        <div class="mb-4 font-bold text-slate-900 uppercase flex items-center justify-center gap-2">
-            <div class="w-6 h-6 bg-slate-900 rounded p-1 text-white">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                    <path d="M12 3L4 10V21H20V10L12 3Z" fill="currentColor" fill-opacity="0.2"/>
-                    <path d="M12 3L7 8V21H10V11L12 9L14 11V21H17V8L12 3Z" fill="currentColor"/>
-                    <rect x="11" y="14" width="2" height="7" fill="currentColor"/>
-                </svg>
-            </div>
-            BADGERBUILD
-        </div>
-        <div class="mb-2">&copy; 2026 BadgerBuild Intelligence Systems.</div>
-        <div class="text-slate-400">Built in London 🇬🇧🫖💂🏻‍♂️👑</div>
-    </footer>
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <!-- Brand Column -->
+          <div class="col-span-2 md:col-span-1">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-6 h-6 bg-slate-900 rounded p-1 text-white">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-full h-full"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- bell -->
+                  <path
+                    fill="currentColor"
+                    d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M20 18.2H4c.9-1 2.2-2.1 2.2-5.2V10.3A5.8 5.8 0 0 1 10.7 4.7V3.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v1.1a5.8 5.8 0 0 1 4.5 5.6V13c0 3.1 1.3 4.2 2.2 5.2Z"
+                  />
 
-</body>
+                  <!-- alert dot (emerald) -->
+                  <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
+                </svg>
+              </div>
+              <span class="font-bold text-slate-900 uppercase"
+                >BADGERALERTS</span
+              >
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed">
+              Precision digital marketing intelligence for the modern web.
+            </p>
+          </div>
+
+          <!-- Links Column 1 -->
+          <div>
+            <h4 class="font-bold text-slate-900 mb-4">Resources</h4>
+            <ul class="space-y-2 text-sm text-slate-500">
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Changelog</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links Column 2 -->
+          <div>
+            <h4 class="font-bold text-slate-900 mb-4">Company</h4>
+            <ul class="space-y-2 text-sm text-slate-500">
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Careers</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links Column 3 -->
+          <div>
+            <h4 class="font-bold text-slate-900 mb-4">Legal</h4>
+            <ul class="space-y-2 text-sm text-slate-500">
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-emerald-500 transition-colors"
+                  >Cookie Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="text-slate-400 text-sm">
+            &copy; 2026 BadgerAlerts Intelligence Systems. All rights reserved.
+          </div>
+          <div class="text-slate-400 text-sm">Built in London 🇬🇧</div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
