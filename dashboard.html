@@ -237,7 +237,6 @@
             </svg>
             <span>Paid Media</span>
           </button>
-
           <div class="pt-10 pb-3 px-2">
             <span
               class="text-slate-500 text-[14px] uppercase tracking-wide italic font-medium"
@@ -262,23 +261,6 @@
             </svg>
             <span>Settings</span>
           </div>
-
-          <div class="sidebar-link opacity-70 cursor-default">
-            <svg
-              class="w-5 h-5 text-slate-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 00-8 0v2m8 0H9m4-8a4 4 0 100-8 4 4 0 000 8z"
-              />
-            </svg>
-            <span>Team Members</span>
-          </div>
         </nav>
       </aside>
 
@@ -300,11 +282,6 @@
           </div>
 
           <div class="flex items-center gap-3">
-            <button class="top-tab active" data-filter="all">All</button>
-            <button class="top-tab" data-filter="urgent">Urgent</button>
-            <button class="top-tab" data-filter="opportunity">
-              Opportunities
-            </button>
             <div
               class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-emerald-200"
             >
@@ -314,54 +291,6 @@
         </header>
 
         <section class="px-10 py-8">
-          <div class="mb-6 grid grid-cols-3 gap-4 max-w-3xl">
-            <div
-              class="bg-white border border-slate-200 rounded-2xl px-5 py-4 shadow-sm"
-            >
-              <p
-                class="text-xs uppercase tracking-wide text-slate-400 font-bold"
-              >
-                Open alerts
-              </p>
-              <p
-                id="statAll"
-                class="text-3xl font-extrabold text-slate-900 mt-2"
-              >
-                6
-              </p>
-            </div>
-            <div
-              class="bg-white border border-slate-200 rounded-2xl px-5 py-4 shadow-sm"
-            >
-              <p
-                class="text-xs uppercase tracking-wide text-slate-400 font-bold"
-              >
-                Urgent
-              </p>
-              <p
-                id="statUrgent"
-                class="text-3xl font-extrabold text-slate-900 mt-2"
-              >
-                2
-              </p>
-            </div>
-            <div
-              class="bg-white border border-slate-200 rounded-2xl px-5 py-4 shadow-sm"
-            >
-              <p
-                class="text-xs uppercase tracking-wide text-slate-400 font-bold"
-              >
-                Opportunities
-              </p>
-              <p
-                id="statOpportunity"
-                class="text-3xl font-extrabold text-slate-900 mt-2"
-              >
-                3
-              </p>
-            </div>
-          </div>
-
           <div class="space-y-5" id="alertsList">
             <button
               class="notification-row"
