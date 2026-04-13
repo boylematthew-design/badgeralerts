@@ -6,6 +6,10 @@ BadgerAlerts is an AI-powered digital marketing monitoring SaaS. It watches a us
 
 The full project plan is saved at `prototype/projectplan.pdf`.
 
+## Shared data & components
+
+- **Footer links** — stored once in `lib/footer-links.ts`. Both `components/Footer.tsx` (homepage) and `components/DashboardFooter.tsx` (dashboard) import from it. To add/change/remove a footer link, **only edit `lib/footer-links.ts`** — never edit the footer components directly for link changes.
+
 ## Tech stack (agreed)
 
 - **Framework:** Next.js (App Router) + React + Tailwind CSS
@@ -64,6 +68,7 @@ The full project plan is saved at `prototype/projectplan.pdf`.
 - One section at a time — don't overload
 - Explain the _why_ behind decisions, not just the code
 - Offer suggestions and flag potential issues proactively
+- **Coach on commercial best practices** — this project is intended to ship commercially. When making architectural decisions (e.g. shared data files, component structure), briefly explain *why* it's the right approach for a real product, not just that it works. Help the user build good habits.
 
 ## Security — CRITICAL, DO NOT SKIP
 

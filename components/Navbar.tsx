@@ -1,6 +1,24 @@
 import Link from "next/link";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const cookieStore = await cookies();
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+      },
+    }
+  );
+
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto w-full relative z-20">
       <Link href="/" className="flex items-center gap-2 group">
@@ -17,12 +35,23 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3">
-        <Link href="/login" className="text-slate-600 px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition">
-          Sign in
-        </Link>
-        <Link href="#signup" className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">
-          Register
-        </Link>
+        {user ? (
+          <Link
+            href="/dashboard"
+            className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100"
+          >
+            Dashboard
+          </Link>
+        ) : (
+          <>
+            <Link href="/login" className="text-slate-600 px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition">
+              Sign in
+            </Link>
+            <Link href="#signup" className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

@@ -65,7 +65,7 @@ export default function Sidebar() {
     <aside className="w-[260px] min-h-screen bg-slate-950 flex flex-col flex-shrink-0">
       {/* Logo */}
       <div className="px-6 py-7 border-b border-slate-800">
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/dashboard" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-white p-1 shadow-lg">
             <svg viewBox="0 0 24 24" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path fill="currentColor" d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z" />

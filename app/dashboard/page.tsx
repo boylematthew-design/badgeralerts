@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import Sidebar from "@/components/Sidebar";
+import DashboardFooter from "@/components/DashboardFooter";
 
 async function getUser() {
   const cookieStore = await cookies();
@@ -109,7 +110,7 @@ export default async function DashboardPage() {
         </header>
 
         {/* Alerts */}
-        <section className="px-10 py-8">
+        <section className="px-10 py-8 flex-1">
           <div className="space-y-5">
             {alerts.map((alert) => (
               <button
@@ -143,6 +144,7 @@ export default async function DashboardPage() {
             ))}
           </div>
         </section>
+        <DashboardFooter />
       </div>
     </div>
   );

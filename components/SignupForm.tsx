@@ -28,7 +28,7 @@ export default function SignupForm() {
     const supabase = createClient();
 
     // 1. Create the user in Supabase Auth (sends confirmation email automatically)
-    const { data, error: authError } = await supabase.auth.signUp({
+    const { error: authError } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
       options: {
@@ -40,7 +40,13 @@ export default function SignupForm() {
     });
 
     if (authError) {
-      setError(authError.message);
+      if (authError.message.toLowerCase().includes("database error")) {
+        setError("This website is already registered with another account.");
+      } else if (authError.message.toLowerCase().includes("already registered")) {
+        setError("An account with this email already exists. Try signing in.");
+      } else {
+        setError(authError.message);
+      }
       setLoading(false);
       return;
     }

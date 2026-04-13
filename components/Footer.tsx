@@ -1,3 +1,5 @@
+import { footerLinks } from "@/lib/footer-links";
+
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 pt-16 pb-8">
@@ -20,33 +22,20 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h4 className="font-bold text-slate-900 mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Changelog</a></li>
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="font-bold text-slate-900 mb-4">Company</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Careers</a></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-bold text-slate-900 mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Cookie Policy</a></li>
-            </ul>
-          </div>
+          {footerLinks.map((section) => (
+            <div key={section.heading}>
+              <h4 className="font-bold text-slate-900 mb-4">{section.heading}</h4>
+              <ul className="space-y-2 text-sm text-slate-500">
+                {section.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="hover:text-emerald-500 transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <div className="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">

@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "BadgerAlerts | AI digital marketing alerts",
   description:
     "AI-powered digital marketing monitoring. Get instant alerts across SEO, social, competitors, content and paid media.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
