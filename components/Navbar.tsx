@@ -3,22 +3,28 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export default async function Navbar() {
-  const cookieStore = await cookies();
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
+  try {
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll();
+          },
         },
-      },
-    }
-  );
+      }
+    );
+    const { data: { user } } = await supabase.auth.getUser();
 
-  const { data: { user } } = await supabase.auth.getUser();
+    return <NavbarUI loggedIn={!!user} />;
+  } catch {
+    return <NavbarUI loggedIn={false} />;
+  }
+}
 
+function NavbarUI({ loggedIn }: { loggedIn: boolean }) {
   return (
     <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto w-full relative z-20">
       <Link href="/" className="flex items-center gap-2 group">
@@ -35,7 +41,7 @@ export default async function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3">
-        {user ? (
+        {loggedIn ? (
           <Link
             href="/dashboard"
             className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100"
