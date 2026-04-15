@@ -51,14 +51,17 @@ async function getPostForUser(postId: string) {
     .lte("scheduled_for", new Date().toISOString())
     .single();
 
-  const post = data?.posts as {
+  type PostType = {
     id: string;
     title: string;
     description: string;
     section_why: string | null;
     section_fix: string | null;
     section_help: string | null;
-  } | null;
+  };
+
+  const rawPost = data?.posts;
+  const post = (Array.isArray(rawPost) ? rawPost[0] : rawPost) as PostType | null;
 
   return { user, post, profile };
 }
