@@ -11,16 +11,16 @@ export default function Navbar() {
             <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
           </svg>
         </div>
-        <div className="text-2xl font-extrabold tracking-tighter text-slate-900 uppercase transition-opacity group-hover:opacity-80">
+        <div className="text-xl md:text-2xl font-extrabold tracking-tighter text-slate-900 uppercase transition-opacity group-hover:opacity-80">
           BADGER<span className="text-emerald-500">ALERTS</span>
         </div>
       </Link>
 
-      <div className="flex items-center gap-3">
-        <Link href="/login" className="text-slate-600 px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition">
+      <div className="flex items-center gap-2 md:gap-3">
+        <Link href="/login" className="hidden sm:block text-slate-600 px-3 md:px-4 py-2 rounded-full font-semibold hover:text-slate-900 transition text-sm md:text-base">
           Sign in
         </Link>
-        <Link href="#signup" className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">
+        <Link href="#signup" className="bg-slate-900 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition shadow-lg shadow-emerald-100 text-sm md:text-base">
           Register
         </Link>
       </div>

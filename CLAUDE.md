@@ -51,6 +51,16 @@ The full project plan is saved at `prototype/projectplan.pdf`.
 - Users can unsubscribe from all emails
 - Users can manage settings and delete their account from the dashboard
 
+## Responsive design — ALWAYS REQUIRED
+
+Every page and component must work on mobile, tablet, and desktop. This is not optional — always build mobile-first. When working on any UI:
+- Use Tailwind responsive prefixes (`sm:`, `md:`, `lg:`) throughout
+- Mobile is the default, desktop is the enhancement
+- Test mentally at 375px (mobile), 768px (tablet), 1280px (desktop)
+- Sidebars must collapse or hide on mobile
+- Text sizes, spacing, and layouts must adapt at breakpoints
+- Never leave a page that breaks or looks broken on small screens
+
 ## Design system
 
 - Font: Plus Jakarta Sans (via Google Fonts)
@@ -64,6 +74,7 @@ The full project plan is saved at `prototype/projectplan.pdf`.
 ## How to work with this user
 
 - Beginner coder — strong digital marketing background, comfortable with HTML, some CSS, learning JavaScript
+- Uses **PowerShell** as the terminal — never use `&&` to chain commands, always give them as separate commands
 - Break all instructions down as 1.1, 1.2, 1.3 etc matching the section number
 - One section at a time — don't overload
 - Explain the _why_ behind decisions, not just the code
