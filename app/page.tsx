@@ -203,26 +203,32 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                accent: "emerald",
+                iconBg: "bg-emerald-500/10",
+                iconText: "text-emerald-400",
+                hoverBorder: "hover:border-emerald-500",
                 title: "SEO Optimizations",
                 body: "Identify profitable audience sub-segments and high-intent keywords automatically before the competition notices.",
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />,
               },
               {
-                accent: "indigo",
+                iconBg: "bg-indigo-500/10",
+                iconText: "text-indigo-400",
+                hoverBorder: "hover:border-indigo-500",
                 title: "Social Media Ideas",
                 body: "Optimize creative assets and hook structures in real-time as cultural trends and algorithm weights shift.",
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />,
               },
               {
-                accent: "amber",
+                iconBg: "bg-amber-500/10",
+                iconText: "text-amber-400",
+                hoverBorder: "hover:border-amber-500",
                 title: "Local Map Moats",
                 body: "Build a local search presence that dominates your geographic area, making it impossible for peers to compete.",
                 icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></>,
               },
             ].map((f) => (
-              <div key={f.title} className={`group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 hover:border-${f.accent}-500 transition-colors`}>
-                <div className={`w-14 h-14 bg-${f.accent}-500/10 rounded-2xl flex items-center justify-center mb-6 text-${f.accent}-400`}>
+              <div key={f.title} className={`group p-8 rounded-3xl bg-slate-800/50 border border-slate-700 ${f.hoverBorder} transition-colors`}>
+                <div className={`w-14 h-14 ${f.iconBg} rounded-2xl flex items-center justify-center mb-6 ${f.iconText}`}>
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">{f.icon}</svg>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">{f.title}</h3>
