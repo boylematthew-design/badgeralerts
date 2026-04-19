@@ -25,7 +25,14 @@ export async function GET(request: NextRequest) {
       }
     );
 
-    await supabase.auth.exchangeCodeForSession(code);
+    const { data: { user } } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (user) {
+      await supabase
+        .from("users")
+        .update({ email_confirmed: true })
+        .eq("id", user.id);
+    }
   }
 
   return NextResponse.redirect(new URL("/dashboard", request.url));

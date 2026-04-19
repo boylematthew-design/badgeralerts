@@ -13,7 +13,7 @@ async function runNotifications(request: Request) {
   // Accept either Vercel cron (Authorization header) or manual POST (x-notify-secret header)
   const authHeader = request.headers.get("authorization");
   const manualSecret = request.headers.get("x-notify-secret");
-  const validCron = authHeader === `Bearer ${process.env.NOTIFY_SECRET}`;
+  const validCron = authHeader === `Bearer ${process.env.CRON_SECRET}`;
   const validManual = manualSecret === process.env.NOTIFY_SECRET;
 
   if (!validCron && !validManual) {
@@ -28,7 +28,7 @@ async function runNotifications(request: Request) {
       user_id,
       scheduled_for,
       posts ( id, title, description ),
-      users ( email, full_name )
+      users ( email, full_name, email_unsubscribed, unsubscribe_token )
     `)
     .lte("scheduled_for", new Date().toISOString())
     .is("notified_at", null);
@@ -47,11 +47,13 @@ async function runNotifications(request: Request) {
     const post = Array.isArray(item.posts) ? item.posts[0] : item.posts;
     const user = Array.isArray(item.users) ? item.users[0] : item.users;
 
-    if (!post || !user?.email) continue;
+    if (!post || !user?.email || user.email_unsubscribed) continue;
+
+    const firstName = user.full_name?.split(" ")[0] ?? "there";
 
     // Send the email via Resend
     const { error: emailError } = await resend.emails.send({
-      from: "BadgerAlerts <noreply@badgeralerts.live>",
+      from: "BadgerAlerts <alerts@badgeralerts.live>",
       to: user.email,
       subject: post.title,
       html: `
@@ -60,15 +62,18 @@ async function runNotifications(request: Request) {
             <span style="font-size:24px;font-weight:900;color:#0f172a;">Badger<span style="color:#10b981;">Alerts</span></span>
           </div>
           <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:40px 32px;">
-            <h2 style="color:#0f172a;font-size:22px;font-weight:800;margin:0 0 12px;">You have a new alert</h2>
-            <h3 style="color:#10b981;font-size:18px;font-weight:700;margin:0 0 16px;">${post.title}</h3>
-            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0 0 32px;">${post.description}</p>
+            <p style="color:#0f172a;font-size:16px;margin:0 0 20px;">Hi ${firstName},</p>
+            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0 0 12px;">A new alert has landed in your dashboard:</p>
+            <h2 style="color:#0f172a;font-size:20px;font-weight:800;margin:0 0 24px;">${post.title}</h2>
+            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0 0 32px;">To view the alert in detail and take action, please login to your dashboard to proceed.</p>
             <p style="text-align:center;margin:0 0 32px;">
               <a href="https://badgeralerts.live/dashboard" style="background:#10b981;color:#ffffff;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:999px;display:inline-block;font-size:15px;">
-                View in dashboard
+                View in Dashboard
               </a>
             </p>
-            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">You're receiving this because you have a BadgerAlerts account.</p>
+            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0;">Many thanks,<br><strong>BadgerAlerts</strong></p>
+            <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0;">
+            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">This is an automated alert from BadgerAlerts. You are receiving this email because you have an active account.<br><br>Don't want to receive alerts anymore? <a href="https://badgeralerts.live/unsubscribe?token=${user.unsubscribe_token}" style="color:#10b981;text-decoration:underline;">Unsubscribe here</a> and we'll stop sending you alerts.</p>
           </div>
           <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">© 2026 BadgerAlerts. All rights reserved.</p>
         </div>
