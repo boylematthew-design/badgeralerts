@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { replacePlaceholders } from "@/lib/placeholders";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -23,13 +24,7 @@ async function runNotifications(request: Request) {
   // Find all live posts that haven't been emailed yet
   const { data: pendingPosts, error } = await supabase
     .from("user_posts")
-    .select(`
-      id,
-      user_id,
-      scheduled_for,
-      posts ( id, title, description ),
-      users ( email, full_name, email_unsubscribed, unsubscribe_token )
-    `)
+    .select(`id, user_id, scheduled_for, posts ( id, title, description )`)
     .lte("scheduled_for", new Date().toISOString())
     .is("notified_at", null);
 
@@ -41,21 +36,32 @@ async function runNotifications(request: Request) {
     return NextResponse.json({ message: "No pending notifications" });
   }
 
+  // Fetch user profiles separately
+  const userIds = [...new Set(pendingPosts.map((p) => p.user_id))];
+  const { data: usersData } = await supabase
+    .from("users")
+    .select("id, email, full_name, website, email_unsubscribed, unsubscribe_token")
+    .in("id", userIds);
+
+  const usersMap = Object.fromEntries((usersData ?? []).map((u) => [u.id, u]));
+
   const results = [];
 
   for (const item of pendingPosts) {
     const post = Array.isArray(item.posts) ? item.posts[0] : item.posts;
-    const user = Array.isArray(item.users) ? item.users[0] : item.users;
+    const user = usersMap[item.user_id];
 
     if (!post || !user?.email || user.email_unsubscribed) continue;
 
     const firstName = user.full_name?.split(" ")[0] ?? "there";
+    const userProfile = { full_name: user.full_name, website: user.website };
+    const postTitle = replacePlaceholders(post.title, userProfile);
 
     // Send the email via Resend
     const { error: emailError } = await resend.emails.send({
       from: "BadgerAlerts <alerts@badgeralerts.live>",
       to: user.email,
-      subject: post.title,
+      subject: postTitle,
       html: `
         <div style="max-width:520px;margin:0 auto;padding:40px 24px;font-family:sans-serif;">
           <div style="text-align:center;margin-bottom:32px;">
