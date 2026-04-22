@@ -88,7 +88,7 @@ export default async function SettingsPage() {
 
             {/* Danger zone */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
-              <h2 className="text-lg font-extrabold text-slate-900 mb-2">Danger zone</h2>
+              <h2 className="text-lg font-extrabold text-slate-900 mb-2">Delete account</h2>
               <p className="text-sm text-slate-500 mb-6 leading-relaxed">
                 Permanently delete your account and all associated data. This action cannot be undone.
               </p>

@@ -54,6 +54,15 @@ export default function NewPostPage() {
         <p className="text-slate-500 text-sm mt-1">This will be stored and ready to assign to users.</p>
       </div>
 
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 mb-6 text-sm">
+        <p className="font-bold text-slate-700 mb-2">Available shortcodes</p>
+        <div className="space-y-1 text-slate-500">
+          <p><code className="bg-white border border-slate-200 rounded px-1.5 py-0.5 text-emerald-600 font-mono">{"{name}"}</code> — user's full name (e.g. John Smith)</p>
+          <p><code className="bg-white border border-slate-200 rounded px-1.5 py-0.5 text-emerald-600 font-mono">{"{first_name}"}</code> — first name only (e.g. John)</p>
+          <p><code className="bg-white border border-slate-200 rounded px-1.5 py-0.5 text-emerald-600 font-mono">{"{website}"}</code> — their website URL (e.g. https://example.com)</p>
+        </div>
+      </div>
+
       <form action={createPost} className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

@@ -8,6 +8,7 @@ import Sidebar from "@/components/Sidebar";
 import DashboardFooter from "@/components/DashboardFooter";
 import UserMenu from "@/components/UserMenu";
 import WaitingRoom from "@/components/WaitingRoom";
+import { replacePlaceholders } from "@/lib/placeholders";
 
 async function getUser() {
   const cookieStore = await cookies();
@@ -111,6 +112,8 @@ export default async function DashboardPage({
                 {alerts.map((alert) => {
                   const post = (Array.isArray(alert.posts) ? alert.posts[0] : alert.posts) as { id: string; title: string; description: string } | null;
                   if (!post) return null;
+                  const title = replacePlaceholders(post.title, profile ?? {});
+                  const description = replacePlaceholders(post.description, profile ?? {});
                   return (
                     <Link
                       key={alert.id}
@@ -124,10 +127,10 @@ export default async function DashboardPage({
                       </div>
                       <div className="flex-grow">
                         <h3 className="text-[20px] font-extrabold text-slate-900 leading-tight">
-                          {post.title}
+                          {title}
                         </h3>
                         <p className="text-[15px] text-slate-500 leading-relaxed mt-1">
-                          {post.description}
+                          {description}
                         </p>
                       </div>
                       <div className="text-slate-400">

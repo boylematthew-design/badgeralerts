@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import { getInitials } from "@/lib/initials";
 import DashboardFooter from "@/components/DashboardFooter";
 import UserMenu from "@/components/UserMenu";
+import { replacePlaceholders } from "@/lib/placeholders";
 
 async function getPostForUser(postId: string) {
   const cookieStore = await cookies();
@@ -78,6 +79,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   const initials = getInitials(profile?.full_name, user.email);
+  const replace = (text: string) => replacePlaceholders(text, profile ?? {});
 
   return (
     <div className="min-h-screen flex" style={{ background: "#eff4fb" }}>
@@ -107,10 +109,10 @@ export default async function PostPage({
             {/* Title block */}
             <div className="mb-10">
               <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-                {post.title}
+                {replace(post.title)}
               </h1>
               <h2 className="text-lg text-slate-500 leading-relaxed">
-                {post.description}
+                {replace(post.description)}
               </h2>
             </div>
 
@@ -119,21 +121,21 @@ export default async function PostPage({
               {post.section_why && (
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
                   <h3 className="text-xl font-extrabold text-slate-900 mb-3">Why this is important</h3>
-                  <p className="text-slate-600 leading-relaxed">{post.section_why}</p>
+                  <p className="text-slate-600 leading-relaxed">{replace(post.section_why)}</p>
                 </div>
               )}
 
               {post.section_fix && (
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
                   <h3 className="text-xl font-extrabold text-slate-900 mb-3">How to fix it</h3>
-                  <p className="text-slate-600 leading-relaxed">{post.section_fix}</p>
+                  <p className="text-slate-600 leading-relaxed">{replace(post.section_fix)}</p>
                 </div>
               )}
 
               {post.section_help && (
                 <div className="bg-emerald-50 rounded-2xl border border-emerald-100 p-6 md:p-8">
                   <h3 className="text-xl font-extrabold text-slate-900 mb-3">If you need help</h3>
-                  <p className="text-slate-600 leading-relaxed">{post.section_help}</p>
+                  <p className="text-slate-600 leading-relaxed">{replace(post.section_help)}</p>
                 </div>
               )}
             </div>
