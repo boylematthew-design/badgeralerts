@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { deletePost } from "./actions";
+import DeletePostButton from "./DeletePostButton";
 
 export default async function AdminPage() {
   const cookieStore = await cookies();
@@ -54,15 +54,7 @@ export default async function AdminPage() {
                 <p className="text-sm text-slate-400 mt-0.5 truncate">{post.description}</p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <form action={deletePost} onSubmit={(e) => { if (!confirm("Delete this alert? This will also remove all assignments.")) e.preventDefault(); }}>
-                  <input type="hidden" name="post_id" value={post.id} />
-                  <button
-                    type="submit"
-                    className="text-slate-400 hover:text-red-500 hover:bg-red-50 px-3 py-2 rounded-xl text-sm font-bold transition"
-                  >
-                    Delete
-                  </button>
-                </form>
+                <DeletePostButton postId={post.id} />
               </div>
             </div>
           ))}
