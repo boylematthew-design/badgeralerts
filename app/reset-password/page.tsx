@@ -5,30 +5,33 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
+    if (password !== confirm) {
+      setError("Passwords don't match.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+
+    setLoading(true);
     const supabase = createClient();
+    const { error: updateError } = await supabase.auth.updateUser({ password });
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password,
-    });
-
-    if (authError) {
-      setError(authError.message);
+    if (updateError) {
+      setError(updateError.message);
       setLoading(false);
       return;
     }
@@ -38,7 +41,6 @@ export default function LoginPage() {
 
   return (
     <div className="hero-pattern min-h-screen flex flex-col">
-      {/* Nav */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto w-full">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white p-1 shadow-lg transition-transform group-hover:scale-105">
@@ -54,40 +56,32 @@ export default function LoginPage() {
         </Link>
       </nav>
 
-      {/* Login Form */}
       <main className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-8">
-            <h1 className="text-3xl font-extrabold text-slate-900 mb-1">Welcome back</h1>
-            <p className="text-slate-500 text-sm mb-8">Sign in to your BadgerAlerts account.</p>
+            <h1 className="text-3xl font-extrabold text-slate-900 mb-1">Set new password</h1>
+            <p className="text-slate-500 text-sm mb-8">Choose a strong password for your account.</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email address</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">New password</label>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="jane@company.com"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="At least 8 characters"
                   required
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
                 />
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-sm font-semibold text-slate-700">Password</label>
-                  <Link href="/forgot-password" className="text-xs text-emerald-600 font-semibold hover:underline">
-                    Forgot password?
-                  </Link>
-                </div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Confirm new password</label>
                 <input
                   type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Your password"
+                  value={confirm}
+                  onChange={(e) => setConfirm(e.target.value)}
+                  placeholder="Repeat your password"
                   required
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
                 />
@@ -104,16 +98,9 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? "Signing in..." : "Sign in"}
+                {loading ? "Saving..." : "Set new password"}
               </button>
             </form>
-
-            <p className="text-sm text-slate-500 text-center mt-6">
-              Don&apos;t have an account?{" "}
-              <Link href="/#signup" className="text-emerald-600 font-semibold hover:underline">
-                Get started free
-              </Link>
-            </p>
           </div>
         </div>
       </main>
