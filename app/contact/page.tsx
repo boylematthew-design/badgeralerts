@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", website: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ export default function ContactPage() {
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ name: formData.name, email: formData.email, subject: formData.subject, message: formData.message, honeypot: formData.website }),
     });
 
     if (res.ok) {
@@ -117,6 +117,17 @@ export default function ContactPage() {
                 <>
                   <h2 className="text-xl font-extrabold text-slate-900 mb-6">Send us a message</h2>
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Honeypot — hidden from real users, bots fill it in */}
+                    <div style={{ display: "none" }} aria-hidden="true">
+                      <input
+                        type="text"
+                        name="website"
+                        value={formData.website}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Your name</label>
