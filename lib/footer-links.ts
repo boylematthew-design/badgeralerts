@@ -4,7 +4,7 @@ export const footerLinks = [
     links: [
       { label: "FAQ", href: "#" },
       { label: "Changelog", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
