@@ -41,6 +41,7 @@ async function getPostForUser(postId: string) {
       posts (
         id,
         title,
+        subtitle,
         description,
         image_url,
         section_why,
@@ -56,7 +57,8 @@ async function getPostForUser(postId: string) {
   type PostType = {
     id: string;
     title: string;
-    description: string;
+    subtitle: string | null;
+    description: string | null;
     image_url: string | null;
     section_why: string | null;
     section_fix: string | null;
@@ -110,9 +112,14 @@ export default async function PostPage({
 
             {/* Title block */}
             <div className="mb-10">
-              <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+              <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
                 {replace(post.title)}
               </h1>
+              {post.subtitle && (
+                <h2 className="text-lg text-slate-500 leading-relaxed mb-6">
+                  {replace(post.subtitle)}
+                </h2>
+              )}
               {post.image_url && (
                 <div className="mb-6 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
                   <img
@@ -122,9 +129,11 @@ export default async function PostPage({
                   />
                 </div>
               )}
-              <h2 className="text-lg text-slate-500 leading-relaxed">
-                {replace(post.description)}
-              </h2>
+              {post.description && (
+                <p className="text-slate-600 leading-relaxed">
+                  {replace(post.description)}
+                </p>
+              )}
             </div>
 
             {/* Sections */}

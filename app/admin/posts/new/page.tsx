@@ -33,11 +33,12 @@ export default function NewPostPage() {
     if (!profile?.is_admin) redirect("/dashboard");
 
     const title = (formData.get("title") as string)?.trim();
+    const subtitle = (formData.get("subtitle") as string)?.trim();
     const description = (formData.get("description") as string)?.trim();
     const category = formData.get("category") as string;
     const imageFile = formData.get("image") as File | null;
 
-    if (!title || !description) return;
+    if (!title) return;
 
     // Upload image if provided
     let imageUrl: string | null = null;
@@ -62,7 +63,8 @@ export default function NewPostPage() {
 
     await supabase.from("posts").insert({
       title,
-      description,
+      subtitle: subtitle || null,
+      description: description || null,
       category: category || null,
       image_url: imageUrl,
     });
@@ -114,12 +116,24 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Subtitle <span className="text-slate-400 font-normal">(shown on dashboard card)</span>
+          </label>
+          <input
+            name="subtitle"
+            placeholder="e.g. Your site is losing rankings due to slow load times"
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Body <span className="text-slate-400 font-normal">(shown on alert detail page only)</span>
+          </label>
           <textarea
             name="description"
-            required
             rows={5}
-            placeholder="Describe what this alert means and why it matters..."
+            placeholder="Full explanation of the alert..."
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
           />
         </div>
