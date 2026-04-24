@@ -76,12 +76,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-sm font-semibold text-slate-700">Password</label>
-                  <Link href="/forgot-password" className="text-xs text-emerald-600 font-semibold hover:underline">
-                    Forgot password?
-                  </Link>
-                </div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -91,6 +86,11 @@ export default function LoginPage() {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
                 />
+                <div className="text-right mt-1.5">
+                  <Link href="/forgot-password" className="text-xs text-emerald-600 font-semibold hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
 
               {error && (
