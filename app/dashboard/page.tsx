@@ -129,7 +129,7 @@ export default async function DashboardPage({
                         <h3 className="text-[20px] font-extrabold text-slate-900 leading-tight">
                           {title}
                         </h3>
-                        <p className="text-[15px] text-slate-500 leading-relaxed mt-1">
+                        <p className="text-[15px] text-slate-500 leading-relaxed mt-1 line-clamp-2">
                           {description}
                         </p>
                       </div>
