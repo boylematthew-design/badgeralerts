@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import SubmitButton from "./SubmitButton";
 
 const CATEGORIES = [
   { value: "seo", label: "SEO" },
@@ -136,12 +137,7 @@ export default function NewPostPage() {
           <p className="text-xs text-slate-400 mt-1.5">Recommended: JPG or PNG, under 2MB</p>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl text-sm transition"
-        >
-          Create alert
-        </button>
+        <SubmitButton />
       </form>
     </div>
   );
