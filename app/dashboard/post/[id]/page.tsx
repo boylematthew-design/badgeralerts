@@ -110,6 +110,9 @@ export default async function PostPage({
 
             {/* Title block */}
             <div className="mb-10">
+              <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                {replace(post.title)}
+              </h1>
               {post.image_url && (
                 <div className="mb-6 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
                   <img
@@ -119,9 +122,6 @@ export default async function PostPage({
                   />
                 </div>
               )}
-              <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-                {replace(post.title)}
-              </h1>
               <h2 className="text-lg text-slate-500 leading-relaxed">
                 {replace(post.description)}
               </h2>
