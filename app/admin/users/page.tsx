@@ -12,6 +12,7 @@ export default async function AdminUsersPage() {
     .select("id, full_name, email, website, created_at")
     .eq("email_confirmed", true)
     .eq("is_admin", false)
+    .eq("email_unsubscribed", false)
     .order("created_at", { ascending: false });
 
   return (
