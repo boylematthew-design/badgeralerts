@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -10,6 +11,7 @@ const CATEGORIES = [
   { value: "content", label: "Content Strategy" },
   { value: "paid", label: "Paid Media" },
   { value: "technical", label: "Technical" },
+  { value: "general", label: "General" },
 ];
 
 export default function NewPostPage() {
@@ -32,13 +34,36 @@ export default function NewPostPage() {
     const title = (formData.get("title") as string)?.trim();
     const description = (formData.get("description") as string)?.trim();
     const category = formData.get("category") as string;
+    const imageFile = formData.get("image") as File | null;
 
     if (!title || !description) return;
+
+    // Upload image if provided
+    let imageUrl: string | null = null;
+    if (imageFile && imageFile.size > 0) {
+      const adminClient = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+      );
+      const ext = imageFile.name.split(".").pop();
+      const fileName = `${Date.now()}.${ext}`;
+      const { error: uploadError } = await adminClient.storage
+        .from("post-images")
+        .upload(fileName, imageFile, { contentType: imageFile.type });
+
+      if (!uploadError) {
+        const { data: urlData } = adminClient.storage
+          .from("post-images")
+          .getPublicUrl(fileName);
+        imageUrl = urlData.publicUrl;
+      }
+    }
 
     await supabase.from("posts").insert({
       title,
       description,
       category: category || null,
+      image_url: imageUrl,
     });
 
     redirect("/admin");
@@ -63,11 +88,9 @@ export default function NewPostPage() {
         </div>
       </div>
 
-      <form action={createPost} className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
+      <form action={createPost} encType="multipart/form-data" className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Alert title
-          </label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Alert title</label>
           <input
             name="title"
             required
@@ -77,9 +100,7 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Category
-          </label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Category</label>
           <select
             name="category"
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -92,9 +113,7 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Description
-          </label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
           <textarea
             name="description"
             required
@@ -102,6 +121,19 @@ export default function NewPostPage() {
             placeholder="Describe what this alert means and why it matters..."
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Image <span className="text-slate-400 font-normal">(optional)</span>
+          </label>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 transition"
+          />
+          <p className="text-xs text-slate-400 mt-1.5">Recommended: JPG or PNG, under 2MB</p>
         </div>
 
         <button

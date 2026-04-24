@@ -42,6 +42,7 @@ async function getPostForUser(postId: string) {
         id,
         title,
         description,
+        image_url,
         section_why,
         section_fix,
         section_help
@@ -56,6 +57,7 @@ async function getPostForUser(postId: string) {
     id: string;
     title: string;
     description: string;
+    image_url: string | null;
     section_why: string | null;
     section_fix: string | null;
     section_help: string | null;
@@ -108,6 +110,15 @@ export default async function PostPage({
 
             {/* Title block */}
             <div className="mb-10">
+              {post.image_url && (
+                <div className="mb-6 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                  <img
+                    src={post.image_url}
+                    alt={post.title}
+                    className="w-full object-cover"
+                  />
+                </div>
+              )}
               <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
                 {replace(post.title)}
               </h1>
