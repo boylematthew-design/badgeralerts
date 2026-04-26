@@ -54,6 +54,12 @@ export default async function AdminPage() {
                 <p className="text-sm text-slate-400 mt-0.5 truncate">{post.description}</p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
+                <Link
+                  href={`/admin/posts/${post.id}/edit`}
+                  className="text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 px-3 py-2 rounded-xl text-sm font-bold transition"
+                >
+                  Edit
+                </Link>
                 <DeletePostButton postId={post.id} />
               </div>
             </div>
