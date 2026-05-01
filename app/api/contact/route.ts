@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
   const { error } = await resend.emails.send({
     from: "BadgerAlerts <alerts@badgeralerts.live>",
-    to: "hello@badgeralerts.live",
+    to: "support@badgeralerts.live",
     replyTo: email,
     subject: `Contact form: ${subject}`,
     html: `
