@@ -72,7 +72,7 @@ export default function ContactPage() {
                 </svg>
               </div>
               <h3 className="font-bold text-slate-900 mb-1">Email us</h3>
-              <p className="text-sm text-slate-500">hello@badgeralerts.live</p>
+              <p className="text-sm text-slate-500">support@badgeralerts.live</p>
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
