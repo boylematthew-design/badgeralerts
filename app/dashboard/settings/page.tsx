@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import DashboardFooter from "@/components/DashboardFooter";
 import UserMenu from "@/components/UserMenu";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
+import SaveButton from "./SaveButton";
 import { getInitials } from "@/lib/initials";
 
 async function getUser() {
@@ -36,10 +37,29 @@ async function getUser() {
   return { user, profile };
 }
 
-export default async function SettingsPage() {
+export default async function SettingsPage({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
   const { user, profile } = await getUser();
+  const { saved } = await searchParams;
 
   if (!user) redirect("/login");
+
+  async function updateFullName(formData: FormData) {
+    "use server";
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { cookies: { getAll: () => cookieStore.getAll() } }
+    );
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login");
+
+    const fullName = (formData.get("full_name") as string)?.trim();
+    if (!fullName) redirect("/dashboard/settings");
+
+    await supabase.from("users").update({ full_name: fullName }).eq("id", user.id);
+    redirect("/dashboard/settings?saved=1");
+  }
 
   const initials = getInitials(profile?.full_name, user.email);
 
@@ -70,10 +90,22 @@ export default async function SettingsPage() {
             {/* Account details */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
               <h2 className="text-lg font-extrabold text-slate-900 mb-6">Account details</h2>
-              <div className="space-y-4">
+
+              {saved && (
+                <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-semibold px-4 py-3 rounded-xl mb-6">
+                  Name updated successfully.
+                </div>
+              )}
+
+              <form action={updateFullName} className="space-y-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full name</p>
-                  <p className="text-slate-800 font-semibold">{profile?.full_name ?? "—"}</p>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full name</label>
+                  <input
+                    name="full_name"
+                    required
+                    defaultValue={profile?.full_name ?? ""}
+                    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
                 </div>
                 <div className="border-t border-slate-100 pt-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email address</p>
@@ -83,7 +115,10 @@ export default async function SettingsPage() {
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Website</p>
                   <p className="text-slate-800 font-semibold">{profile?.website ?? "—"}</p>
                 </div>
-              </div>
+                <div className="pt-2">
+                  <SaveButton />
+                </div>
+              </form>
             </div>
 
             {/* Danger zone */}
