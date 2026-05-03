@@ -8,6 +8,7 @@ import DashboardFooter from "@/components/DashboardFooter";
 import UserMenu from "@/components/UserMenu";
 import { getInitials } from "@/lib/initials";
 import { Resend } from "resend";
+import SubmitEnquiryButton from "./SubmitEnquiryButton";
 
 export default async function EnquiryPage({
   params,
@@ -173,12 +174,7 @@ export default async function EnquiryPage({
                         className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                       />
                     </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm"
-                    >
-                      Send enquiry
-                    </button>
+                    <SubmitEnquiryButton />
                   </form>
                 </div>
               </>
