@@ -11,7 +11,7 @@ const heroAlerts = [
     labelColor: "text-amber-600",
     label: "Performance Alert",
     title: "Your page has a speed-score of 67/100",
-    body: "A slow-loading website can be frustrating. Optimization recommended.",
+    body: "A slow-loading website can be frustrating. Optimisation recommended.",
     time: "Today",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -44,7 +44,7 @@ const heroAlerts = [
     labelColor: "text-indigo-600",
     label: "Ad Intelligence",
     title: "Conversion costs on Meta are down 22%",
-    body: "Market conditions favor increased budget for your Retargeting set.",
+    body: "Market conditions favour increased budget for your Retargeting set.",
     time: "3 days ago",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -179,7 +179,7 @@ export default async function Home() {
               </header>
               <main className="p-8 space-y-4 overflow-y-auto custom-scrollbar">
                 {[
-                  { color: "bg-amber-500", title: "Page speed is below 70", body: "Your LCP is currently at 3.2s. Optimization needed.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> },
+                  { color: "bg-amber-500", title: "Page speed is below 70", body: "Your LCP is currently at 3.2s. Optimisation needed.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> },
                   { color: "bg-pink-500", title: "Competitor TikTok Viral", body: "Gained 49k views. Plan your short-form response.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /> },
                   { color: "bg-emerald-500", title: "49 Content Gaps Found", body: "Missing thousands of searches. View blog list.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" /> },
                   { color: "bg-indigo-500", title: "Ad Spend Opportunity", body: "Conversion costs on Meta are down by 22%.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /> },
@@ -219,7 +219,7 @@ export default async function Home() {
                 iconBg: "bg-emerald-500/10",
                 iconText: "text-emerald-400",
                 hoverBorder: "hover:border-emerald-500",
-                title: "SEO Optimizations",
+                title: "SEO Optimisation",
                 body: "Identify profitable audience sub-segments and high-intent keywords automatically before the competition notices.",
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />,
               },
@@ -228,7 +228,7 @@ export default async function Home() {
                 iconText: "text-indigo-400",
                 hoverBorder: "hover:border-indigo-500",
                 title: "Social Media Ideas",
-                body: "Optimize creative assets and hook structures in real-time as cultural trends and algorithm weights shift.",
+                body: "Optimise creative assets and hook structures in real-time as cultural trends and algorithm weights shift.",
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />,
               },
               {
