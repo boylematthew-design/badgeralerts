@@ -160,6 +160,20 @@ export default async function PostPage({
               )}
             </div>
 
+            {/* Merchandising block — always shown */}
+            <div className="mt-10 bg-slate-900 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-extrabold text-white mb-1">Still not sure where to start?</h3>
+                <p className="text-slate-400 text-sm">One of our experts can guide you through this personally.</p>
+              </div>
+              <Link
+                href={`/dashboard/post/${post.id}/enquiry`}
+                className="flex-shrink-0 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition whitespace-nowrap"
+              >
+                Get expert help
+              </Link>
+            </div>
+
           </div>
         </section>
 
