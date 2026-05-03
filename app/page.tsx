@@ -179,14 +179,16 @@ export default async function Home() {
               </header>
               <main className="p-8 space-y-4 overflow-y-auto custom-scrollbar">
                 {[
-                  { color: "bg-amber-500", title: "Page speed is below 70", body: "Your LCP is currently at 3.2s. Optimization needed." },
-                  { color: "bg-pink-500", title: "Competitor TikTok Viral", body: "Gained 49k views. Plan your short-form response." },
-                  { color: "bg-emerald-500", title: "49 Content Gaps Found", body: "Missing thousands of searches. View blog list." },
-                  { color: "bg-indigo-500", title: "Ad Spend Opportunity", body: "Conversion costs on Meta are down by 22%." },
-                  { color: "bg-blue-500", title: "SEO Milestone Hit", body: "Ranking #2 for your most profitable keyword." },
+                  { color: "bg-amber-500", title: "Page speed is below 70", body: "Your LCP is currently at 3.2s. Optimization needed.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> },
+                  { color: "bg-pink-500", title: "Competitor TikTok Viral", body: "Gained 49k views. Plan your short-form response.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /> },
+                  { color: "bg-emerald-500", title: "49 Content Gaps Found", body: "Missing thousands of searches. View blog list.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" /> },
+                  { color: "bg-indigo-500", title: "Ad Spend Opportunity", body: "Conversion costs on Meta are down by 22%.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /> },
+                  { color: "bg-blue-500", title: "SEO Milestone Hit", body: "Ranking #2 for your most profitable keyword.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> },
                 ].map((n, i) => (
                   <div key={i} className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                    <div className={`w-10 h-10 ${n.color} rounded-xl flex-shrink-0`} />
+                    <div className={`w-10 h-10 ${n.color} rounded-xl flex-shrink-0 flex items-center justify-center text-white`}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{n.icon}</svg>
+                    </div>
                     <div>
                       <h4 className="text-xs font-bold text-slate-900">{n.title}</h4>
                       <p className="text-[10px] text-slate-500">{n.body}</p>
