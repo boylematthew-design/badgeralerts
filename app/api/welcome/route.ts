@@ -26,11 +26,14 @@ export async function POST(request: Request) {
 
   const adminClient = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
   // Mark as sent immediately to prevent race conditions
-  await adminClient.from("users").update({ welcome_sent: true }).eq("id", record.id);
+  await adminClient
+    .from("users")
+    .update({ welcome_sent: true })
+    .eq("id", record.id);
 
   const firstName = record.full_name?.split(" ")[0] ?? "there";
 
@@ -49,12 +52,12 @@ export async function POST(request: Request) {
 
         <p>I'm Matthew — I run BadgerAlerts and I just wanted to drop you a quick note to say welcome.</p>
 
-        <p>I've spent 15 years building and improving websites, and over that time I kept running into the same problem: issues that were quietly costing businesses money, but nobody spotted them because there was nobody watching.</p>
+        <p>I've spent the past 20 years working on my own and other's websites, and over that time I have come across a lot of issues and built up quite a bit of knowledge along the way! I decided to build this tool that scans your website and automatically identifies issues, offers improvements & gives suggestions. </p>
 
-        <p>That's why I built BadgerAlerts. It's a set of tools that automatically find those issues — things like slow page speed, missed SEO opportunities, competitor moves — and surfaces them as simple alerts in your dashboard.</p>
+        <p>Each time I, and with a little bit of help from AI!, find something, you'll get an alert sent to your email.</p>
 
-        <p>You'll start seeing alerts appear soon. If you ever have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
-
+        <p>If you ever have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
+        
         <p style="margin-top:32px;">Cheers,<br><strong>Matthew</strong><br><span style="color:#94a3b8;font-size:13px;">Founder, BadgerAlerts</span></p>
 
         <hr style="border:none;border-top:1px solid #e2e8f0;margin:40px 0;">
