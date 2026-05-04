@@ -49,14 +49,14 @@ export async function POST(request: Request) {
         </div>
 
         <p>Hey ${firstName},</p>
-
+<br>
         <p>I'm Matthew — I run BadgerAlerts and I just wanted to drop you a quick note to say welcome.</p>
-
-        <p>I've spent the past 20 years working on my own and other's websites, and over that time I have come across a lot of issues and built up quite a bit of knowledge along the way! I decided to build this tool that scans your website and automatically identifies issues, offers improvements & gives suggestions. </p>
-
-        <p>Each time I, and with a little bit of help from AI!, find something, you'll get an alert sent to your email.</p>
-
-        <p>If you ever have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
+<br>
+        <p>I've spent the past 20 years working on my own and other's websites. Over that time I have come across a lot of issues and built up knowledge along the way! I decided to build this tool that scans your website and identifies issues, offers improvements & gives suggestions. </p>
+<br>
+        <p>Each time I, and with a little bit of help from AI, find something, we'll send you an alert to your email.</p>
+<br>
+        <p>If you have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
         
         <p style="margin-top:32px;">Cheers,<br><strong>Matthew</strong><br><span style="color:#94a3b8;font-size:13px;">Founder, BadgerAlerts</span></p>
 
