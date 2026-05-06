@@ -2,15 +2,9 @@ export const footerLinks = [
   {
     heading: "Resources",
     links: [
-      { label: "FAQ", href: "#" },
-      { label: "Changelog", href: "#" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Changelog", href: "/changelog" },
       { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Careers", href: "#" },
     ],
   },
   {
@@ -18,7 +12,7 @@ export const footerLinks = [
     links: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "Cookie Policy", href: "/cookies" },
     ],
   },
 ];
