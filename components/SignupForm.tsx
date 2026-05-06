@@ -54,6 +54,9 @@ export default function SignupForm() {
 
     // User row is created automatically by database trigger
 
+    if (typeof window !== "undefined" && (window as any).rdt) {
+      (window as any).rdt("track", "SignUp");
+    }
     setLoading(false);
     setSuccess(true);
   };
