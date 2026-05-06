@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function CookiePolicyPage() {
   return (
@@ -87,6 +88,7 @@ export default function CookiePolicyPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

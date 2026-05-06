@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 const entries = [
   {
@@ -78,6 +79,7 @@ export default function ChangelogPage() {
           ))}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

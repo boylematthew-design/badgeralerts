@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 const faqs = [
   {
@@ -7,7 +8,7 @@ const faqs = [
   },
   {
     q: "How does it work?",
-    a: "After you sign up and confirm your email, our team reviews your website and sets up alerts relevant to your specific situation. Alerts are delivered to your dashboard at scheduled times, and you receive an email notification each time a new one is ready. Each alert includes a full explanation, why it matters, and what you can do about it.",
+    a: "After you sign up and confirm your email, our systems get to work. AI analyses your website, scans your competitors, monitors search rankings, and looks for opportunities and issues across SEO, social media, content, and paid media. That intelligence is then reviewed and shaped into clear, actionable alerts — delivered to your dashboard and straight to your inbox. Each alert includes a full explanation, why it matters, and exactly what you can do about it.",
   },
   {
     q: "What kinds of alerts will I receive?",
@@ -15,11 +16,7 @@ const faqs = [
   },
   {
     q: "How quickly will I receive my first alert?",
-    a: "After your account is confirmed, our team will review your website and begin setting up your personalised alerts. You can expect to receive your first alert within a few days. From there, alerts are delivered on an ongoing basis as new issues and opportunities are identified.",
-  },
-  {
-    q: "Is my data secure?",
-    a: "Yes. BadgerAlerts is built on Supabase, which uses PostgreSQL with row-level security — meaning your data is only accessible to you. Passwords are never stored in plain text. All data is transmitted over HTTPS. We do not sell or share your personal data with third parties.",
+    a: "Once your account is confirmed, our AI begins analysing your website and online presence straight away. You can typically expect your first alert within a few days. Each alert is checked before it reaches you — so while the intelligence is AI-driven, a human eye ensures what lands in your dashboard is accurate and genuinely useful. From there, alerts continue on an ongoing basis as new issues and opportunities emerge.",
   },
   {
     q: "Can I unsubscribe from email notifications?",
@@ -40,10 +37,6 @@ const faqs = [
   {
     q: "Who is behind BadgerAlerts?",
     a: "BadgerAlerts was built by Matthew Boyle, a digital marketing and web professional based in England with over 20 years of experience working on websites and online presence. The tool was built to surface the kinds of issues Matthew kept spotting for clients — automatically, and without the need for an ongoing consultant.",
-  },
-  {
-    q: "Is BadgerAlerts GDPR compliant?",
-    a: "Yes. BadgerAlerts is operated from the United Kingdom and complies with UK GDPR and PECR. We only collect data that is necessary to provide the service, we do not sell your data, and you have the right to access, correct, or delete your data at any time. See our Privacy Policy for full details.",
   },
 ];
 
@@ -85,6 +78,7 @@ export default function FAQPage() {
           </Link>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
