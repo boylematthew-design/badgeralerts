@@ -3,7 +3,6 @@ export const footerLinks = [
     heading: "Resources",
     links: [
       { label: "FAQ", href: "/faq" },
-      { label: "Changelog", href: "/changelog" },
       { label: "Contact", href: "/contact" },
     ],
   },
