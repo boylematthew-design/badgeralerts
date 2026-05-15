@@ -1,15 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase";
 
-const insightsNav = [
+const navItems = [
   {
     label: "Overview",
     href: "/dashboard",
     category: null,
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      <>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </>
     ),
   },
   {
@@ -17,7 +23,10 @@ const insightsNav = [
     href: "/dashboard?category=seo",
     category: "seo",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+      <>
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
+        <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="m20 20-3.5-3.5" />
+      </>
     ),
   },
   {
@@ -25,7 +34,15 @@ const insightsNav = [
     href: "/dashboard?category=social",
     category: "social",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 11v2l14 6V5L3 11zm14-6v14M21 9v6" />
+    ),
+  },
+  {
+    label: "Content",
+    href: "/dashboard?category=content",
+    category: "content",
+    icon: (
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 19 6.5 22l1.5-6 11-11 4 4-11 11-4-2z" />
     ),
   },
   {
@@ -33,15 +50,10 @@ const insightsNav = [
     href: "/dashboard?category=competitors",
     category: "competitors",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-    ),
-  },
-  {
-    label: "Content strategy",
-    href: "/dashboard?category=content",
-    category: "content",
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6M7 4h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z" />
+      <>
+        <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="2" />
+      </>
     ),
   },
   {
@@ -49,7 +61,7 @@ const insightsNav = [
     href: "/dashboard?category=paid",
     category: "paid",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M16 5a4 4 0 0 0-7 3v3H6m0 0h9M6 11v4a3 3 0 0 1-2 3h13" />
     ),
   },
   {
@@ -57,7 +69,7 @@ const insightsNav = [
     href: "/dashboard?category=technical",
     category: "technical",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm6.2-1.4.8 1.9-1.5 1.5-1.9-.8a5 5 0 0 1-1.1.5l-.3 2h-2.4l-.3-2a5 5 0 0 1-1.1-.5l-1.9.8-1.5-1.5.8-1.9a5 5 0 0 1-.5-1.1L6 12.1V9.9l2-.3a5 5 0 0 1 .5-1.1l-.8-1.9 1.5-1.5 1.9.8a5 5 0 0 1 1.1-.5l.3-2h2.4l.3 2a5 5 0 0 1 1.1.5l1.9-.8 1.5 1.5-.8 1.9a5 5 0 0 1 .5 1.1l2 .3v2.4l-2 .3a5 5 0 0 1-.5 1.1Z" />
     ),
   },
 ];
@@ -66,136 +78,169 @@ const configNav = [
   {
     label: "Settings",
     href: "/dashboard/settings",
+    category: "__settings__",
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm6.2-1.4.8 1.9-1.5 1.5-1.9-.8a5 5 0 0 1-1.1.5l-.3 2h-2.4l-.3-2a5 5 0 0 1-1.1-.5l-1.9.8-1.5-1.5.8-1.9a5 5 0 0 1-.5-1.1L6 12.1V9.9l2-.3a5 5 0 0 1 .5-1.1l-.8-1.9 1.5-1.5 1.9.8a5 5 0 0 1 1.1-.5l.3-2h2.4l.3 2a5 5 0 0 1 1.1.5l1.9-.8 1.5 1.5-.8 1.9a5 5 0 0 1 .5 1.1l2 .3v2.4l-2 .3a5 5 0 0 1-.5 1.1Z" />
     ),
   },
 ];
 
-// Items shown in the mobile bottom nav (most important ones)
 const mobileNav = [
-  insightsNav[0], // Overview
-  insightsNav[1], // SEO
-  insightsNav[2], // Social media
-  insightsNav[4], // Content strategy
-  configNav[0],   // Settings
+  navItems[0],
+  navItems[1],
+  navItems[2],
+  navItems[3],
+  configNav[0],
 ];
 
-export default function Sidebar({ name, website }: { name?: string; website?: string }) {
+interface SidebarProps {
+  website?: string;
+}
+
+function LogoMark() {
+  return (
+    <div className="w-7 h-7 flex-shrink-0" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <defs>
+          <clipPath id="ba-sidebar-clip">
+            <rect width="32" height="32" rx="9" />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#ba-sidebar-clip)">
+          <rect width="32" height="32" rx="9" fill="#111110" />
+          <g fill="none" stroke="white" strokeWidth="1.6" strokeLinecap="round" opacity="0.85">
+            <path d="M7 25 A 8 8 0 0 1 15 17" />
+            <path d="M7 25 A 13 13 0 0 1 20 12" opacity="0.55" />
+            <path d="M7 25 A 18 18 0 0 1 25 7" opacity="0.3" />
+          </g>
+          <circle cx="7" cy="25" r="2.4" fill="#1DB973" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+export default function Sidebar({ website }: SidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const activeCategory = searchParams.get("category");
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+  };
+
+  const isActive = (item: { href: string; category: string | null }) => {
+    if (item.category === "__settings__") return pathname === item.href;
+    if (item.category === null) return pathname === "/dashboard" && !activeCategory;
+    return activeCategory === item.category;
+  };
 
   return (
     <>
-      {/* Desktop sidebar — hidden on mobile */}
-      <aside className="hidden md:flex w-[260px] min-h-screen bg-slate-950 flex-col flex-shrink-0">
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-[240px] min-h-screen bg-white border-r border-border flex-col flex-shrink-0">
         {/* Logo */}
-        <div className="px-6 py-7 border-b border-slate-800">
-          <Link href="/dashboard" className="flex items-center gap-2.5 group mb-4">
-            <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-white p-1 shadow-lg">
-              <svg viewBox="0 0 24 24" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path fill="currentColor" d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z" />
-                <path fill="currentColor" d="M20 18.2H4c.9-1 2.2-2.1 2.2-5.2V10.3A5.8 5.8 0 0 1 10.7 4.7V3.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v1.1a5.8 5.8 0 0 1 4.5 5.6V13c0 3.1 1.3 4.2 2.2 5.2Z" />
-                <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
-              </svg>
-            </div>
-            <div className="text-[15px] font-extrabold tracking-tighter text-white uppercase">
-              BADGER<span className="text-emerald-500">ALERTS</span>
-            </div>
+        <div className="px-5 pt-6 pb-5 border-b border-border">
+          <Link href="/dashboard" className="flex items-center gap-2.5">
+            <LogoMark />
+            <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
+              badger<span className="text-accent">alerts</span>
+            </span>
           </Link>
-          {(name || website) && (
-            <div className="bg-white/5 rounded-xl px-3 py-2.5 space-y-0.5">
-              {name && (
-                <p className="text-xs font-bold text-white truncate">{name}</p>
-              )}
-              {website && (
-                <p className="text-[11px] text-slate-400 truncate">{website}</p>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-4 py-6 space-y-6">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-3 mb-2">
-              Insights
-            </p>
-            <ul className="space-y-0.5">
-              {insightsNav.map((item) => {
-                const isActive = item.category === null
-                  ? pathname === "/dashboard" && !activeCategory
-                  : activeCategory === item.category;
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                        isActive
-                          ? "bg-emerald-500/15 text-emerald-400"
-                          : "text-slate-400 hover:text-white hover:bg-white/5"
-                      }`}
-                    >
-                      <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        {item.icon}
-                      </svg>
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+        <nav className="flex-1 px-3 py-4 flex flex-col gap-0.5">
+          {navItems.map((item) => {
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[8px] text-[13.5px] font-medium transition-all ${
+                  active
+                    ? "bg-accent-light text-accent-dark"
+                    : "text-mid hover:text-ink hover:bg-surface"
+                }`}
+              >
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                  {item.icon}
+                </svg>
+                {item.label}
+              </Link>
+            );
+          })}
 
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-3 mb-2">
-              Configuration
-            </p>
-            <ul className="space-y-0.5">
-              {configNav.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                        isActive
-                          ? "bg-emerald-500/15 text-emerald-400"
-                          : "text-slate-400 hover:text-white hover:bg-white/5"
-                      }`}
-                    >
-                      <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        {item.icon}
-                      </svg>
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+          <div className="border-t border-border mt-2 pt-2 flex flex-col gap-0.5">
+            {configNav.map((item) => {
+              const active = isActive(item);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[8px] text-[13.5px] font-medium transition-all ${
+                    active
+                      ? "bg-accent-light text-accent-dark"
+                      : "text-mid hover:text-ink hover:bg-surface"
+                  }`}
+                >
+                  <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    {item.icon}
+                  </svg>
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </nav>
+
+        {/* Site card + sign out */}
+        <div className="px-3 pb-5 flex flex-col gap-1.5">
+          {website && (
+            <div className="bg-surface border border-border rounded-[10px] px-3 py-3 flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[12px] font-medium text-ink truncate">{website}</p>
+                <p className="text-[11px] text-muted">Watching</p>
+              </div>
+            </div>
+          )}
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-2 px-3 py-2 text-[13px] text-muted hover:text-ink transition-colors rounded-[8px] hover:bg-surface w-full text-left"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+            </svg>
+            Sign out
+          </button>
+        </div>
       </aside>
 
-      {/* Mobile bottom nav — visible only on mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-950 border-t border-slate-800 flex items-center justify-around px-2 py-2 safe-area-pb">
+      {/* Mobile top nav */}
+      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-border flex items-center gap-1 px-3 py-2 overflow-x-auto scrollbar-none">
+        <Link href="/dashboard" className="flex items-center gap-2 mr-3 flex-shrink-0">
+          <LogoMark />
+        </Link>
         {mobileNav.map((item) => {
-          const isActive = pathname === item.href;
+          const active = isActive(item);
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all ${
-                isActive ? "text-emerald-400" : "text-slate-500"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium whitespace-nowrap flex-shrink-0 transition-all ${
+                active
+                  ? "bg-accent-light text-accent-dark"
+                  : "text-mid hover:text-ink"
               }`}
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" aria-hidden="true">
                 {item.icon}
               </svg>
-              <span className="text-[9px] font-semibold leading-none">
-                {item.label === "Content strategy" ? "Content" : item.label}
-              </span>
+              {item.label}
             </Link>
           );
         })}
