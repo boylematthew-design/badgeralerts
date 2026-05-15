@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { validateWebsite } from "@/lib/validate-url";
 
 interface HeroFormProps {
   variant?: "light" | "dark";
@@ -9,12 +10,18 @@ interface HeroFormProps {
 
 export default function HeroForm({ variant = "light" }: HeroFormProps) {
   const [url, setUrl] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = url.trim();
-    router.push(`/signup${trimmed ? `?url=${encodeURIComponent(trimmed)}` : ""}`);
+    const { url: validUrl, error: validationError } = validateWebsite(url);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+    setError("");
+    router.push(`/signup?url=${encodeURIComponent(validUrl)}`);
   };
 
   const isDark = variant === "dark";
@@ -74,9 +81,13 @@ export default function HeroForm({ variant = "light" }: HeroFormProps) {
         </button>
       </div>
 
-      <span className={`text-[12px] ${isDark ? "text-white/35" : "text-muted"}`}>
-        Free alert tool &middot; No credit card &middot; Takes 30 seconds
-      </span>
+      {error ? (
+        <span className="text-[12px] text-[#A32D2D]">{error}</span>
+      ) : (
+        <span className={`text-[12px] ${isDark ? "text-white/35" : "text-muted"}`}>
+          Free alert tool &middot; No credit card &middot; Takes 30 seconds
+        </span>
+      )}
     </form>
   );
 }

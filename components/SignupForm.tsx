@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase";
+import { validateWebsite } from "@/lib/validate-url";
 
 interface SignupFormProps {
   initialUrl?: string;
@@ -31,6 +32,13 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
     setLoading(true);
     setError("");
 
+    const { url: validUrl, error: urlError } = validateWebsite(formData.website);
+    if (urlError) {
+      setError(urlError);
+      setLoading(false);
+      return;
+    }
+
     const supabase = createClient();
 
     const { error: authError } = await supabase.auth.signUp({
@@ -40,7 +48,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: {
           full_name: formData.fullName,
-          website: formData.website,
+          website: validUrl,
         },
       },
     });
