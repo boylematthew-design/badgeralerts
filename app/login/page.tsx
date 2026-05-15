@@ -5,6 +5,32 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 
+const inputClass =
+  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(29,185,115,0.08)] transition-all";
+
+function LogoMark() {
+  return (
+    <div className="w-8 h-8 flex-shrink-0" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <defs>
+          <clipPath id="ba-login-clip">
+            <rect width="32" height="32" rx="9" />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#ba-login-clip)">
+          <rect width="32" height="32" rx="9" fill="#111110" />
+          <g fill="none" stroke="white" strokeWidth="1.6" strokeLinecap="round" opacity="0.85">
+            <path d="M7 25 A 8 8 0 0 1 15 17" />
+            <path d="M7 25 A 13 13 0 0 1 20 12" opacity="0.55" />
+            <path d="M7 25 A 18 18 0 0 1 25 7" opacity="0.3" />
+          </g>
+          <circle cx="7" cy="25" r="2.4" fill="#1DB973" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -28,14 +54,13 @@ export default function LoginPage() {
     setError("");
 
     const supabase = createClient();
-
     const { error: authError } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
     });
 
     if (authError) {
-      setError(authError.message);
+      setError("Incorrect email or password. Please try again.");
       setLoading(false);
       return;
     }
@@ -44,84 +69,107 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="hero-pattern min-h-screen flex flex-col">
-      {/* Nav */}
-      <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto w-full">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white p-1 shadow-lg transition-transform group-hover:scale-105">
-            <svg viewBox="0 0 24 24" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path fill="currentColor" d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z" />
-              <path fill="currentColor" d="M20 18.2H4c.9-1 2.2-2.1 2.2-5.2V10.3A5.8 5.8 0 0 1 10.7 4.7V3.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v1.1a5.8 5.8 0 0 1 4.5 5.6V13c0 3.1 1.3 4.2 2.2 5.2Z" />
-              <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
-            </svg>
-          </div>
-          <div className="text-xl font-extrabold tracking-tighter text-slate-900 uppercase">
-            BADGER<span className="text-emerald-500">ALERTS</span>
-          </div>
+    <div className="min-h-screen flex flex-col bg-surface">
+      {/* Header */}
+      <header className="flex items-center justify-between px-7 md:px-8 py-5 flex-shrink-0">
+        <Link href="/" className="flex items-center gap-2.5">
+          <LogoMark />
+          <span className="text-[15px] font-medium tracking-[-0.025em] text-ink">
+            badger<span className="text-accent">alerts</span>
+          </span>
         </Link>
-      </nav>
+        <Link href="/" className="text-[14px] text-mid hover:text-ink transition-colors">
+          ← Back to home
+        </Link>
+      </header>
 
-      {/* Login Form */}
-      <main className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-8">
-            <h1 className="text-3xl font-extrabold text-slate-900 mb-1">Welcome back</h1>
-            <p className="text-slate-500 text-sm mb-8">Sign in to your BadgerAlerts account.</p>
+      {/* Card */}
+      <main className="flex-1 flex items-start justify-center px-5 py-8 md:py-12">
+        <div className="bg-white border border-border rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] w-full max-w-[480px] px-8 py-10 md:px-12 md:py-12">
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email address</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="jane@company.com"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Your password"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-                />
-                <div className="text-right mt-1.5">
-                  <Link href="/forgot-password" className="text-xs text-emerald-600 font-semibold hover:underline">
-                    Forgot password?
-                  </Link>
-                </div>
-              </div>
-
-              {error && (
-                <div className="bg-rose-50 border border-rose-200 text-rose-700 text-sm font-semibold px-4 py-3 rounded-xl">
-                  {error}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? "Signing in..." : "Sign in"}
-              </button>
-            </form>
-
-            <p className="text-sm text-slate-500 text-center mt-6">
-              Don&apos;t have an account?{" "}
-              <Link href="/#signup" className="text-emerald-600 font-semibold hover:underline">
-                Get started free
-              </Link>
-            </p>
+          <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-4">
+            Sign in
           </div>
+
+          <h1 className="font-serif font-normal text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-4">
+            Welcome back to{" "}
+            <em className="italic text-accent-dark">BadgerAlerts</em>
+          </h1>
+
+          <p className="text-[15px] text-mid font-light leading-[1.6] mb-8">
+            Sign in to see your latest alerts and opportunities.
+          </p>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12.5px] font-medium text-mid">Email address</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="sarah@yourshop.co.uk"
+                required
+                autoComplete="email"
+                className={inputClass}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[12.5px] font-medium text-mid">Password</label>
+                <Link
+                  href="/forgot-password"
+                  className="text-[12px] text-muted hover:text-accent-dark transition-colors"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Your password"
+                required
+                autoComplete="current-password"
+                className={inputClass}
+              />
+            </div>
+
+            {error && (
+              <div className="bg-[#FEECEC] border border-[#A32D2D]/20 text-[#A32D2D] text-[13px] px-4 py-3 rounded-[10px]">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-dark active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+            >
+              {loading ? (
+                <>
+                  <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                  Signing in&hellip;
+                </>
+              ) : (
+                <>
+                  Sign in
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="text-[13px] text-muted text-center mt-6">
+            Don&apos;t have an account?{" "}
+            <Link href="/signup" className="text-accent-dark font-medium hover:underline underline-offset-2">
+              Get started free
+            </Link>
+          </p>
         </div>
       </main>
     </div>
