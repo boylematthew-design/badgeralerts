@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Instrument_Serif, DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} h-full`}>
       <body className="min-h-full flex flex-col font-sans antialiased">
         {children}
         <Script id="reddit-pixel" strategy="afterInteractive">{`

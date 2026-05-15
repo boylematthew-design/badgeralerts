@@ -1,35 +1,53 @@
 @import "tailwindcss";
 
+/* Fonts: Instrument Serif (display/headings) + DM Sans (UI/body) */
 @theme inline {
-  --font-sans: var(--font-jakarta);
+  --font-sans: var(--font-dm);
+  --font-serif: var(--font-instrument);
 }
 
-.hero-pattern {
-  background-color: #f8fafc;
-  background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
-  background-size: 24px 24px;
+/* Brand colour tokens — available as Tailwind utilities (text-accent, bg-surface, etc.) */
+@theme {
+  --color-accent: #1DB973;
+  --color-accent-light: #E8F9F1;
+  --color-accent-dark: #0F7A49;
+  --color-surface: #F9F8F6;
+  --color-warm: #FAF7F1;
+  --color-ink: #111110;
+  --color-mid: #555551;
+  --color-muted: #999994;
+  --color-border: #E8E7E2;
+  --color-border-strong: #D9D7D0;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #10b981, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* --- Animations -------------------------------------------------- */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
 }
 
-.notification-blur {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Pulsing green dot — used in hero feed label and nav */
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1DB973;
+  animation: pulseDot 2s infinite;
+  flex-shrink: 0;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
-  border-radius: 10px;
-}
+/* Staggered slide-up entrance for stacked notification cards */
+.anim-stack > * { animation: slideUp 0.5s ease both; }
+.anim-stack > *:nth-child(1) { animation-delay: 0.00s; }
+.anim-stack > *:nth-child(2) { animation-delay: 0.08s; }
+.anim-stack > *:nth-child(3) { animation-delay: 0.16s; }
+.anim-stack > *:nth-child(4) { animation-delay: 0.24s; }
+
+.custom-scrollbar::-webkit-scrollbar       { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #E8E7E2; border-radius: 10px; }

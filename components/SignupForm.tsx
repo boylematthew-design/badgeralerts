@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase";
 
-export default function SignupForm() {
+interface SignupFormProps {
+  initialUrl?: string;
+}
+
+export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
   const [formData, setFormData] = useState({
-    website: "",
+    website: initialUrl,
     fullName: "",
     email: "",
     password: "",

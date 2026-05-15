@@ -1,48 +1,72 @@
+import Link from "next/link";
 import { footerLinks } from "@/lib/footer-links";
+
+function LogoMark() {
+  return (
+    <div className="w-7 h-7 flex-shrink-0" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <defs>
+          <clipPath id="ba-footer-clip">
+            <rect width="32" height="32" rx="9" />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#ba-footer-clip)">
+          <rect width="32" height="32" rx="9" fill="#111110" />
+          <g fill="none" stroke="white" strokeWidth="1.6" strokeLinecap="round" opacity="0.85">
+            <path d="M7 25 A 8 8 0 0 1 15 17" />
+            <path d="M7 25 A 13 13 0 0 1 20 12" opacity="0.55" />
+            <path d="M7 25 A 18 18 0 0 1 25 7" opacity="0.3" />
+          </g>
+          <circle cx="7" cy="25" r="2.4" fill="#1DB973" />
+        </g>
+      </svg>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-slate-200 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 bg-slate-900 rounded p-1 text-white">
-                <svg viewBox="0 0 24 24" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path fill="currentColor" d="M12 22a2.25 2.25 0 0 0 2.2-1.8H9.8A2.25 2.25 0 0 0 12 22Z" />
-                  <path fill="currentColor" d="M20 18.2H4c.9-1 2.2-2.1 2.2-5.2V10.3A5.8 5.8 0 0 1 10.7 4.7V3.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v1.1a5.8 5.8 0 0 1 4.5 5.6V13c0 3.1 1.3 4.2 2.2 5.2Z" />
-                  <circle cx="18.2" cy="6.2" r="2.2" fill="#10b981" />
-                </svg>
-              </div>
-              <span className="font-bold text-slate-900 uppercase">BADGERALERTS</span>
-            </div>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Precision digital marketing intelligence for the modern web.
+    <footer className="border-t border-border w-full">
+      <div className="max-w-[1120px] mx-auto px-7 md:px-12 pt-14 pb-8">
+        {/* Top row: brand + link columns */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-9 md:gap-[60px] pb-12 border-b border-border">
+          <div className="flex flex-col gap-3.5 max-w-xs">
+            <Link href="/" className="flex items-center gap-2.5">
+              <LogoMark />
+              <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
+                badger<span className="text-accent">alerts</span>
+              </span>
+            </Link>
+            <p className="text-[13px] text-muted font-light leading-[1.55]">
+              An AI tool that watches your website so you don&apos;t have to.
             </p>
           </div>
 
-          {footerLinks.map((section) => (
-            <div key={section.heading}>
-              <h4 className="font-bold text-slate-900 mb-4">{section.heading}</h4>
-              <ul className="space-y-2 text-sm text-slate-500">
+          <div className="grid grid-cols-2 gap-10 md:gap-[60px]">
+            {footerLinks.map((section) => (
+              <div key={section.heading} className="flex flex-col gap-3">
+                <div className="text-[12px] font-semibold text-ink mb-1">
+                  {section.heading}
+                </div>
                 {section.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="hover:text-emerald-500 transition-colors">
-                      {link.label}
-                    </a>
-                  </li>
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-[13.5px] text-mid font-light hover:text-accent-dark transition-colors"
+                  >
+                    {link.label}
+                  </Link>
                 ))}
-              </ul>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-slate-400 text-sm">
-            &copy; 2026 BadgerAlerts Intelligence Systems. All rights reserved.
-          </div>
-          <div className="text-slate-400 text-sm">Built in London 🇬🇧</div>
+        {/* Bottom row */}
+        <div className="pt-6">
+          <span className="text-[12.5px] text-muted">
+            &copy; 2026 BadgerAlerts &middot; Built in London 🇬🇧
+          </span>
         </div>
       </div>
     </footer>
