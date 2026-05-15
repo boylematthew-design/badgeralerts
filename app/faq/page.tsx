@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const faqs = [
@@ -42,40 +43,46 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <div style={{ background: "#eff4fb", minHeight: "100vh" }}>
-      <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-[15px] font-extrabold tracking-tighter text-slate-900 uppercase">
-          BADGER<span className="text-emerald-500">ALERTS</span>
-        </Link>
-        <Link href="/login" className="text-sm font-semibold text-slate-500 hover:text-slate-900 transition">
-          Sign in
-        </Link>
-      </header>
+    <div className="bg-white text-ink">
+      <Navbar />
+      <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
+        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">Support</div>
+        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
+          Frequently asked <em className="italic text-accent-dark">questions</em>
+        </h1>
+        <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12">
+          Everything you need to know about BadgerAlerts.
+        </p>
 
-      <main className="max-w-3xl mx-auto px-6 py-12 md:py-16">
-        <div className="mb-10">
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Frequently asked questions</h1>
-          <p className="text-slate-500">Everything you need to know about BadgerAlerts.</p>
-        </div>
-
-        <div className="space-y-4">
+        <div className="flex flex-col gap-3 mb-12">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-5">
-              <h3 className="font-bold text-slate-900 mb-2">{faq.q}</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">{faq.a}</p>
+            <div key={i} className="border border-border rounded-[14px] px-6 py-5 hover:border-border-strong transition-colors">
+              <h3 className="text-[14px] font-medium text-ink mb-2">{faq.q}</h3>
+              <p className="text-[13.5px] text-mid leading-[1.7]">{faq.a}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 bg-slate-900 rounded-2xl p-6 md:p-8 text-center">
-          <h3 className="text-lg font-extrabold text-white mb-2">Still have a question?</h3>
-          <p className="text-slate-400 text-sm mb-4">We're happy to help. Drop us a message and we'll get back to you.</p>
-          <Link
-            href="/contact"
-            className="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition"
-          >
-            Get in touch
-          </Link>
+        {/* CTA */}
+        <div className="bg-ink rounded-[20px] px-8 py-10 text-center relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_0%,rgba(29,185,115,0.10),transparent_50%)]" />
+          <div className="relative">
+            <h3 className="font-serif font-normal text-[22px] md:text-[28px] leading-[1.1] tracking-[-0.02em] text-white mb-2">
+              Still have a question?
+            </h3>
+            <p className="text-[14px] text-white/55 font-light mb-6">
+              We&apos;re happy to help. Drop us a message and we&apos;ll get back to you.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-6 py-2.5 rounded-[8px] text-[14px] transition-colors"
+            >
+              Get in touch
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />
