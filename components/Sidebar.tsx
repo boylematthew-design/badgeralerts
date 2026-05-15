@@ -94,6 +94,7 @@ const mobileNav = [
 ];
 
 interface SidebarProps {
+  name?: string;
   website?: string;
 }
 
