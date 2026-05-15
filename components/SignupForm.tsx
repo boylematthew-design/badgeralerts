@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 
 interface SignupFormProps {
   initialUrl?: string;
 }
+
+const inputClass =
+  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(29,185,115,0.08)] transition-all";
 
 export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
   const [formData, setFormData] = useState({
@@ -13,15 +17,13 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
     fullName: "",
     email: "",
     password: "",
-    agreed: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +33,6 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
 
     const supabase = createClient();
 
-    // 1. Create the user in Supabase Auth (sends confirmation email automatically)
     const { error: authError } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -56,8 +57,6 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
       return;
     }
 
-    // User row is created automatically by database trigger
-
     if (typeof window !== "undefined" && (window as any).rdt) {
       (window as any).rdt("track", "SignUp");
     }
@@ -67,104 +66,151 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
 
   if (success) {
     return (
-      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-8 text-center">
-        <div className="w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      <div className="bg-accent-light border border-accent/20 rounded-[14px] p-8 text-center">
+        <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-extrabold text-slate-900 mb-2">Check your email!</h3>
-        <p className="text-slate-600 text-sm">
-          We&apos;ve sent a confirmation link to <strong>{formData.email}</strong>. Click it to activate your account.
+        <h3 className="font-serif font-normal text-[22px] text-ink mb-2">
+          Check your email
+        </h3>
+        <p className="text-[14px] text-mid font-light leading-[1.6]">
+          We&apos;ve sent a confirmation link to{" "}
+          <strong className="font-medium text-ink">{formData.email}</strong>.
+          Click it to activate your account.
         </p>
       </div>
     );
   }
 
   return (
-    <form id="signup" onSubmit={handleSubmit} className="space-y-3">
-      {/* Website URL */}
-      <input
-        type="url"
-        name="website"
-        value={formData.website}
-        onChange={handleChange}
-        placeholder="https://yourwebsite.com"
-        required
-        className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
-      />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+      {/* Website URL — hidden if passed from landing, visible if arriving directly */}
+      {!initialUrl ? (
+        <div className="flex flex-col gap-1.5">
+          <label className="text-[12.5px] font-medium text-mid">Website URL</label>
+          <input
+            type="url"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            placeholder="https://yourwebsite.com"
+            required
+            className={inputClass}
+          />
+        </div>
+      ) : (
+        <input type="hidden" name="website" value={formData.website} />
+      )}
 
-      {/* Name + Email */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {/* Full name */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-[12.5px] font-medium text-mid">Full name</label>
         <input
           type="text"
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
-          placeholder="Full name"
+          placeholder="Sarah Wilson"
           required
-          className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
+          autoComplete="name"
+          className={inputClass}
         />
+      </div>
+
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-[12.5px] font-medium text-mid">Email address</label>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email address"
+          placeholder="sarah@yourshop.co.uk"
           required
-          className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
+          autoComplete="email"
+          className={inputClass}
         />
       </div>
 
       {/* Password */}
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password (min. 8 characters)"
-        required
-        minLength={8}
-        className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-500 transition-all font-semibold placeholder:text-slate-400"
-      />
-
-      {/* Consent */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4">
-        <label className="flex items-start gap-3 text-sm text-slate-600 cursor-pointer">
-          <input
-            type="checkbox"
-            name="agreed"
-            checked={formData.agreed}
-            onChange={handleChange}
-            required
-            className="mt-1 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
-          />
-          <span>
-            I agree to the{" "}
-            <a href="/terms" className="text-emerald-600 font-semibold hover:underline">Terms</a>
-            {" "}and{" "}
-            <a href="/privacy" className="text-emerald-600 font-semibold hover:underline">Privacy Policy</a>.
-          </span>
-        </label>
+      <div className="flex flex-col gap-1.5">
+        <label className="text-[12.5px] font-medium text-mid">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Min. 8 characters"
+          required
+          minLength={8}
+          autoComplete="new-password"
+          className={inputClass}
+        />
       </div>
-
-      {/* Error message */}
-      {error && (
-        <div className="bg-rose-50 border border-rose-200 text-rose-700 text-sm font-semibold px-4 py-3 rounded-xl">
-          {error}
-        </div>
-      )}
 
       {/* Submit */}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-emerald-500 text-white px-8 py-4 rounded-2xl text-lg font-extrabold shadow-xl shadow-emerald-200 hover:bg-emerald-600 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-dark active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
       >
-        {loading ? "Creating account..." : "Get started"}
+        {loading ? (
+          <>
+            <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+            Creating your account&hellip;
+          </>
+        ) : (
+          <>
+            Create account
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </>
+        )}
       </button>
 
-      <p className="text-xs text-slate-500 text-center">Unsubscribe anytime.</p>
+      {/* Legal line */}
+      <p className="text-[12px] text-muted text-center leading-[1.5]">
+        By clicking Create account, you agree to our{" "}
+        <Link href="/terms" className="text-mid underline underline-offset-2 decoration-border-strong hover:text-accent-dark transition-colors">
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="text-mid underline underline-offset-2 decoration-border-strong hover:text-accent-dark transition-colors">
+          Privacy Policy
+        </Link>.
+      </p>
+
+      {/* Error */}
+      {error && (
+        <div className="bg-[#FEECEC] border border-[#A32D2D]/20 text-[#A32D2D] text-[13px] px-4 py-3 rounded-[10px]">
+          {error}
+        </div>
+      )}
+
+      {/* Trust bullets */}
+      <div className="border-t border-border pt-5 mt-1 flex flex-col gap-2.5">
+        {[
+          "Free to use",
+          "Used by small businesses across the UK",
+          "We'll email you an alert when we find something",
+        ].map((text) => (
+          <div key={text} className="flex items-center gap-2.5 text-[14px] text-ink">
+            <div className="w-5 h-5 rounded-full bg-accent-light text-accent-dark flex items-center justify-center flex-shrink-0">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m4 12 5 5 11-12" />
+              </svg>
+            </div>
+            {text}
+          </div>
+        ))}
+      </div>
+
+      <p className="text-[12px] text-muted text-center">
+        No credit card. Unsubscribe with one click.
+      </p>
     </form>
   );
 }
