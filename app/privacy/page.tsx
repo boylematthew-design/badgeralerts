@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">9. Contact us</h2>
-            <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <strong className="font-medium text-ink">hello@badgeralerts.live</strong>.</p>
+            <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <strong className="font-medium text-ink">support@badgeralerts.live</strong>.</p>
           </section>
 
         </div>

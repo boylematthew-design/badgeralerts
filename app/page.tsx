@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroForm from "@/components/HeroForm";
+import SampleAlertsCarousel from "@/components/SampleAlertsCarousel";
 
 // ── Sample alerts shown in the hero feed ─────────────────────────
 const heroAlerts = [
@@ -252,6 +253,9 @@ export default async function Home() {
       <div className="max-w-[1120px] mx-auto px-7 md:px-12 mt-16 md:mt-20">
         <div className="border-t border-border" />
       </div>
+
+      {/* ── SAMPLE ALERTS CAROUSEL ───────────────────────────────── */}
+      <SampleAlertsCarousel />
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
       <section className="max-w-[1120px] mx-auto px-7 md:px-12 my-16 md:my-20">

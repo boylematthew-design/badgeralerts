@@ -80,7 +80,7 @@ export default function TermsOfServicePage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">11. Contact us</h2>
-            <p>If you have any questions about these Terms of Service, please contact us at <strong className="font-medium text-ink">hello@badgeralerts.live</strong>.</p>
+            <p>If you have any questions about these Terms of Service, please contact us at <strong className="font-medium text-ink">support@badgeralerts.live</strong>.</p>
           </section>
 
         </div>

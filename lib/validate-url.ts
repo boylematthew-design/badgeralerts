@@ -3,6 +3,7 @@ const VALID_HOSTNAME = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a
 export function validateWebsite(raw: string): { url: string; error: string | null } {
   const trimmed = raw.trim();
   if (!trimmed) return { url: "", error: "Please enter your website URL." };
+  if (trimmed.includes("@")) return { url: "", error: "Please enter a valid website address, e.g. yoursite.co.uk" };
 
   // Add https:// if no scheme present
   const withScheme = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
