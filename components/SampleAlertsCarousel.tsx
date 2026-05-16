@@ -1,6 +1,20 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
+import {
+  CompetitorScanImage,
+  EmailAlertImage,
+  CampaignSetupImage,
+  SeoScanImage,
+  SeoEmailImage,
+  SeoReportImage,
+  TechScanImage,
+  TechEmailImage,
+  TechFixGuideImage,
+  PaidMediaScanImage,
+  PaidMediaEmailImage,
+  PaidMediaDashboardImage,
+} from "@/components/SampleIllustrations";
 
 const SLIDES = [
   {
@@ -13,14 +27,17 @@ const SLIDES = [
       {
         body: "Our tool scans your competitor websites and picks up that a close competitor is running new local ads.",
         caption: "Competitor scan",
+        Image: CompetitorScanImage,
       },
       {
         body: "You're sent an alert notifying you about the new update — straight to your inbox.",
         caption: "Email alert",
+        Image: EmailAlertImage,
       },
       {
         body: "You deep-dive into what ads are being run and how to set up your own local ad campaign.",
         caption: "Action breakdown",
+        Image: CampaignSetupImage,
       },
     ],
   },
@@ -34,14 +51,17 @@ const SLIDES = [
       {
         body: "Our tool scans your site and industry and recommends high-intent pages you can build to bring in traffic and conversions.",
         caption: "Content scan",
+        Image: SeoScanImage,
       },
       {
         body: "We send you an alert with a clear recommendation of what to build next.",
         caption: "Email alert",
+        Image: SeoEmailImage,
       },
       {
         body: "We share an in-depth report with detailed analysis and help you set it up — outline, keywords, the lot.",
         caption: "Detailed report",
+        Image: SeoReportImage,
       },
     ],
   },
@@ -55,14 +75,17 @@ const SLIDES = [
       {
         body: "Our tool scans your site and flags common errors and issues, alerting you straight away.",
         caption: "Site crawl",
+        Image: TechScanImage,
       },
       {
         body: "We email you the moment we find something that needs flagging with you.",
         caption: "Email alert",
+        Image: TechEmailImage,
       },
       {
         body: "We explain the issue in full and recommend a fix to help you improve site performance.",
         caption: "Fix guide",
+        Image: TechFixGuideImage,
       },
     ],
   },
@@ -76,14 +99,17 @@ const SLIDES = [
       {
         body: "We scan your competitors and find out if any of them are running paid media campaigns you should know about.",
         caption: "Competitor ads",
+        Image: PaidMediaScanImage,
       },
       {
         body: "We email you the moment we spot something — with the keywords they're bidding on and what it's likely costing them.",
         caption: "Email alert",
+        Image: PaidMediaEmailImage,
       },
       {
         body: "We walk you through how to set up your own campaign on a sensible budget — and offer to help you launch it.",
         caption: "Suggested campaign",
+        Image: PaidMediaDashboardImage,
       },
     ],
   },
@@ -198,8 +224,9 @@ export default function SampleAlertsCarousel() {
                       {step.body}
                     </p>
 
-                    {/* Illustration placeholder */}
+                    {/* Illustration */}
                     <div className="relative aspect-[4/3] rounded-[14px] bg-surface border border-border overflow-hidden">
+                      <step.Image />
                       <span className="absolute bottom-3 left-3 inline-flex items-center font-mono text-[11px] tracking-[0.04em] text-muted bg-white border border-border rounded-full px-2.5 py-1 z-10">
                         {step.caption}
                       </span>
