@@ -35,6 +35,12 @@ export default function Navbar() {
 
       <div className="flex items-center gap-3">
         <Link
+          href="/blog"
+          className="hidden sm:block text-[14px] text-mid px-3 py-2 hover:text-ink transition-colors"
+        >
+          Blog
+        </Link>
+        <Link
           href="/login"
           className="hidden sm:block text-[14px] text-mid px-3 py-2 hover:text-ink transition-colors"
         >
