@@ -61,6 +61,8 @@ export default async function EditTipPage({
       })
       .eq("id", tipId);
 
+    await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
+
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
     revalidatePath("/blog");

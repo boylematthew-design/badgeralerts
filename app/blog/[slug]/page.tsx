@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import MarkdownContent from "@/components/MarkdownContent";
 import ConsultantCTA from "@/components/ConsultantCTA";
 import BlogSignupCTA from "@/components/BlogSignupCTA";
+import AuthorByline from "@/components/AuthorByline";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -42,12 +43,18 @@ export default async function GuidePage({
 
   const { data: guide } = await supabase
     .from("guides")
-    .select("id, title, description, topic_name")
+    .select("id, title, description, topic_name, updated_at")
     .eq("slug", slug)
     .eq("published", true)
     .single();
 
   if (!guide) notFound();
+
+  const lastUpdated = new Date(guide.updated_at).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   const { data: tips } = await supabase
     .from("tips")
@@ -68,6 +75,10 @@ export default async function GuidePage({
         <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
           {guide.title}
         </h1>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-5">
+          <AuthorByline />
+          <span className="text-[13px] text-muted">Last updated: {lastUpdated}</span>
+        </div>
         {guide.description && (
           <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12 max-w-[560px]">
             {guide.description}

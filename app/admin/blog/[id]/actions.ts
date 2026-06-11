@@ -51,6 +51,8 @@ export async function deleteTip(formData: FormData) {
 
   await admin.from("tips").delete().eq("id", tipId);
 
+  await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
+
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog");
   if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
