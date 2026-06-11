@@ -74,10 +74,6 @@ export default async function GuidePage({
           </p>
         )}
 
-        <div className="mb-10">
-          <BlogSignupCTA topicName={guide.topic_name} />
-        </div>
-
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
             <p className="text-[15px] text-mid font-light">
@@ -95,13 +91,17 @@ export default async function GuidePage({
                   {tip.title}
                 </h2>
                 {tip.content && <MarkdownContent content={tip.content} />}
+                {index === 1 && tips.length >= 2 && (
+                  <div className="mt-8">
+                    <BlogSignupCTA topicName={guide.topic_name} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
         )}
 
         <ConsultantCTA topicName={guide.topic_name} />
-        <BlogSignupCTA topicName={guide.topic_name} />
       </main>
       <Footer />
     </div>
