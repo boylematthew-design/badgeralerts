@@ -54,6 +54,11 @@ export default function NewGuidePage() {
 
     if (error || !guide) return;
 
+    const { revalidatePath } = await import("next/cache");
+    revalidatePath("/admin/blog");
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${slug}`);
+
     redirect(`/admin/blog/${guide.id}`);
   }
 

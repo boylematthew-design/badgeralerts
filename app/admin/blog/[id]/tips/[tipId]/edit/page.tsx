@@ -63,6 +63,7 @@ export default async function EditTipPage({
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
+    revalidatePath("/blog");
     revalidatePath(`/blog/${guideSlug}`);
 
     redirect(`/admin/blog/${id}`);

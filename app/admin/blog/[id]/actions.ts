@@ -52,5 +52,6 @@ export async function deleteTip(formData: FormData) {
   await admin.from("tips").delete().eq("id", tipId);
 
   revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
   if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
 }
