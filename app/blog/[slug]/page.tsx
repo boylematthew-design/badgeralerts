@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarkdownContent from "@/components/MarkdownContent";
 import ConsultantCTA from "@/components/ConsultantCTA";
+import BlogSignupCTA from "@/components/BlogSignupCTA";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -73,6 +74,10 @@ export default async function GuidePage({
           </p>
         )}
 
+        <div className="mb-10">
+          <BlogSignupCTA topicName={guide.topic_name} />
+        </div>
+
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
             <p className="text-[15px] text-mid font-light">
@@ -96,6 +101,7 @@ export default async function GuidePage({
         )}
 
         <ConsultantCTA topicName={guide.topic_name} />
+        <BlogSignupCTA topicName={guide.topic_name} />
       </main>
       <Footer />
     </div>
