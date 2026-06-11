@@ -6,11 +6,11 @@ export default function AuthorByline() {
       <Image
         src="/matthew-boyle.png"
         alt="Matthew Boyle"
-        width={24}
-        height={24}
-        className="w-6 h-6 rounded-full object-cover flex-shrink-0"
+        width={36}
+        height={36}
+        className="w-9 h-9 rounded-full object-cover flex-shrink-0"
       />
-      <span className="text-[13px] text-mid font-light">Matthew Boyle</span>
+      <span className="text-[14px] text-mid font-light">Matthew Boyle</span>
     </div>
   );
 }
