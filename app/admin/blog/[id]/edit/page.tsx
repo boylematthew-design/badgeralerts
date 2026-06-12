@@ -114,7 +114,7 @@ export default async function EditGuidePage({
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            Topic name <span className="text-slate-400 font-normal">(used in the &ldquo;hire me&rdquo; tip)</span>
+            Topic name <span className="text-slate-400 font-normal">(used in the signup CTA)</span>
           </label>
           <input
             name="topic_name"

@@ -112,7 +112,7 @@ export default async function GuidePage({
           </div>
         )}
 
-        <ConsultantCTA topicName={guide.topic_name} />
+        <ConsultantCTA />
       </main>
       <Footer />
     </div>

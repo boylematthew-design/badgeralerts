@@ -102,7 +102,7 @@ export default function NewGuidePage() {
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            Topic name <span className="text-slate-400 font-normal">(used in the &ldquo;hire me&rdquo; tip)</span>
+            Topic name <span className="text-slate-400 font-normal">(used in the signup CTA)</span>
           </label>
           <input
             name="topic_name"
@@ -111,7 +111,7 @@ export default function NewGuidePage() {
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
           <p className="text-xs text-slate-400 mt-1.5">
-            Shown as: &ldquo;Looking for a {"{topic name}"} consultant?&rdquo;
+            Shown as: &ldquo;Want more {"{topic name}"} tips and ideas?&rdquo;
           </p>
         </div>
 
