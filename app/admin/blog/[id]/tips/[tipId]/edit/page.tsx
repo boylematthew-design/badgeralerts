@@ -44,6 +44,7 @@ export default async function EditTipPage({
     const title = (formData.get("title") as string)?.trim();
     const content = (formData.get("content") as string)?.trim();
     const published = formData.get("published") === "on";
+    const imageFile = formData.get("image") as File | null;
 
     if (!title) return;
 
@@ -52,11 +53,27 @@ export default async function EditTipPage({
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
+    let imageUrl: string | null = formData.get("existing_image_url") as string || null;
+
+    if (imageFile && imageFile.size > 0) {
+      const ext = imageFile.name.split(".").pop();
+      const fileName = `${Date.now()}.${ext}`;
+      const { error: uploadError } = await admin.storage
+        .from("blog-images")
+        .upload(fileName, imageFile, { contentType: imageFile.type });
+
+      if (!uploadError) {
+        const { data: urlData } = admin.storage.from("blog-images").getPublicUrl(fileName);
+        imageUrl = urlData.publicUrl;
+      }
+    }
+
     await admin
       .from("tips")
       .update({
         title,
         content: content || null,
+        image_url: imageUrl,
         published,
       })
       .eq("id", tipId);
@@ -90,7 +107,9 @@ export default async function EditTipPage({
         </div>
       </div>
 
-      <form action={updateTip} className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
+      <form action={updateTip} encType="multipart/form-data" className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
+        <input type="hidden" name="existing_image_url" value={tip.image_url ?? ""} />
+
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Tip title</label>
           <input
@@ -109,6 +128,22 @@ export default async function EditTipPage({
             defaultValue={tip.content || ""}
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Image <span className="text-slate-400 font-normal">(optional — upload a new one to replace)</span>
+          </label>
+          {tip.image_url && (
+            <img src={tip.image_url} alt="Current image" className="w-full rounded-xl mb-3 border border-slate-200" />
+          )}
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 transition"
+          />
+          <p className="text-xs text-slate-400 mt-1.5">Leave blank to keep the existing image</p>
         </div>
 
         <div className="flex items-center gap-3">

@@ -58,7 +58,7 @@ export default async function GuidePage({
 
   const { data: tips } = await supabase
     .from("tips")
-    .select("id, title, content")
+    .select("id, title, content, image_url")
     .eq("guide_id", guide.id)
     .eq("published", true)
     .order("sort_order", { ascending: true });
@@ -101,6 +101,14 @@ export default async function GuidePage({
                 <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
                   {tip.title}
                 </h2>
+                {tip.image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={tip.image_url}
+                    alt={tip.title}
+                    className="w-full rounded-[14px] border border-border mb-5"
+                  />
+                )}
                 {tip.content && <MarkdownContent content={tip.content} />}
                 {index === 1 && tips.length >= 2 && (
                   <div className="mt-8">
