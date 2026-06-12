@@ -41,6 +41,8 @@ export default async function NewTipPage({
     const content = (formData.get("content") as string)?.trim();
     const published = formData.get("published") === "on";
     const imageFile = formData.get("image") as File | null;
+    const imageAlt = (formData.get("image_alt") as string)?.trim();
+    const imageCaption = (formData.get("image_caption") as string)?.trim();
 
     if (!title) return;
 
@@ -78,6 +80,8 @@ export default async function NewTipPage({
       title,
       content: content || null,
       image_url: imageUrl,
+      image_alt: imageUrl ? imageAlt || null : null,
+      image_caption: imageUrl ? imageCaption || null : null,
       sort_order: nextOrder,
       published,
     });
@@ -144,6 +148,30 @@ export default async function NewTipPage({
             className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 transition"
           />
           <p className="text-xs text-slate-400 mt-1.5">Recommended: JPG or PNG, under 2MB</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Image alt text <span className="text-slate-400 font-normal">(for accessibility &amp; SEO)</span>
+          </label>
+          <input
+            name="image_alt"
+            placeholder="e.g. Screenshot of a Google Business Profile review reply"
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+          <p className="text-xs text-slate-400 mt-1.5">Describes the image for screen readers and search engines.</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">
+            Image caption <span className="text-slate-400 font-normal">(optional)</span>
+          </label>
+          <input
+            name="image_caption"
+            placeholder="e.g. A Google review reply on a busy café's profile"
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+          <p className="text-xs text-slate-400 mt-1.5">Shown in italics below the image on the guide page.</p>
         </div>
 
         <div className="flex items-center gap-3">
