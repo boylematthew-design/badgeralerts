@@ -42,6 +42,7 @@ interface TipItem {
 interface SectionItem {
   id: string;
   title: string;
+  description: string | null;
   sort_order: number;
 }
 
@@ -205,6 +206,7 @@ function SectionBlock({
             sectionId={section.id}
             guideId={guideId}
             currentTitle={section.title}
+            currentDescription={section.description}
           />
           <span className="text-xs text-slate-400">({tips.length})</span>
         </div>

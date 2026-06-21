@@ -76,9 +76,12 @@ export async function createSection(formData: FormData) {
 
   const nextOrder = (maxSection?.sort_order ?? 0) + 1;
 
+  const description = (formData.get("description") as string)?.trim() || null;
+
   await admin.from("tip_sections").insert({
     guide_id: guideId,
     title,
+    description,
     sort_order: nextOrder,
   });
 
@@ -98,7 +101,9 @@ export async function updateSection(formData: FormData) {
   const admin = await getAdminSupabase();
   if (!admin) return;
 
-  await admin.from("tip_sections").update({ title }).eq("id", sectionId);
+  const description = (formData.get("description") as string)?.trim() || null;
+
+  await admin.from("tip_sections").update({ title, description }).eq("id", sectionId);
 
   const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
 

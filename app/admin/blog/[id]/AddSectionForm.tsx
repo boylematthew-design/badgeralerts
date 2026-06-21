@@ -18,15 +18,22 @@ function SubmitBtn() {
 
 export default function AddSectionForm({ guideId }: { guideId: string }) {
   return (
-    <form action={createSection} className="flex items-center gap-3">
+    <form action={createSection} className="space-y-3">
       <input type="hidden" name="guide_id" value={guideId} />
+      <div className="flex items-center gap-3">
+        <input
+          name="title"
+          required
+          placeholder="Section name, e.g. Photos & Media"
+          className="flex-1 border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
+        <SubmitBtn />
+      </div>
       <input
-        name="title"
-        required
-        placeholder="New section name, e.g. Photos & Media"
-        className="flex-1 border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        name="description"
+        placeholder="Optional subheading shown below the section title on the guide"
+        className="w-full border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
       />
-      <SubmitBtn />
     </form>
   );
 }

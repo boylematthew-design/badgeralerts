@@ -47,6 +47,7 @@ interface TipData {
 interface SectionData {
   id: string;
   title: string;
+  description: string | null;
   sort_order: number;
 }
 
@@ -146,6 +147,11 @@ function TipList({ tips, sections, topicName }: {
             <h2 className="font-serif text-[24px] md:text-[30px] text-ink font-normal">
               {group.title}
             </h2>
+            {group.description && (
+              <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mt-2 max-w-[560px]">
+                {group.description}
+              </p>
+            )}
           </div>
           <div className="divide-y divide-border">
             {group.tips.map((tip) => {
@@ -198,7 +204,7 @@ export default async function GuidePage({
       .order("sort_order", { ascending: true }),
     supabase
       .from("tip_sections")
-      .select("id, title, sort_order")
+      .select("id, title, description, sort_order")
       .eq("guide_id", guide.id)
       .order("sort_order", { ascending: true }),
   ]);
