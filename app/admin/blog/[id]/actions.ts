@@ -57,3 +57,138 @@ export async function deleteTip(formData: FormData) {
   revalidatePath("/blog");
   if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
 }
+
+export async function createSection(formData: FormData) {
+  const guideId = formData.get("guide_id") as string;
+  const title = (formData.get("title") as string)?.trim();
+  if (!guideId || !title) return;
+
+  const admin = await getAdminSupabase();
+  if (!admin) return;
+
+  const { data: maxSection } = await admin
+    .from("tip_sections")
+    .select("sort_order")
+    .eq("guide_id", guideId)
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const nextOrder = (maxSection?.sort_order ?? 0) + 1;
+
+  await admin.from("tip_sections").insert({
+    guide_id: guideId,
+    title,
+    sort_order: nextOrder,
+  });
+
+  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
+
+  revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
+  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+}
+
+export async function updateSection(formData: FormData) {
+  const sectionId = formData.get("section_id") as string;
+  const guideId = formData.get("guide_id") as string;
+  const title = (formData.get("title") as string)?.trim();
+  if (!sectionId || !guideId || !title) return;
+
+  const admin = await getAdminSupabase();
+  if (!admin) return;
+
+  await admin.from("tip_sections").update({ title }).eq("id", sectionId);
+
+  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
+
+  revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
+  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+}
+
+export async function deleteSection(formData: FormData) {
+  const sectionId = formData.get("section_id") as string;
+  const guideId = formData.get("guide_id") as string;
+  if (!sectionId || !guideId) return;
+
+  const admin = await getAdminSupabase();
+  if (!admin) return;
+
+  // Tips in this section become unsectioned (ON DELETE SET NULL), not deleted
+  await admin.from("tip_sections").delete().eq("id", sectionId);
+
+  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
+
+  revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
+  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+}
+
+export async function reorderTips(
+  guideId: string,
+  orderedItems: Array<{ tipId: string; sectionId: string | null; sortOrder: number }>
+) {
+  const admin = await getAdminSupabase();
+  if (!admin) return { error: "Unauthorized" };
+
+  // Validate all tips belong to this guide
+  const { data: guideTips } = await admin
+    .from("tips")
+    .select("id")
+    .eq("guide_id", guideId);
+
+  const validTipIds = new Set(guideTips?.map((t) => t.id) ?? []);
+  const allValid = orderedItems.every((item) => validTipIds.has(item.tipId));
+  if (!allValid) return { error: "Invalid tip IDs" };
+
+  for (const item of orderedItems) {
+    await admin
+      .from("tips")
+      .update({ section_id: item.sectionId, sort_order: item.sortOrder })
+      .eq("id", item.tipId);
+  }
+
+  await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
+
+  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
+
+  revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
+  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+
+  return { success: true };
+}
+
+export async function reorderSections(
+  guideId: string,
+  orderedSections: Array<{ sectionId: string; sortOrder: number }>
+) {
+  const admin = await getAdminSupabase();
+  if (!admin) return { error: "Unauthorized" };
+
+  // Validate all sections belong to this guide
+  const { data: guideSections } = await admin
+    .from("tip_sections")
+    .select("id")
+    .eq("guide_id", guideId);
+
+  const validSectionIds = new Set(guideSections?.map((s) => s.id) ?? []);
+  const allValid = orderedSections.every((item) => validSectionIds.has(item.sectionId));
+  if (!allValid) return { error: "Invalid section IDs" };
+
+  for (const item of orderedSections) {
+    await admin
+      .from("tip_sections")
+      .update({ sort_order: item.sortOrder })
+      .eq("id", item.sectionId);
+  }
+
+  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
+
+  revalidatePath(`/admin/blog/${guideId}`);
+  revalidatePath("/blog");
+  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+
+  return { success: true };
+}

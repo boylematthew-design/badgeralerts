@@ -17,9 +17,10 @@ export default async function EditTipPage({
 }) {
   const { id, tipId } = await params;
 
-  const [{ data: guide }, { data: tip }] = await Promise.all([
+  const [{ data: guide }, { data: tip }, { data: sections }] = await Promise.all([
     supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single(),
     supabaseAdmin.from("tips").select("*").eq("id", tipId).single(),
+    supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
   ]);
 
   if (!guide || !tip) redirect(`/admin/blog/${id}`);
@@ -44,6 +45,7 @@ export default async function EditTipPage({
     const title = (formData.get("title") as string)?.trim();
     const content = (formData.get("content") as string)?.trim();
     const published = formData.get("published") === "on";
+    const sectionId = (formData.get("section_id") as string) || null;
     const imageFile = formData.get("image") as File | null;
     const imageAlt = (formData.get("image_alt") as string)?.trim();
     const imageCaption = (formData.get("image_caption") as string)?.trim();
@@ -78,6 +80,7 @@ export default async function EditTipPage({
         image_url: imageUrl,
         image_alt: imageUrl ? imageAlt || null : null,
         image_caption: imageUrl ? imageCaption || null : null,
+        section_id: sectionId,
         published,
       })
       .eq("id", tipId);
@@ -123,6 +126,25 @@ export default async function EditTipPage({
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
+
+        {sections && sections.length > 0 && (
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">
+              Section <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <select
+              name="section_id"
+              defaultValue={tip.section_id || ""}
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+            >
+              <option value="">Unsectioned</option>
+              {sections.map((s) => (
+                <option key={s.id} value={s.id}>{s.title}</option>
+              ))}
+            </select>
+            <p className="text-xs text-slate-400 mt-1.5">Group this tip under a section heading on the public page.</p>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Content</label>

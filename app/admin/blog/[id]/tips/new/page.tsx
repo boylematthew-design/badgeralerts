@@ -17,7 +17,10 @@ export default async function NewTipPage({
 }) {
   const { id } = await params;
 
-  const { data: guide } = await supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single();
+  const [{ data: guide }, { data: sections }] = await Promise.all([
+    supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single(),
+    supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
+  ]);
   if (!guide) redirect("/admin/blog");
   const guideSlug = guide.slug;
 
@@ -40,6 +43,7 @@ export default async function NewTipPage({
     const title = (formData.get("title") as string)?.trim();
     const content = (formData.get("content") as string)?.trim();
     const published = formData.get("published") === "on";
+    const sectionId = (formData.get("section_id") as string) || null;
     const imageFile = formData.get("image") as File | null;
     const imageAlt = (formData.get("image_alt") as string)?.trim();
     const imageCaption = (formData.get("image_caption") as string)?.trim();
@@ -83,6 +87,7 @@ export default async function NewTipPage({
       image_alt: imageUrl ? imageAlt || null : null,
       image_caption: imageUrl ? imageCaption || null : null,
       sort_order: nextOrder,
+      section_id: sectionId,
       published,
     });
 
@@ -126,6 +131,25 @@ export default async function NewTipPage({
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
+
+        {sections && sections.length > 0 && (
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">
+              Section <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <select
+              name="section_id"
+              defaultValue=""
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+            >
+              <option value="">Unsectioned</option>
+              {sections.map((s) => (
+                <option key={s.id} value={s.id}>{s.title}</option>
+              ))}
+            </select>
+            <p className="text-xs text-slate-400 mt-1.5">Group this tip under a section heading on the public page.</p>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Content</label>
