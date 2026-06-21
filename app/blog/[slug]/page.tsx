@@ -62,9 +62,9 @@ function TipCard({ tip, tipNumber, showCTA, topicName }: {
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>
-      <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
+      <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
         {tip.title}
-      </h2>
+      </h3>
       {tip.content && <MarkdownContent content={tip.content} />}
       {tip.image_url && (
         <div className="mt-5 max-w-[320px]">
