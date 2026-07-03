@@ -258,10 +258,10 @@ export default async function GuidePage({
     year: "numeric",
   });
 
-  const [{ data: tips }, { data: sections }] = await Promise.all([
+  const [{ data: tipsRaw }, { data: sections }] = await Promise.all([
     supabase
       .from("tips")
-      .select("id, title, content, image_url, image_alt, image_caption, section_id, tip_links(id, url, context, preview_title, preview_description, preview_favicon, sort_order)")
+      .select("id, title, content, image_url, image_alt, image_caption, section_id")
       .eq("guide_id", guide.id)
       .eq("published", true)
       .order("sort_order", { ascending: true }),
@@ -271,6 +271,21 @@ export default async function GuidePage({
       .eq("guide_id", guide.id)
       .order("sort_order", { ascending: true }),
   ]);
+
+  const tipIds = (tipsRaw ?? []).map((t) => t.id);
+  const { data: allTipLinks } =
+    tipIds.length > 0
+      ? await supabase
+          .from("tip_links")
+          .select("id, tip_id, url, context, preview_title, preview_description, preview_favicon, sort_order")
+          .in("tip_id", tipIds)
+          .order("sort_order", { ascending: true })
+      : { data: [] };
+
+  const tips: TipData[] = (tipsRaw ?? []).map((tip) => ({
+    ...tip,
+    tip_links: (allTipLinks ?? []).filter((l) => l.tip_id === tip.id),
+  }));
 
   return (
     <div className="bg-white text-ink">
