@@ -7,6 +7,7 @@ import MarkdownContent from "@/components/MarkdownContent";
 import ConsultantCTA from "@/components/ConsultantCTA";
 import BlogSignupCTA from "@/components/BlogSignupCTA";
 import AuthorByline from "@/components/AuthorByline";
+import FaviconImage from "@/components/FaviconImage";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -116,13 +117,7 @@ function TipCard({ tip, tipNumber, showCTA, topicName }: {
                 >
                   <div className="shrink-0 mt-0.5 w-4 h-4">
                     {link.preview_favicon && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={link.preview_favicon}
-                        alt=""
-                        className="w-4 h-4 rounded-sm"
-                        onError={(e) => (e.currentTarget.style.display = "none")}
-                      />
+                      <FaviconImage src={link.preview_favicon} />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
