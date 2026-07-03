@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
+import TipLinksManager from "./TipLinksManager";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,10 +18,11 @@ export default async function EditTipPage({
 }) {
   const { id, tipId } = await params;
 
-  const [{ data: guide }, { data: tip }, { data: sections }] = await Promise.all([
+  const [{ data: guide }, { data: tip }, { data: sections }, { data: tipLinks }] = await Promise.all([
     supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single(),
     supabaseAdmin.from("tips").select("*").eq("id", tipId).single(),
     supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
+    supabaseAdmin.from("tip_links").select("id, url, context, preview_title, preview_description, preview_favicon").eq("tip_id", tipId).order("sort_order", { ascending: true }),
   ]);
 
   if (!guide || !tip) redirect(`/admin/blog/${id}`);
@@ -213,6 +215,8 @@ export default async function EditTipPage({
 
         <SubmitButton />
       </form>
+
+      <TipLinksManager tipId={tipId} initialLinks={tipLinks ?? []} />
     </div>
   );
 }

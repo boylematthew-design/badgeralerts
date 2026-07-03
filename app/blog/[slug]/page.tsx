@@ -34,6 +34,16 @@ export async function generateMetadata({
   };
 }
 
+interface TipLink {
+  id: string;
+  url: string;
+  context: string | null;
+  preview_title: string | null;
+  preview_description: string | null;
+  preview_favicon: string | null;
+  sort_order: number;
+}
+
 interface TipData {
   id: string;
   title: string;
@@ -42,6 +52,15 @@ interface TipData {
   image_alt: string | null;
   image_caption: string | null;
   section_id: string | null;
+  tip_links: TipLink[];
+}
+
+function getDomain(url: string) {
+  try {
+    return new URL(url).hostname.replace("www.", "");
+  } catch {
+    return url;
+  }
 }
 
 interface SectionData {
@@ -77,6 +96,50 @@ function TipCard({ tip, tipNumber, showCTA, topicName }: {
           {tip.image_caption && (
             <p className="text-[13px] text-muted italic mt-2">{tip.image_caption}</p>
           )}
+        </div>
+      )}
+      {tip.tip_links && tip.tip_links.length > 0 && (
+        <div className="mt-6">
+          <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">
+            Relevant links
+          </p>
+          <div className="space-y-2">
+            {[...tip.tip_links]
+              .sort((a, b) => a.sort_order - b.sort_order)
+              .map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 border border-border rounded-[12px] px-4 py-3 hover:border-accent-dark transition-colors group no-underline"
+                >
+                  <div className="shrink-0 mt-0.5 w-4 h-4">
+                    {link.preview_favicon && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={link.preview_favicon}
+                        alt=""
+                        className="w-4 h-4 rounded-sm"
+                        onError={(e) => (e.currentTarget.style.display = "none")}
+                      />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] font-semibold text-ink group-hover:text-accent-dark transition-colors leading-snug truncate">
+                      {link.preview_title || link.url}
+                    </p>
+                    {link.context && (
+                      <p className="text-[12px] text-mid mt-0.5 leading-snug">{link.context}</p>
+                    )}
+                    <p className="text-[11px] text-muted mt-1">{getDomain(link.url)}</p>
+                  </div>
+                  <span className="text-muted group-hover:text-accent-dark transition-colors shrink-0 mt-0.5 text-[13px]">
+                    ↗
+                  </span>
+                </a>
+              ))}
+          </div>
         </div>
       )}
       {showCTA && (
@@ -198,7 +261,7 @@ export default async function GuidePage({
   const [{ data: tips }, { data: sections }] = await Promise.all([
     supabase
       .from("tips")
-      .select("id, title, content, image_url, image_alt, image_caption, section_id")
+      .select("id, title, content, image_url, image_alt, image_caption, section_id, tip_links(id, url, context, preview_title, preview_description, preview_favicon, sort_order)")
       .eq("guide_id", guide.id)
       .eq("published", true)
       .order("sort_order", { ascending: true }),
