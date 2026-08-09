@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="border-t border-border w-full">
       <div className="max-w-[1120px] mx-auto px-7 md:px-12 pt-14 pb-8">
         {/* Top row: brand + link columns */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-9 md:gap-[60px] pb-12 border-b border-border">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-9 md:gap-[60px] pb-12 border-b border-border">
           <div className="flex flex-col gap-3.5 max-w-xs">
             <Link href="/" className="flex items-center gap-2.5">
               <LogoMark size={28} />
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 md:gap-[60px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-10">
             {footerLinks.map((section) => (
               <div key={section.heading} className="flex flex-col gap-3">
                 <div className="text-[12px] font-semibold text-ink mb-1">

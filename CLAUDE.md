@@ -1,10 +1,14 @@
-# BadgerAlerts — Claude Instructions
+# Matthew Boyle — Claude Instructions
 
 ## What this project is
 
-BadgerAlerts is an AI-powered digital marketing monitoring SaaS. It watches a user's website and digital presence and fires alerts across SEO, social media, competitors, content strategy, and paid media.
+This site is Matthew Boyle's personal digital marketing agency, blog, and tools platform — think a Neil Patel–style personal brand site (headline: consulting, services, free guides, and tools), not a standalone SaaS product.
 
-The full project plan is saved at `prototype/projectplan.pdf`.
+It started life as **BadgerAlerts**, an AI-powered digital marketing monitoring SaaS (a tool that watches a user's website and fires alerts across SEO, social, competitors, content, and paid media). That product didn't take off as a standalone SaaS, so as of August 2026 it was pivoted into Matthew's agency site. The original monitoring tool still exists and works — it now lives under **`/tools`** as one offering of the agency ("Website Monitoring Tool"), rather than being the whole site. Domain stays `badgeralerts.live` for now (may change later).
+
+Header nav: **Blog / Services / Tools / Consulting**, plus a LinkedIn icon (links to `https://www.linkedin.com/in/mattboyle3/`) and a "Work with me" button (links to `/contact`) in the top right.
+
+The full original project plan is saved at `prototype/projectplan.pdf` (describes the pre-pivot SaaS build — still useful background on how `/tools`, `/admin`, and the alert-scheduling system work).
 
 ## Shared data & components
 
@@ -17,7 +21,9 @@ The full project plan is saved at `prototype/projectplan.pdf`.
 - **Email:** Resend (event-triggered emails, simple Next.js integration)
 - **Admin panel:** Protected `/admin` route built inside Next.js (no separate CMS needed)
 
-## The 4 main sections of the build
+## The 4 main sections of the `/tools` monitoring product
+
+These describe the original BadgerAlerts SaaS mechanics, which still run under `/tools`, `/admin`, `/dashboard`, `/signup`, and `/login`.
 
 ### 1.0 — Registering a user
 
@@ -47,7 +53,7 @@ The full project plan is saved at `prototype/projectplan.pdf`.
 - When a scheduled post goes live, user receives an email via Resend
 - Email subject = post title
 - Email body = post title + CTA button to login and read
-- Email design matches BadgerAlerts brand
+- Email design matches the site brand
 - Users can unsubscribe from all emails
 - Users can manage settings and delete their account from the dashboard
 
@@ -69,7 +75,7 @@ Every page and component must work on mobile, tablet, and desktop. This is not o
 - Primary accent: emerald-500
 - Background: slate-50 / #eff4fb
 - Cards: white, rounded-2xl or rounded-3xl, subtle border + shadow
-- Brand name: **BadgerAlerts** (always — never "BadgerBuild")
+- Brand name: **Matthew Boyle** (always — the site is a personal agency brand, not "BadgerAlerts", though the `/tools` monitoring product may still reference its original name internally)
 
 ## How to work with this user
 
