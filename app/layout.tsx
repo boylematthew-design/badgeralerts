@@ -16,9 +16,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "BadgerAlerts | AI digital marketing alerts",
+  title: "Matthew Boyle | Digital Marketing Consultant",
   description:
-    "AI-powered digital marketing monitoring. Get instant alerts across SEO, social, competitors, content and paid media.",
+    "Digital marketing consulting, guides, and tools from Matthew Boyle — SEO, social, content, and paid media strategy.",
   icons: {
     icon: "/favicon.svg",
   },

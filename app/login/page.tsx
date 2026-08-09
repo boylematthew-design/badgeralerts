@@ -92,8 +92,8 @@ export default function LoginPage() {
           </div>
 
           <h1 className="font-serif font-normal text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-4">
-            Welcome back to{" "}
-            <em className="italic text-accent-dark">BadgerAlerts</em>
+            Welcome{" "}
+            <em className="italic text-accent-dark">back</em>
           </h1>
 
           <p className="text-[15px] text-mid font-light leading-[1.6] mb-8">

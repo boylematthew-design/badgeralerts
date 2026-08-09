@@ -6,7 +6,7 @@ export default function DashboardFooter() {
     <footer className="border-t border-border px-6 md:px-10 py-5 mt-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
         <p className="text-[12px] text-muted">
-          &copy; 2026 BadgerAlerts &middot; Built in London
+          &copy; 2026 Matthew Boyle &middot; Built in London
         </p>
         <nav className="flex flex-wrap gap-x-5 gap-y-1.5">
           {footerLinks.flatMap((section) =>

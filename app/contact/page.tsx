@@ -50,7 +50,7 @@ export default function ContactPage() {
           Get in <em className="italic text-accent-dark">touch</em>
         </h1>
         <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12 max-w-[520px]">
-          Have a question about BadgerAlerts? We&apos;d love to hear from you.
+          Have a project in mind, or a question? I&apos;d love to hear from you.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-10">

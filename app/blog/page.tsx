@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Marketing Guides | BadgerAlerts",
+  title: "Marketing Guides | Matthew Boyle",
   description:
     "Free, regularly updated digital marketing guides covering Google Maps, Reddit, SEO, and more — packed with practical tips.",
 };

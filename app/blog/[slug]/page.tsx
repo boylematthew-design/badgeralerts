@@ -27,10 +27,10 @@ export async function generateMetadata({
     .eq("published", true)
     .single();
 
-  if (!guide) return { title: "Guide not found | BadgerAlerts" };
+  if (!guide) return { title: "Guide not found | Matthew Boyle" };
 
   return {
-    title: `${guide.title} | BadgerAlerts`,
+    title: `${guide.title} | Matthew Boyle`,
     description: guide.description || undefined,
   };
 }

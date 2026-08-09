@@ -9,7 +9,7 @@ export default function ConsultantCTA() {
         </div>
         <div>
           <p className="text-[14px] font-medium text-ink">Matthew Boyle</p>
-          <p className="text-[13px] text-muted">Founder, BadgerAlerts &middot; ~20 years in digital marketing</p>
+          <p className="text-[13px] text-muted">Digital Marketing Consultant &middot; ~20 years experience</p>
         </div>
       </div>
       <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-5 max-w-[520px]">
