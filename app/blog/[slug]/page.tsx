@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarkdownContent from "@/components/MarkdownContent";
 import ConsultantCTA from "@/components/ConsultantCTA";
-import BlogSignupCTA from "@/components/BlogSignupCTA";
 import AuthorByline from "@/components/AuthorByline";
 import FaviconImage from "@/components/FaviconImage";
 
@@ -71,11 +70,9 @@ interface SectionData {
   sort_order: number;
 }
 
-function TipCard({ tip, tipNumber, showCTA, topicName }: {
+function TipCard({ tip, tipNumber }: {
   tip: TipData;
   tipNumber: number;
-  showCTA: boolean;
-  topicName: string;
 }) {
   return (
     <div className="py-8 first:pt-0 last:pb-0">
@@ -137,19 +134,13 @@ function TipCard({ tip, tipNumber, showCTA, topicName }: {
           </div>
         </div>
       )}
-      {showCTA && (
-        <div className="mt-8">
-          <BlogSignupCTA topicName={topicName} />
-        </div>
-      )}
     </div>
   );
 }
 
-function TipList({ tips, sections, topicName }: {
+function TipList({ tips, sections }: {
   tips: TipData[];
   sections: SectionData[];
-  topicName: string;
 }) {
   const hasSections = sections.length > 0;
 
@@ -161,8 +152,6 @@ function TipList({ tips, sections, topicName }: {
             key={tip.id}
             tip={tip}
             tipNumber={index + 1}
-            showCTA={index === 1 && tips.length >= 2}
-            topicName={topicName}
           />
         ))}
       </div>
@@ -188,8 +177,6 @@ function TipList({ tips, sections, topicName }: {
                 key={tip.id}
                 tip={tip}
                 tipNumber={globalIndex}
-                showCTA={globalIndex === 2 && tips.length >= 2}
-                topicName={topicName}
               />
             );
           })}
@@ -219,8 +206,6 @@ function TipList({ tips, sections, topicName }: {
                   key={tip.id}
                   tip={tip}
                   tipNumber={globalIndex}
-                  showCTA={globalIndex === 2 && tips.length >= 2}
-                  topicName={topicName}
                 />
               );
             })}
@@ -240,7 +225,7 @@ export default async function GuidePage({
 
   const { data: guide } = await supabase
     .from("guides")
-    .select("id, title, description, topic_name, updated_at")
+    .select("id, title, description, updated_at")
     .eq("slug", slug)
     .eq("published", true)
     .single();
@@ -311,7 +296,7 @@ export default async function GuidePage({
             </p>
           </div>
         ) : (
-          <TipList tips={tips} sections={sections ?? []} topicName={guide.topic_name} />
+          <TipList tips={tips} sections={sections ?? []} />
         )}
 
         <ConsultantCTA />
