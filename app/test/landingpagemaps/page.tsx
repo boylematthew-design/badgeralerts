@@ -104,7 +104,7 @@ export default async function MapsLandingTestPage() {
       <section className="max-w-[1120px] mx-auto px-7 md:px-12 mb-16 md:mb-20">
         <div className="border border-border rounded-[20px] p-7 md:p-9 flex flex-col sm:flex-row items-center sm:items-start gap-6 md:gap-7 max-w-[680px] mx-auto text-center sm:text-left">
           <Image
-            src="/matthew-boyle.png"
+            src="/matthew-boyle-linkedin.jpg"
             alt="Matthew Boyle"
             width={96}
             height={96}
