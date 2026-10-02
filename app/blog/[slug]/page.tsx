@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarkdownContent from "@/components/MarkdownContent";
 import ConsultantCTA from "@/components/ConsultantCTA";
+import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
 import FaviconImage from "@/components/FaviconImage";
 
@@ -75,7 +76,7 @@ function TipCard({ tip, tipNumber }: {
   tipNumber: number;
 }) {
   return (
-    <div className="py-8 first:pt-0 last:pb-0">
+    <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>
@@ -185,7 +186,7 @@ function TipList({ tips, sections }: {
 
       {sectionGroups.map((group) => (
         <div key={group.id} className="mt-12 first:mt-0">
-          <div className="mb-6">
+          <div id={`section-${group.id}`} className="mb-6 scroll-mt-[96px]">
             <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-1">
               Section
             </div>
@@ -296,7 +297,12 @@ export default async function GuidePage({
             </p>
           </div>
         ) : (
-          <TipList tips={tips} sections={sections ?? []} />
+          <>
+            {tips.length > 1 && (
+              <TableOfContents tips={tips} sections={sections ?? []} />
+            )}
+            <TipList tips={tips} sections={sections ?? []} />
+          </>
         )}
 
         <ConsultantCTA />
