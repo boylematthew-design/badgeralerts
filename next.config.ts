@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  async redirects() {
+    return [
+      {
+        // This guide is unpublished (content now lives on the
+        // /test/landingpagemaps experiment instead). Redirect rather than
+        // letting the old URL 404, so any existing links/SEO value aren't lost.
+        source: "/blog/google-maps-marketing-guide",
+        destination: "/test/landingpagemaps",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
