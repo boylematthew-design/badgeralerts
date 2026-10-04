@@ -18,12 +18,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        // This guide is unpublished (content now lives on the
-        // /test/landingpagemaps experiment instead). Redirect rather than
-        // letting the old URL 404, so any existing links/SEO value aren't lost.
+        // This guide is unpublished on badgeralerts.live — it now has its
+        // own permanent home on a dedicated domain, so this is a real
+        // (permanent) redirect rather than the temporary one used while
+        // localmapsmarketing.online was still just a test/experiment.
         source: "/blog/google-maps-marketing-guide",
-        destination: "/test/landingpagemaps",
-        permanent: false,
+        destination: "https://localmapsmarketing.online",
+        permanent: true,
       },
     ];
   },
