@@ -5,6 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { SITES } from "@/lib/sites";
 
 async function getAdminSupabase() {
   const cookieStore = await cookies();
@@ -37,6 +38,126 @@ export async function deleteGuide(formData: FormData) {
   if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
 
   redirect("/admin/blog");
+}
+
+// Copies a guide — including its tip_sections, tips, and tip_links — to a
+// different site. The original is left completely untouched; the copy
+// always starts unpublished so it can be reviewed before it goes live on
+// the new site. Reusable for every future site, not just localmapsmarketing.
+export async function duplicateGuideToSite(formData: FormData) {
+  const guideId = formData.get("guide_id") as string;
+  const targetSite = formData.get("target_site") as string;
+  if (!guideId || !targetSite) return;
+  if (!SITES.some((s) => s.value === targetSite)) return;
+
+  const admin = await getAdminSupabase();
+  if (!admin) return;
+
+  const { data: sourceGuide } = await admin.from("guides").select("*").eq("id", guideId).single();
+  if (!sourceGuide) return;
+  if (sourceGuide.site === targetSite) return; // duplicating onto itself makes no sense
+
+  // Already duplicated before? Go straight to the existing copy instead of
+  // trying (and failing, on the unique site+slug constraint) to make another.
+  const { data: alreadyExists } = await admin
+    .from("guides")
+    .select("id")
+    .eq("site", targetSite)
+    .eq("slug", sourceGuide.slug)
+    .maybeSingle();
+
+  if (alreadyExists) {
+    redirect(`/admin/blog/${alreadyExists.id}`);
+  }
+
+  const { data: newGuide, error: guideError } = await admin
+    .from("guides")
+    .insert({
+      title: sourceGuide.title,
+      slug: sourceGuide.slug,
+      description: sourceGuide.description,
+      topic_name: sourceGuide.topic_name,
+      site: targetSite,
+      published: false,
+    })
+    .select("id")
+    .single();
+
+  if (guideError || !newGuide) return;
+
+  const [{ data: sourceSections }, { data: sourceTips }] = await Promise.all([
+    admin.from("tip_sections").select("*").eq("guide_id", guideId).order("sort_order", { ascending: true }),
+    admin.from("tips").select("*").eq("guide_id", guideId).order("sort_order", { ascending: true }),
+  ]);
+
+  const sectionIdMap = new Map<string, string>();
+  for (const section of sourceSections ?? []) {
+    const { data: newSection } = await admin
+      .from("tip_sections")
+      .insert({
+        guide_id: newGuide.id,
+        title: section.title,
+        description: section.description,
+        sort_order: section.sort_order,
+      })
+      .select("id")
+      .single();
+    if (newSection) sectionIdMap.set(section.id, newSection.id);
+  }
+
+  const tipIdMap = new Map<string, string>();
+  for (const tip of sourceTips ?? []) {
+    const { data: newTip } = await admin
+      .from("tips")
+      .insert({
+        guide_id: newGuide.id,
+        title: tip.title,
+        content: tip.content,
+        sort_order: tip.sort_order,
+        published: tip.published,
+        image_url: tip.image_url,
+        image_alt: tip.image_alt,
+        image_caption: tip.image_caption,
+        section_id: tip.section_id ? sectionIdMap.get(tip.section_id) ?? null : null,
+      })
+      .select("id")
+      .single();
+    if (newTip) tipIdMap.set(tip.id, newTip.id);
+  }
+
+  const sourceTipIds = (sourceTips ?? []).map((t) => t.id);
+  if (sourceTipIds.length > 0) {
+    const { data: sourceLinks } = await admin
+      .from("tip_links")
+      .select("*")
+      .in("tip_id", sourceTipIds)
+      .order("sort_order", { ascending: true });
+
+    const newLinks = (sourceLinks ?? [])
+      .map((link) => {
+        const newTipId = tipIdMap.get(link.tip_id);
+        if (!newTipId) return null;
+        return {
+          tip_id: newTipId,
+          url: link.url,
+          context: link.context,
+          preview_title: link.preview_title,
+          preview_description: link.preview_description,
+          preview_image: link.preview_image,
+          preview_favicon: link.preview_favicon,
+          sort_order: link.sort_order,
+        };
+      })
+      .filter((l): l is NonNullable<typeof l> => l !== null);
+
+    if (newLinks.length > 0) {
+      await admin.from("tip_links").insert(newLinks);
+    }
+  }
+
+  revalidatePath("/admin/blog");
+
+  redirect(`/admin/blog/${newGuide.id}`);
 }
 
 export async function deleteTip(formData: FormData) {

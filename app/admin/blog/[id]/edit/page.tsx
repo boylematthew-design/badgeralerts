@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
+import { SITES, DEFAULT_SITE } from "@/lib/sites";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -40,6 +41,7 @@ export default async function EditGuidePage({
     const topicName = (formData.get("topic_name") as string)?.trim();
     const description = (formData.get("description") as string)?.trim();
     const published = formData.get("published") === "on";
+    const site = (formData.get("site") as string) || DEFAULT_SITE;
 
     const slug = (formData.get("slug") as string)
       ?.trim()
@@ -48,6 +50,7 @@ export default async function EditGuidePage({
       .replace(/^-+|-+$/g, "");
 
     if (!title || !slug || !topicName) return;
+    if (!SITES.some((s) => s.value === site)) return;
 
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -64,6 +67,7 @@ export default async function EditGuidePage({
         topic_name: topicName,
         description: description || null,
         published,
+        site,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id);
@@ -95,6 +99,23 @@ export default async function EditGuidePage({
             defaultValue={guide.title}
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Site</label>
+          <select
+            name="site"
+            defaultValue={guide.site ?? DEFAULT_SITE}
+            required
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+          >
+            {SITES.map((s) => (
+              <option key={s.value} value={s.value}>{s.label}</option>
+            ))}
+          </select>
+          <p className="text-xs text-slate-400 mt-1.5">
+            Which site this guide belongs to. Slugs only need to be unique within a site.
+          </p>
         </div>
 
         <div>

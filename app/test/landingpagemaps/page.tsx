@@ -45,6 +45,7 @@ export default async function MapsLandingTestPage() {
   const { data: guide } = await guideAdmin
     .from("guides")
     .select("id, title, description, updated_at")
+    .eq("site", "badgeralerts")
     .eq("slug", GUIDE_SLUG)
     .single();
 

@@ -1,23 +1,36 @@
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
+import { SITES, siteLabel } from "@/lib/sites";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export default async function AdminBlogPage() {
-  const { data: guides } = await supabaseAdmin
+export default async function AdminBlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ site?: string }>;
+}) {
+  const { site: siteFilter } = await searchParams;
+
+  let query = supabaseAdmin
     .from("guides")
-    .select("id, title, slug, topic_name, published, created_at, tips(count)")
+    .select("id, title, slug, topic_name, published, site, created_at, tips(count)")
     .order("created_at", { ascending: false });
+
+  if (siteFilter) {
+    query = query.eq("site", siteFilter);
+  }
+
+  const { data: guides } = await query;
 
   return (
     <>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900">Blog Guides</h1>
-          <p className="text-sm text-slate-500 mt-1">{guides?.length ?? 0} guides created</p>
+          <p className="text-sm text-slate-500 mt-1">{guides?.length ?? 0} guides{siteFilter ? ` · ${siteLabel(siteFilter)}` : ""}</p>
         </div>
         <Link
           href="/admin/blog/new"
@@ -25,6 +38,29 @@ export default async function AdminBlogPage() {
         >
           + New guide
         </Link>
+      </div>
+
+      {/* Site filter */}
+      <div className="flex items-center gap-2 mb-6">
+        <Link
+          href="/admin/blog"
+          className={`text-xs font-semibold px-3 py-1.5 rounded-full transition ${
+            !siteFilter ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+          }`}
+        >
+          All sites
+        </Link>
+        {SITES.map((s) => (
+          <Link
+            key={s.value}
+            href={`/admin/blog?site=${s.value}`}
+            className={`text-xs font-semibold px-3 py-1.5 rounded-full transition ${
+              siteFilter === s.value ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+            }`}
+          >
+            {s.label}
+          </Link>
+        ))}
       </div>
 
       {!guides || guides.length === 0 ? (
@@ -45,6 +81,9 @@ export default async function AdminBlogPage() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h2 className="text-[15px] font-bold text-slate-900 truncate">{guide.title}</h2>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                      {siteLabel(guide.site)}
+                    </span>
                     <span
                       className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                         guide.published ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"

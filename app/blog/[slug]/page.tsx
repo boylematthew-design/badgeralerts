@@ -23,6 +23,7 @@ export async function generateMetadata({
   const { data: guide } = await supabase
     .from("guides")
     .select("title, description")
+    .eq("site", "badgeralerts")
     .eq("slug", slug)
     .eq("published", true)
     .single();
@@ -45,6 +46,7 @@ export default async function GuidePage({
   const { data: guide } = await supabase
     .from("guides")
     .select("id, title, description, updated_at")
+    .eq("site", "badgeralerts")
     .eq("slug", slug)
     .eq("published", true)
     .single();

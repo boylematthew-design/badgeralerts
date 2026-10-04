@@ -18,6 +18,7 @@ export default async function BlogIndexPage() {
   const { data: guides } = await supabase
     .from("guides")
     .select("id, title, slug, description, topic_name, tips(count)")
+    .eq("site", "badgeralerts")
     .eq("published", true)
     .order("created_at", { ascending: false });
 

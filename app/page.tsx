@@ -58,6 +58,7 @@ export default async function Home() {
   const { data: guides } = await supabase
     .from("guides")
     .select("id, title, slug, description, tips(count)")
+    .eq("site", "badgeralerts")
     .eq("published", true)
     .order("created_at", { ascending: false })
     .limit(6);
