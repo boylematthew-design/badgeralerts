@@ -7,8 +7,15 @@
 // Converted from Eli5Robots.jsx to TypeScript + a Client Component (this app uses
 // Next.js App Router, where components using hooks must opt in via "use client").
 // JSX structure, class names, copy and the CSS below are unchanged from the original.
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { analyzeRobots, EXAMPLE_ROBOTS, type AnalyzeResult, type BotStatus } from "./robotsAnalyzer";
+
+// Where the robots.txt text is parked while the visitor moves from an embedded
+// copy of the form (e.g. inside a blog guide) to the full tool page.
+// sessionStorage keeps it in the visitor's own browser tab – it never goes in
+// the URL or to our server, so the "nothing is uploaded" promise still holds.
+const HANDOFF_KEY = "eli5r-handoff";
 
 const STATUS: Record<BotStatus, { label: string; cls: string }> = {
   allowed: { label: "Welcome", cls: "ok" },
@@ -16,7 +23,11 @@ const STATUS: Record<BotStatus, { label: string; cls: string }> = {
   blocked: { label: "Asked to stay out", cls: "out" },
 };
 
-export default function Eli5Robots() {
+// handoffTo: set this when embedding the form on another page (e.g. a guide).
+// Instead of showing results in place, the form sends the visitor to that URL
+// (the full tool page), which picks the text up and runs it there.
+export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
+  const router = useRouter();
   const [text, setText] = useState("");
   const [fileName, setFileName] = useState("");
   const [result, setResult] = useState<AnalyzeResult | null>(null);
@@ -29,9 +40,34 @@ export default function Eli5Robots() {
   const run = useCallback((content: string) => {
     setError("");
     setOpen(false);
+    if (handoffTo) {
+      try {
+        sessionStorage.setItem(HANDOFF_KEY, content);
+        router.push(handoffTo);
+        return;
+      } catch {
+        // Storage blocked or full (e.g. private browsing) – fall through and
+        // show the results right here instead.
+      }
+    }
     setResult(analyzeRobots(content));
     setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 50);
-  }, []);
+  }, [handoffTo, router]);
+
+  // On the full tool page: if the visitor arrived from an embedded form, pick
+  // up their text and run it straight away.
+  useEffect(() => {
+    if (handoffTo) return;
+    try {
+      const content = sessionStorage.getItem(HANDOFF_KEY);
+      if (!content) return;
+      sessionStorage.removeItem(HANDOFF_KEY);
+      setText(content);
+      run(content);
+    } catch {
+      // Storage unavailable – nothing to pick up.
+    }
+  }, [handoffTo, run]);
 
   const readFile = (file: File | null | undefined) => {
     if (!file) return;
