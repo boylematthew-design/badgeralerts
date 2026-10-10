@@ -109,7 +109,6 @@ export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
     <section className="eli5r" aria-labelledby="eli5r-title">
       <style>{CSS}</style>
 
-      <p className="eli5r-eyebrow">Free tool</p>
       <h3 id="eli5r-title" className="eli5r-title">ELI5 my robots.txt</h3>
       <p className="eli5r-intro">
         Upload or paste your robots.txt and get a plain-English explanation of what it&rsquo;s telling search
@@ -261,7 +260,6 @@ const CSS = `
 .eli5r{--g:#1b7a4c;--g-soft:#e8f3ec;--ink:#1d1d1b;--body:#555;--line:#e3e3df;--amber:#9a6a00;--amber-soft:#fbf3df;--red:#a23b2c;--red-soft:#f8e9e6;
   margin:40px 0;padding:24px 26px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--body);font:inherit;line-height:1.6}
 .eli5r *{box-sizing:border-box}
-.eli5r-eyebrow{margin:0 0 6px;color:var(--g);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
 .eli5r-title{margin:0 0 6px;color:var(--ink);font-family:inherit;font-size:1.6rem;line-height:1.15}
 .eli5r-intro{margin:0 0 16px;font-size:.95rem}
 .eli5r-drop{position:relative;border:1.5px dashed #c9cfc9;border-radius:10px;background:#fafaf8;transition:.15s}

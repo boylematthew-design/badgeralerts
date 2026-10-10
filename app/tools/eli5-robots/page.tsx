@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
@@ -14,7 +15,11 @@ export default function Eli5RobotsPage() {
       <Navbar />
 
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">
+        <Link href="/blog/technical-seo" className="text-[13px] text-muted hover:text-accent-dark transition-colors">
+          ← Technical SEO guide
+        </Link>
+
+        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4 mt-6">
           Free tool
         </div>
         <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
