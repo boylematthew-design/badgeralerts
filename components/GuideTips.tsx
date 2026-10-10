@@ -1,5 +1,8 @@
 import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
+import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
+
+const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
 export interface TipLink {
   id: string;
@@ -50,6 +53,8 @@ export function TipCard({ tip, tipNumber }: {
         {tip.title}
       </h3>
       {tip.content && <MarkdownContent content={tip.content} />}
+      {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
+      {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} />}
       {tip.image_url && (
         <div className="mt-5 max-w-[320px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}

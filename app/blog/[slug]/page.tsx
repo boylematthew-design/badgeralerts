@@ -8,7 +8,6 @@ import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
-import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -83,9 +82,6 @@ export default async function GuidePage({
             {guide.description}
           </p>
         )}
-
-        {/* The technical SEO guide gets the robots.txt tool's input form. Results open on the full tool page. */}
-        {slug === "technical-seo" && <Eli5Robots handoffTo="/tools/eli5-robots" />}
 
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
