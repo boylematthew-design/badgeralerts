@@ -9,6 +9,7 @@ import AuthorByline from "@/components/AuthorByline";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import GuidePricing from "@/components/GuidePricing";
+import WhoWeAre from "@/components/WhoWeAre";
 import { getGuideHeadings } from "@/lib/guide-headings";
 
 const supabase = createClient(
@@ -86,6 +87,8 @@ export default async function GuidePage({
             {guide.description}
           </p>
         )}
+
+        <WhoWeAre slug={slug} />
 
         <GuidePricing slug={slug} topicName={topicName} heading={headings.pricing} />
 
