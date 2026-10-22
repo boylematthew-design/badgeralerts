@@ -20,14 +20,22 @@ function Cross() {
   );
 }
 
-export default function GuidePricing({ slug, topicName }: { slug: string; topicName: string }) {
+export default function GuidePricing({
+  slug,
+  topicName,
+  heading,
+}: {
+  slug: string;
+  topicName: string;
+  heading: string;
+}) {
   const features = getGuidePricingFeatures(slug);
   const article = /^[aeiou]/i.test(topicName) ? "an" : "a";
 
   return (
     <section className="mb-12">
       <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
-        Cost of {article} {topicName} expert agency services
+        {heading}
       </h3>
       <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-6">
         The cost of {article} {topicName} expert who provides consultancy and agency services can

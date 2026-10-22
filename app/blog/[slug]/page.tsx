@@ -9,6 +9,7 @@ import AuthorByline from "@/components/AuthorByline";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import GuidePricing from "@/components/GuidePricing";
+import { getGuideHeadings } from "@/lib/guide-headings";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -61,6 +62,8 @@ export default async function GuidePage({
   });
 
   const { tips, sections } = await fetchGuideTips(supabase, guide.id);
+  const topicName = guide.topic_name || guide.title;
+  const headings = getGuideHeadings(slug, topicName);
 
   return (
     <div className="bg-white text-ink">
@@ -84,7 +87,11 @@ export default async function GuidePage({
           </p>
         )}
 
-        <GuidePricing slug={slug} topicName={guide.topic_name || guide.title} />
+        <GuidePricing slug={slug} topicName={topicName} heading={headings.pricing} />
+
+        <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
+          {headings.guide}
+        </h3>
 
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
