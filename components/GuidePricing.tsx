@@ -1,22 +1,21 @@
 import Link from "next/link";
 import { GUIDE_PRICES, getGuidePricingFeatures } from "@/lib/guide-pricing";
 
+// Ticks and dashes are real text characters (not SVG icons), each paired with a hidden
+// "Included" / "Not included" word, so search engines, AI tools, screen readers and
+// copy-paste all get the meaning — not just people looking at the screen.
 function Tick() {
   return (
-    <svg className="w-5 h-5 mx-auto text-accent-dark" viewBox="0 0 20 20" fill="currentColor" aria-label="Included">
-      <path
-        fillRule="evenodd"
-        d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z"
-        clipRule="evenodd"
-      />
-    </svg>
+    <span className="block text-center text-accent-dark text-[18px] font-medium leading-none">
+      ✓<span className="sr-only"> Included</span>
+    </span>
   );
 }
 
 function Cross() {
   return (
-    <span className="block text-center text-muted" aria-label="Not included">
-      &ndash;
+    <span className="block text-center text-muted text-[18px] leading-none">
+      ✗<span className="sr-only"> Not included</span>
     </span>
   );
 }
@@ -70,6 +69,18 @@ export default function GuidePricing({ slug, topicName }: { slug: string; topicN
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+        <Link
+          href="/contact"
+          className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-6 py-3 rounded-[8px] text-[14px] md:text-[15px] transition-colors"
+        >
+          Get your {topicName} quote &rarr;
+        </Link>
+        <span className="text-[13px] text-muted font-light text-center sm:text-left">
+          No obligation &middot; just tell me what you need
+        </span>
       </div>
     </section>
   );
