@@ -34,9 +34,9 @@ export default function GuidePricing({
 
   return (
     <section className="mb-12">
-      <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
+      <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
         {heading}
-      </h3>
+      </h2>
       <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-6">
         The cost of {article} {topicName} expert who provides consultancy and agency services can
         depend on the scope of the project and what exactly is needed. Below we have listed the

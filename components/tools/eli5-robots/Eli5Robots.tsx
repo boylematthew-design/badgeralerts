@@ -26,7 +26,11 @@ const STATUS: Record<BotStatus, { label: string; cls: string }> = {
 // handoffTo: set this when embedding the form on another page (e.g. a guide).
 // Instead of showing results in place, the form sends the visitor to that URL
 // (the full tool page), which picks the text up and runs it there.
-export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
+// headingLevel: level of the tool's title, so it fits the outline of whichever page it's on
+// (H2 on its own tool page under the H1; one level below the tip when embedded in a guide).
+export default function Eli5Robots({ handoffTo, headingLevel = 2 }: { handoffTo?: string; headingLevel?: number } = {}) {
+  const Title = `h${Math.min(headingLevel, 6)}` as "h2" | "h3" | "h4" | "h5" | "h6";
+  const Sub = `h${Math.min(headingLevel + 1, 6)}` as "h3" | "h4" | "h5" | "h6";
   const router = useRouter();
   const [text, setText] = useState("");
   const [fileName, setFileName] = useState("");
@@ -109,7 +113,7 @@ export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
     <section className="eli5r" aria-labelledby="eli5r-title">
       <style>{CSS}</style>
 
-      <h3 id="eli5r-title" className="eli5r-title">ELI5 my robots.txt</h3>
+      <Title id="eli5r-title" className="eli5r-title">ELI5 my robots.txt</Title>
       <p className="eli5r-intro">
         Upload or paste your robots.txt and get a plain-English explanation of what it&rsquo;s telling search
         engines and AI bots. It all happens in your browser.
@@ -181,7 +185,7 @@ export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
 
           {result.lines.length > 0 && (
             <>
-              <h4 className="eli5r-h">Line by line</h4>
+              <Sub className="eli5r-h">Line by line</Sub>
               <ol className="eli5r-lines">
                 {result.lines.map((l) => (
                   <li key={l.lineNo} className={`eli5r-line${l.tone === "note" ? " is-note" : ""}${l.kind === "comment" ? " is-comment" : ""}`}>
@@ -201,7 +205,7 @@ export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
 
           {result.notes.length > 0 && (
             <>
-              <h4 className="eli5r-h">{lookCount ? "A few things to consider" : "Good to know"}</h4>
+              <Sub className="eli5r-h">{lookCount ? "A few things to consider" : "Good to know"}</Sub>
               <div className="eli5r-notes">
                 {result.notes.map((n, i) => (
                   <div key={i} className={`eli5r-note${n.kind === "info" ? " is-info" : ""}`}>
@@ -215,7 +219,7 @@ export default function Eli5Robots({ handoffTo }: { handoffTo?: string } = {}) {
 
           {result.aiBots.length > 0 && (
             <>
-              <h4 className="eli5r-h">What about AI bots?</h4>
+              <Sub className="eli5r-h">What about AI bots?</Sub>
               <p className="eli5r-muted">
                 There&rsquo;s no right or wrong answer here. It depends on whether you&rsquo;re happy for AI tools to
                 learn from or quote your content. Here&rsquo;s what your file currently says to the main ones.

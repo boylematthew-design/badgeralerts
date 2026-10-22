@@ -3,15 +3,23 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default function MarkdownContent({ content }: { content: string }) {
+type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+// baseLevel: the heading level a markdown "#" should render as, so headings written inside
+// a tip always sit below the tip's own heading in the page outline (e.g. tip is H3 → "#" is H4).
+export default function MarkdownContent({ content, baseLevel = 1 }: { content: string; baseLevel?: number }) {
+  const tag = (offset: number) => `h${Math.min(baseLevel + offset, 6)}` as HeadingTag;
+  const H1 = tag(0);
+  const H2 = tag(1);
+  const H3 = tag(2);
   return (
     <div className="text-[15px] text-mid font-light leading-[1.7]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: ({ ...props }) => <h1 className="font-serif text-[24px] md:text-[28px] text-ink font-normal mt-8 mb-3" {...props} />,
-          h2: ({ ...props }) => <h2 className="font-serif text-[20px] md:text-[22px] text-ink font-normal mt-7 mb-3" {...props} />,
-          h3: ({ ...props }) => <h3 className="text-[16px] md:text-[17px] text-ink font-semibold mt-6 mb-2" {...props} />,
+          h1: ({ ...props }) => <H1 className="font-serif text-[24px] md:text-[28px] text-ink font-normal mt-8 mb-3" {...props} />,
+          h2: ({ ...props }) => <H2 className="font-serif text-[20px] md:text-[22px] text-ink font-normal mt-7 mb-3" {...props} />,
+          h3: ({ ...props }) => <H3 className="text-[16px] md:text-[17px] text-ink font-semibold mt-6 mb-2" {...props} />,
           p: ({ ...props }) => <p className="mb-4" {...props} />,
           ul: ({ ...props }) => <ul className="list-disc pl-5 space-y-1.5 mb-4" {...props} />,
           ol: ({ ...props }) => <ol className="list-decimal pl-5 space-y-1.5 mb-4" {...props} />,

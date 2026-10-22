@@ -40,21 +40,25 @@ function getDomain(url: string) {
   }
 }
 
-export function TipCard({ tip, tipNumber }: {
+// Heading levels follow the page outline: the guide page's H2 sits above the tips, so a tip
+// on its own is an H3, and a tip inside a section (itself an H3) is an H4.
+export function TipCard({ tip, tipNumber, level = 3 }: {
   tip: TipData;
   tipNumber: number;
+  level?: 3 | 4;
 }) {
+  const Heading = level === 4 ? "h4" : "h3";
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>
-      <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
+      <Heading className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
         {tip.title}
-      </h3>
-      {tip.content && <MarkdownContent content={tip.content} />}
+      </Heading>
+      {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
-      {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} />}
+      {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {tip.image_url && (
         <div className="mt-5 max-w-[320px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -161,9 +165,9 @@ export function TipList({ tips, sections }: {
             <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-1">
               Section
             </div>
-            <h2 className="font-serif text-[24px] md:text-[30px] text-ink font-normal">
+            <h3 className="font-serif text-[24px] md:text-[30px] text-ink font-normal">
               {group.title}
-            </h2>
+            </h3>
             {group.description && (
               <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mt-2 max-w-[560px]">
                 {group.description}
@@ -178,6 +182,7 @@ export function TipList({ tips, sections }: {
                   key={tip.id}
                   tip={tip}
                   tipNumber={globalIndex}
+                  level={4}
                 />
               );
             })}

@@ -89,9 +89,9 @@ export default async function GuidePage({
 
         <GuidePricing slug={slug} topicName={topicName} heading={headings.pricing} />
 
-        <h3 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
+        <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
           {headings.guide}
-        </h3>
+        </h2>
 
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
