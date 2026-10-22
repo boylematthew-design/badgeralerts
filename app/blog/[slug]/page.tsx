@@ -8,6 +8,7 @@ import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
+import GuidePricing from "@/components/GuidePricing";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -45,7 +46,7 @@ export default async function GuidePage({
 
   const { data: guide } = await supabase
     .from("guides")
-    .select("id, title, description, updated_at")
+    .select("id, title, description, topic_name, updated_at")
     .eq("site", "badgeralerts")
     .eq("slug", slug)
     .eq("published", true)
@@ -82,6 +83,8 @@ export default async function GuidePage({
             {guide.description}
           </p>
         )}
+
+        <GuidePricing slug={slug} topicName={guide.topic_name || guide.title} />
 
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
