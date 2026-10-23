@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
+import { TEAM } from "@/lib/team";
 
 const BASE_URL = "https://www.badgeralerts.live";
 
@@ -103,5 +104,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...blogPages];
+  const authorPages: MetadataRoute.Sitemap = TEAM.map((person) => ({
+    url: `${BASE_URL}/author/${person.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...blogPages, ...authorPages];
 }

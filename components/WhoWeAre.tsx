@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { getGuideTeam } from "@/lib/team";
 
@@ -27,7 +28,11 @@ export default function WhoWeAre({ slug }: { slug: string }) {
               className="w-24 h-24 md:w-36 md:h-36 rounded-full object-cover flex-shrink-0"
             />
             <div>
-              <h3 className="text-[17px] md:text-[18px] font-medium text-ink mb-2">{person.name}</h3>
+              <h3 className="text-[17px] md:text-[18px] font-medium text-ink mb-2">
+                <Link href={`/author/${person.slug}`} rel="author" className="hover:text-accent-dark hover:underline underline-offset-2">
+                  {person.name}
+                </Link>
+              </h3>
               <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.7] mb-4">
                 {person.bio}
               </p>
