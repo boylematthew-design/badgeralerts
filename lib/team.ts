@@ -18,6 +18,7 @@ export interface TeamProfile {
   role: string;
   photo: string;
   linkedin: string;
+  otherProfiles?: string[]; // this person's profile pages on other sites (tells Google they're the same person)
   intro: string[];
   experience: TopicExperience[];
   defaultBio: string;
@@ -32,6 +33,7 @@ export const TEAM: TeamProfile[] = [
     role: "Digital marketing consultant",
     photo: "/matthew-boyle-linkedin.jpg",
     linkedin: "https://www.linkedin.com/in/mattboyle3/",
+    otherProfiles: ["https://localmapsmarketing.online/author/matthew-boyle"],
     intro: [
       "I'm a digital marketing consultant with around 20 years' experience helping businesses get found online and turn that visibility into leads and sales.",
       "My background spans SEO, local search, social platforms, marketplaces and, more recently, AI search. I write the guides on this site from hands-on work, and I offer the same expertise as one-off audits or ongoing monthly support.",

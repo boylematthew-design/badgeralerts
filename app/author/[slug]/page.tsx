@@ -58,7 +58,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
     jobTitle: person.role,
     url: `${BASE_URL}/author/${person.slug}`,
     image: `${BASE_URL}${person.photo}`,
-    sameAs: [person.linkedin],
+    sameAs: [person.linkedin, ...(person.otherProfiles ?? [])],
     knowsAbout: person.experience.map((e) => e.topic),
   };
 
