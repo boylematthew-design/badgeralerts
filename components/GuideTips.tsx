@@ -22,7 +22,70 @@ export interface TipData {
   image_alt: string | null;
   image_caption: string | null;
   section_id: string | null;
+  news_date: string | null;
+  news_headline: string | null;
+  news_url: string | null;
   tip_links: TipLink[];
+}
+
+// "9 June 2026" — British date order. The date is stored as a plain calendar day, so it's
+// formatted in UTC to stop it slipping a day either side depending on the server's time zone.
+function formatNewsDate(date: string) {
+  return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+// Optional dated news headline shown above a tip, linking to the source. All real text
+// (date in a <time> tag, headline as link text) so search engines and AI tools can read it.
+function TipNewsLabel({ date, headline, url }: { date: string | null; headline: string; url: string | null }) {
+  const text = (
+    <>
+      {date && (
+        <time dateTime={date} className="font-medium text-ink">
+          {formatNewsDate(date)}:{" "}
+        </time>
+      )}
+      <span>{headline}</span>
+    </>
+  );
+
+  return (
+    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-2.5 mb-5 max-w-[620px]">
+      <span className="mt-[1px] flex-shrink-0 rounded-full bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-2 py-0.5">
+        News
+      </span>
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group text-[13px] md:text-[14px] text-mid leading-[1.5] hover:text-accent-dark transition-colors"
+        >
+          {text}
+          <svg
+            aria-hidden="true"
+            className="inline-block w-3.5 h-3.5 ml-1.5 -mt-0.5 text-accent-dark"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          <span className="sr-only"> (source, opens in a new tab)</span>
+        </a>
+      ) : (
+        <p className="text-[13px] md:text-[14px] text-mid leading-[1.5]">{text}</p>
+      )}
+    </div>
+  );
 }
 
 export interface SectionData {
@@ -50,6 +113,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
   const Heading = level === 4 ? "h4" : "h3";
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
+      {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>

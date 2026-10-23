@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
 import TipLinksManager from "./TipLinksManager";
+import TipNewsFields from "../../TipNewsFields";
+import { parseTipNews } from "@/lib/tip-news";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -54,6 +56,9 @@ export default async function EditTipPage({
 
     if (!title) return;
 
+    const news = parseTipNews(formData);
+    if (!news) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -84,6 +89,7 @@ export default async function EditTipPage({
         image_caption: imageUrl ? imageCaption || null : null,
         section_id: sectionId,
         published,
+        ...news,
       })
       .eq("id", tipId);
 
@@ -147,6 +153,8 @@ export default async function EditTipPage({
             <p className="text-xs text-slate-400 mt-1.5">Group this tip under a section heading on the public page.</p>
           </div>
         )}
+
+        <TipNewsFields date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Content</label>

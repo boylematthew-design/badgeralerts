@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
+import TipNewsFields from "../TipNewsFields";
+import { parseTipNews } from "@/lib/tip-news";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -50,6 +52,9 @@ export default async function NewTipPage({
 
     if (!title) return;
 
+    const news = parseTipNews(formData);
+    if (!news) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -89,6 +94,7 @@ export default async function NewTipPage({
       sort_order: nextOrder,
       section_id: sectionId,
       published,
+      ...news,
     });
 
     await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
@@ -150,6 +156,8 @@ export default async function NewTipPage({
             <p className="text-xs text-slate-400 mt-1.5">Group this tip under a section heading on the public page.</p>
           </div>
         )}
+
+        <TipNewsFields />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Content</label>
