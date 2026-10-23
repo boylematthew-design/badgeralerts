@@ -11,6 +11,8 @@ import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import GuidePricing from "@/components/GuidePricing";
 import WhoWeAre from "@/components/WhoWeAre";
 import { getGuideHeadings } from "@/lib/guide-headings";
+import GuideFaqs from "@/components/GuideFaqs";
+import { getGuideFaqHeading, getGuideFaqs } from "@/lib/guide-faqs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -110,6 +112,8 @@ export default async function GuidePage({
             <TipList tips={tips} sections={sections} />
           </>
         )}
+
+        <GuideFaqs heading={getGuideFaqHeading(slug)} faqs={getGuideFaqs(slug)} />
 
         <ConsultantCTA />
       </main>
