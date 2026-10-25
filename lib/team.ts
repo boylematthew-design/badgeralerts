@@ -33,7 +33,6 @@ export const TEAM: TeamProfile[] = [
     role: "Digital marketing consultant",
     photo: "/matthew-boyle-linkedin.jpg",
     linkedin: "https://www.linkedin.com/in/mattboyle3/",
-    otherProfiles: ["https://localmapsmarketing.online/author/matthew-boyle"],
     intro: [
       "I'm a digital marketing consultant with around 20 years' experience helping businesses get found online and turn that visibility into leads and sales.",
       "My background spans SEO, local search, social platforms, marketplaces and, more recently, AI search. I write the guides on this site from hands-on work, and I offer the same expertise as one-off audits or ongoing monthly support.",
@@ -47,8 +46,7 @@ export const TEAM: TeamProfile[] = [
       {
         guide: "google-maps-marketing-guide",
         topic: "Google Maps marketing",
-        externalUrl: "https://localmapsmarketing.online",
-        text: "Maps marketing is a specialism of mine, covering Google Maps, Bing Maps and Apple Maps. I've helped businesses climb into the map pack with better profiles, regular posts and a steady flow of reviews, and I run a dedicated site for it.",
+        text: "Maps marketing is a specialism of mine, covering Google Maps, Bing Maps and Apple Maps. I've helped businesses climb into the map pack with better profiles, regular posts and a steady flow of reviews.",
       },
       {
         guide: "technical-seo",

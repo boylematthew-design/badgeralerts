@@ -4,7 +4,6 @@
 // — the dropdown and filter on the guides list both read from this list.
 export const SITES = [
   { value: "badgeralerts", label: "BadgerAlerts" },
-  { value: "localmapsmarketing", label: "Local Maps Marketing" },
 ] as const;
 
 export type SiteValue = (typeof SITES)[number]["value"];

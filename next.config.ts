@@ -15,19 +15,6 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
-  async redirects() {
-    return [
-      {
-        // This guide is unpublished on badgeralerts.live — it now has its
-        // own permanent home on a dedicated domain, so this is a real
-        // (permanent) redirect rather than the temporary one used while
-        // localmapsmarketing.online was still just a test/experiment.
-        source: "/blog/google-maps-marketing-guide",
-        destination: "https://localmapsmarketing.online",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
