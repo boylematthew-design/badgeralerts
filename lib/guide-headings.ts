@@ -1,5 +1,5 @@
 // Hand-written H3 headings for each blog guide (/blog/[slug]), keyed by the guide's slug.
-// `pricing` heads the pricing table; `guide` heads the tips (above the table of contents).
+// `pricing` heads the pricing table on the services page; `guide` heads the tips (above the table of contents).
 // Guides without an entry fall back to getGuideHeadings' generic wording.
 
 export interface GuideHeadings {

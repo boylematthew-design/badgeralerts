@@ -1,4 +1,4 @@
-// Pricing shown at the top of each blog guide (/blog/[slug]).
+// Pricing shown on each services page (/services/[slug]).
 // To change prices, edit GUIDE_PRICES. To change what's included for a topic, edit its entry
 // in GUIDE_PRICING_FEATURES (keyed by the guide's slug). Guides without an entry use DEFAULT_FEATURES.
 

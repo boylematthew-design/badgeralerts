@@ -1,4 +1,4 @@
-// Team profiles: used by the "Who we are" block at the top of each blog guide (/blog/[slug])
+// Team profiles: used by the "Who we are" block on each services page (/services/[slug])
 // and by each person's profile page at /author/[slug].
 // To add a new person: add an object to TEAM (photo goes in /public) and they get a profile page
 // automatically. Each person can have a short bio per guide slug in `guideBios`; guides without

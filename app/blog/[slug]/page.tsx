@@ -8,11 +8,8 @@ import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
-import GuidePricing from "@/components/GuidePricing";
-import WhoWeAre from "@/components/WhoWeAre";
 import { getGuideHeadings } from "@/lib/guide-headings";
-import GuideFaqs from "@/components/GuideFaqs";
-import { getGuideFaqHeading, getGuideFaqs } from "@/lib/guide-faqs";
+import { getServiceForGuide } from "@/lib/services";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -50,7 +47,7 @@ export default async function GuidePage({
 
   const { data: guide } = await supabase
     .from("guides")
-    .select("id, title, description, topic_name, updated_at")
+    .select("id, slug, title, description, topic_name, updated_at")
     .eq("site", "badgeralerts")
     .eq("slug", slug)
     .eq("published", true)
@@ -67,6 +64,7 @@ export default async function GuidePage({
   const { tips, sections } = await fetchGuideTips(supabase, guide.id);
   const topicName = guide.topic_name || guide.title;
   const headings = getGuideHeadings(slug, topicName);
+  const service = getServiceForGuide(guide);
 
   return (
     <div className="bg-white text-ink">
@@ -85,14 +83,22 @@ export default async function GuidePage({
           <span className="text-[13px] text-muted">Last updated: {lastUpdated}</span>
         </div>
         {guide.description && (
-          <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12 max-w-[560px]">
+          <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-6 max-w-[560px]">
             {guide.description}
           </p>
         )}
 
-        <WhoWeAre slug={slug} />
-
-        <GuidePricing slug={slug} topicName={topicName} heading={headings.pricing} />
+        <p className="bg-accent-light rounded-[14px] px-5 md:px-6 py-4 text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-12">
+          If you are looking for a {service.name} expert and services, we have a separate guide on
+          that where you can learn more:{" "}
+          <Link
+            href={`/services/${service.slug}`}
+            className="font-medium text-accent-dark underline underline-offset-2 hover:opacity-80"
+          >
+            {service.name} expert services
+          </Link>
+          .
+        </p>
 
         <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
           {headings.guide}
@@ -112,8 +118,6 @@ export default async function GuidePage({
             <TipList tips={tips} sections={sections} />
           </>
         )}
-
-        <GuideFaqs heading={getGuideFaqHeading(slug)} faqs={getGuideFaqs(slug)} />
 
         <ConsultantCTA />
       </main>

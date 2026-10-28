@@ -3,7 +3,7 @@ import Link from "next/link";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { getGuideTeam } from "@/lib/team";
 
-// "Who we are" block on each blog guide. Profiles and per-guide bios live in lib/team.ts,
+// "Who we are" block on each services page (/services/[slug]). Profiles and per-guide bios live in lib/team.ts,
 // so adding a team member there makes a new card appear here automatically.
 export default function WhoWeAre({ slug }: { slug: string }) {
   const team = getGuideTeam(slug);

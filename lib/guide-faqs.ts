@@ -1,4 +1,4 @@
-// FAQs shown in accordions at the end of each blog guide (/blog/[slug]).
+// FAQs shown in accordions at the end of each services page (/services/[slug]).
 // The questions are the same on every guide; the answers are tailored per topic using the
 // wording in FAQ_TOPICS below, plus the prices and features from lib/guide-pricing.ts —
 // so if you change a price or a feature, the FAQ answers update to match automatically.
