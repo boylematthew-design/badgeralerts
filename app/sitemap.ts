@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { TEAM } from "@/lib/team";
 import { getServiceForGuide } from "@/lib/services";
+import { TOOLS } from "@/lib/tools";
 
 const BASE_URL = "https://www.badgeralerts.live";
 
@@ -111,11 +112,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const toolPages: MetadataRoute.Sitemap = TOOLS.map((tool) => ({
+    url: `${BASE_URL}/tools/${tool.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const authorPages: MetadataRoute.Sitemap = TEAM.map((person) => ({
     url: `${BASE_URL}/author/${person.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...servicePages, ...authorPages];
+  return [...staticPages, ...blogPages, ...servicePages, ...toolPages, ...authorPages];
 }
