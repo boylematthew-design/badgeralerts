@@ -7,6 +7,8 @@ import SubmitButton from "./SubmitButton";
 import TipLinksManager from "./TipLinksManager";
 import TipNewsFields from "../../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
+import TipStatsFields from "../../TipStatsFields";
+import { parseTipStats } from "@/lib/tip-stats";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -59,6 +61,9 @@ export default async function EditTipPage({
     const news = parseTipNews(formData);
     if (!news) return;
 
+    const stats = parseTipStats(formData);
+    if (!stats) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -90,6 +95,7 @@ export default async function EditTipPage({
         section_id: sectionId,
         published,
         ...news,
+        stats,
       })
       .eq("id", tipId);
 
@@ -165,6 +171,8 @@ export default async function EditTipPage({
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
           />
         </div>
+
+        <TipStatsFields initial={tip.stats} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

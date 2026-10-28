@@ -1,7 +1,7 @@
 import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
 import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
-import { getTipStats, type TipStat } from "@/lib/tip-stats";
+import type { TipStat } from "@/lib/tip-stats";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -26,6 +26,7 @@ export interface TipData {
   news_date: string | null;
   news_headline: string | null;
   news_url: string | null;
+  stats: TipStat[] | null;
   tip_links: TipLink[];
 }
 
@@ -167,7 +168,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
   level?: 3 | 4;
 }) {
   const Heading = level === 4 ? "h4" : "h3";
-  const stats = getTipStats(tip.id);
+  const stats = tip.stats ?? [];
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
