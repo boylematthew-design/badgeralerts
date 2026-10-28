@@ -10,6 +10,7 @@ import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import { getGuideHeadings } from "@/lib/guide-headings";
 import { getServiceForGuide } from "@/lib/services";
+import { getGuideMeta } from "@/lib/guide-meta";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,6 +32,9 @@ export async function generateMetadata({
     .single();
 
   if (!guide) return { title: "Guide not found | Matthew Boyle" };
+
+  const meta = getGuideMeta(slug);
+  if (meta) return meta;
 
   return {
     title: `${guide.title} | Matthew Boyle`,
