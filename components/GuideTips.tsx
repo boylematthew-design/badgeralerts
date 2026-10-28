@@ -1,6 +1,7 @@
 import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
 import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
+import { getTipStats, type TipStat } from "@/lib/tip-stats";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -88,6 +89,61 @@ function TipNewsLabel({ date, headline, url }: { date: string | null; headline: 
   );
 }
 
+// Stats box under a tip: each stat is followed by numbered [1] links to its sources, and the
+// sources are listed by name underneath. All real text and links, so crawlers can read and follow them.
+function TipStatsBox({ stats }: { stats: TipStat[] }) {
+  let n = 0;
+  const numbered = stats.map((stat) => ({
+    text: stat.text,
+    sources: stat.sources.map((source) => ({ ...source, number: ++n })),
+  }));
+  const allSources = numbered.flatMap((stat) => stat.sources);
+
+  return (
+    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-3 mt-5 max-w-[620px]">
+      <span className="mt-[1px] flex-shrink-0 rounded-full bg-ink text-white text-[10px] font-medium tracking-[0.08em] uppercase px-2 py-0.5">
+        Stats
+      </span>
+      <div className="min-w-0">
+        <div className="space-y-2">
+          {numbered.map((stat) => (
+            <p key={stat.text} className="text-[13px] md:text-[14px] text-mid leading-[1.5]">
+              {stat.text}
+              {stat.sources.map((source) => (
+                <a
+                  key={source.number}
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Source ${source.number}: ${source.label} (opens in a new tab)`}
+                  className="inline-flex items-center justify-center ml-1 min-w-[22px] rounded-[5px] border border-accent/30 bg-white px-1 text-[11px] font-medium leading-[18px] text-accent-dark hover:bg-accent hover:text-white transition-colors"
+                >
+                  [{source.number}]
+                </a>
+              ))}
+            </p>
+          ))}
+        </div>
+        <ol className="mt-2.5 pt-2 border-t border-accent/20 space-y-1 text-[12px] text-muted leading-[1.45]">
+          {allSources.map((source) => (
+            <li key={source.number}>
+              [{source.number}]{" "}
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-accent-dark"
+              >
+                {source.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 export interface SectionData {
   id: string;
   title: string;
@@ -111,6 +167,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
   level?: 3 | 4;
 }) {
   const Heading = level === 4 ? "h4" : "h3";
+  const stats = getTipStats(tip.id);
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
@@ -121,6 +178,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
         {tip.title}
       </Heading>
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
+      {stats.length > 0 && <TipStatsBox stats={stats} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {tip.image_url && (
