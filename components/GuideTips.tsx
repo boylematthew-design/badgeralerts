@@ -40,7 +40,7 @@ function formatNewsDate(date: string) {
   });
 }
 
-// Optional dated news headline shown above a tip, linking to the source. All real text
+// Optional dated news headline shown under a tip's text, linking to the source. All real text
 // (date in a <time> tag, headline as link text) so search engines and AI tools can read it.
 function TipNewsLabel({ date, headline, url }: { date: string | null; headline: string; url: string | null }) {
   const text = (
@@ -55,7 +55,7 @@ function TipNewsLabel({ date, headline, url }: { date: string | null; headline: 
   );
 
   return (
-    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-2.5 mb-5 max-w-[620px]">
+    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-2.5 mt-5 max-w-[620px]">
       <span className="mt-[1px] flex-shrink-0 rounded-full bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-2 py-0.5">
         News
       </span>
@@ -170,7 +170,6 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
   const stats = getTipStats(tip.id);
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
-      {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>
@@ -178,6 +177,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
         {tip.title}
       </Heading>
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
+      {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
