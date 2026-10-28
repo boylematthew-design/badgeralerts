@@ -40,7 +40,7 @@ function formatNewsDate(date: string) {
   });
 }
 
-// Optional dated news headline shown under a tip's text, linking to the source. All real text
+// Optional dated news headline shown under a tip's text and image, linking to the source. All real text
 // (date in a <time> tag, headline as link text) so search engines and AI tools can read it.
 function TipNewsLabel({ date, headline, url }: { date: string | null; headline: string; url: string | null }) {
   const text = (
@@ -177,8 +177,6 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
         {tip.title}
       </Heading>
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
-      {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
-      {stats.length > 0 && <TipStatsBox stats={stats} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {tip.image_url && (
@@ -194,6 +192,8 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
           )}
         </div>
       )}
+      {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
+      {stats.length > 0 && <TipStatsBox stats={stats} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
         <div className="mt-6">
           <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">
