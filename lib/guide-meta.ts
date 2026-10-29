@@ -8,7 +8,7 @@ export interface GuideMeta {
 }
 
 const GUIDE_META: Record<string, GuideMeta> = {
-  "google-maps-marketing-guide": {
+  "google-maps-marketing": {
     title: "Google Maps Marketing Guide: Ranking and Optimisation Tips",
     description:
       "Practical Google Maps marketing tips to get your business into the map pack, from Business Profile set-up and categories to reviews, photos and posts.",

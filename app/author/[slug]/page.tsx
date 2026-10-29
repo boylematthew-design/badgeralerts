@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { TEAM, getTeamMember } from "@/lib/team";
+import { guidePath } from "@/lib/blog-guides";
 
 const BASE_URL = "https://www.badgeralerts.live";
 
@@ -44,10 +45,10 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   // Only link to guides that are live, so the profile never sends people (or Google) to a 404.
   const { data: published } = await supabase
     .from("guides")
-    .select("slug")
+    .select("id, slug, parent_id")
     .eq("site", "badgeralerts")
     .eq("published", true);
-  const publishedSlugs = new Set((published ?? []).map((g) => g.slug));
+  const guidePaths = new Map((published ?? []).map((g) => [g.slug, guidePath(g, published ?? [])]));
 
   // Structured data so Google and AI tools can connect this page, the guides and the LinkedIn
   // profile to the same real person (an expertise/trust signal).
@@ -108,7 +109,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           </h2>
           <div className="divide-y divide-border border-y border-border">
             {person.experience.map((item) => {
-              const href = item.externalUrl ?? (publishedSlugs.has(item.guide) ? `/blog/${item.guide}` : null);
+              const href = item.externalUrl ?? (guidePaths.get(item.guide) ?? null);
               return (
                 <div key={item.guide} className="py-6">
                   <h3 className="font-serif text-[20px] md:text-[22px] text-ink font-normal mb-2">{item.topic}</h3>

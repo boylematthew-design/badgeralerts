@@ -8,7 +8,7 @@ export interface GuideHeadings {
 }
 
 const GUIDE_HEADINGS: Record<string, GuideHeadings> = {
-  "google-maps-marketing-guide": {
+  "google-maps-marketing": {
     pricing: "What a Google Maps marketing expert or agency costs",
     guide: "The complete guide to Google Maps marketing",
   },

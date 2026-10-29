@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { TEAM } from "@/lib/team";
 import { getServiceForGuide } from "@/lib/services";
 import { TOOLS } from "@/lib/tools";
+import { guidePath } from "@/lib/blog-guides";
 
 const BASE_URL = "https://www.badgeralerts.live";
 
@@ -95,12 +96,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const { data: guides } = await supabase
     .from("guides")
-    .select("slug, title, topic_name, updated_at")
+    .select("id, slug, parent_id, title, topic_name, updated_at")
     .eq("site", "badgeralerts")
     .eq("published", true);
 
   const blogPages: MetadataRoute.Sitemap = (guides ?? []).map((guide) => ({
-    url: `${BASE_URL}/blog/${guide.slug}`,
+    url: `${BASE_URL}${guidePath(guide, guides ?? [])}`,
     lastModified: new Date(guide.updated_at),
     changeFrequency: "weekly" as const,
     priority: 0.8,

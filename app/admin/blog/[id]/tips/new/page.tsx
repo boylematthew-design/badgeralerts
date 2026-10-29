@@ -22,11 +22,10 @@ export default async function NewTipPage({
   const { id } = await params;
 
   const [{ data: guide }, { data: sections }] = await Promise.all([
-    supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single(),
+    supabaseAdmin.from("guides").select("id, title").eq("id", id).single(),
     supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
   ]);
   if (!guide) redirect("/admin/blog");
-  const guideSlug = guide.slug;
 
   async function createTip(formData: FormData) {
     "use server";
@@ -107,8 +106,7 @@ export default async function NewTipPage({
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
-    revalidatePath("/blog");
-    revalidatePath(`/blog/${guideSlug}`);
+    revalidatePath("/blog", "layout");
 
     redirect(`/admin/blog/${id}`);
   }

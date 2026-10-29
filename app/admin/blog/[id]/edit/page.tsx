@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
 import { SITES, DEFAULT_SITE } from "@/lib/sites";
+import { fetchParentOptions, validateParent, ParentGuideSelect } from "../../guide-parent";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,7 +19,11 @@ export default async function EditGuidePage({
 }) {
   const { id } = await params;
 
-  const { data: guide } = await supabaseAdmin.from("guides").select("*").eq("id", id).single();
+  const [{ data: guide }, parentOptions, { count: childCount }] = await Promise.all([
+    supabaseAdmin.from("guides").select("*").eq("id", id).single(),
+    fetchParentOptions(supabaseAdmin, id),
+    supabaseAdmin.from("guides").select("id", { count: "exact", head: true }).eq("parent_id", id),
+  ]);
   if (!guide) redirect("/admin/blog");
 
   async function updateGuide(formData: FormData) {
@@ -57,13 +62,23 @@ export default async function EditGuidePage({
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const { data: existing } = await admin.from("guides").select("slug").eq("id", id).single();
+    const parentId = await validateParent(admin, { formData, site, guideId: id });
+    if (parentId === undefined) return;
+
+    const { data: existing } = await admin.from("guides").select("slug, previous_slugs").eq("id", id).single();
+
+    // Remember the old slug so its address keeps redirecting to this guide.
+    const previousSlugs = [...new Set([...(existing?.previous_slugs ?? []), existing?.slug])].filter(
+      (s): s is string => !!s && s !== slug
+    );
 
     await admin
       .from("guides")
       .update({
         title,
         slug,
+        parent_id: parentId,
+        previous_slugs: previousSlugs,
         topic_name: topicName,
         description: description || null,
         published,
@@ -74,9 +89,7 @@ export default async function EditGuidePage({
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath("/admin/blog");
-    revalidatePath("/blog");
-    revalidatePath(`/blog/${slug}`);
-    if (existing?.slug && existing.slug !== slug) revalidatePath(`/blog/${existing.slug}`);
+    revalidatePath("/blog", "layout");
 
     redirect(`/admin/blog/${id}`);
   }
@@ -129,9 +142,15 @@ export default async function EditGuidePage({
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
           />
           <p className="text-xs text-slate-400 mt-1.5">
-            Changing this will change the page address. Old links will stop working.
+            Changing this will change the page address. The old address redirects here automatically.
           </p>
         </div>
+
+        <ParentGuideSelect
+          options={parentOptions}
+          defaultValue={guide.parent_id}
+          disabledReason={childCount ? "This guide has child guides under it, so it has to stay top-level. Move its children first to put it under another guide." : undefined}
+        />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

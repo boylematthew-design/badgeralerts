@@ -28,14 +28,12 @@ export async function deleteGuide(formData: FormData) {
   const admin = await getAdminSupabase();
   if (!admin) return;
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
-  // Tips are removed automatically via ON DELETE CASCADE
+  // Tips are removed automatically via ON DELETE CASCADE. Any child guides under it are kept and
+  // become top-level guides (ON DELETE SET NULL); their old addresses redirect to the new ones.
   await admin.from("guides").delete().eq("id", guideId);
 
   revalidatePath("/admin/blog");
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 
   redirect("/admin/blog");
 }
@@ -169,15 +167,12 @@ export async function deleteTip(formData: FormData) {
   const admin = await getAdminSupabase();
   if (!admin) return;
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   await admin.from("tips").delete().eq("id", tipId);
 
   await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
 
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 }
 
 export async function createSection(formData: FormData) {
@@ -207,11 +202,8 @@ export async function createSection(formData: FormData) {
     sort_order: nextOrder,
   });
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 }
 
 export async function updateSection(formData: FormData) {
@@ -227,11 +219,8 @@ export async function updateSection(formData: FormData) {
 
   await admin.from("tip_sections").update({ title, description }).eq("id", sectionId);
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 }
 
 export async function deleteSection(formData: FormData) {
@@ -245,11 +234,8 @@ export async function deleteSection(formData: FormData) {
   // Tips in this section become unsectioned (ON DELETE SET NULL), not deleted
   await admin.from("tip_sections").delete().eq("id", sectionId);
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 }
 
 export async function reorderTips(
@@ -278,11 +264,8 @@ export async function reorderTips(
 
   await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 
   return { success: true };
 }
@@ -311,11 +294,8 @@ export async function reorderSections(
       .eq("id", item.sectionId);
   }
 
-  const { data: guide } = await admin.from("guides").select("slug").eq("id", guideId).single();
-
   revalidatePath(`/admin/blog/${guideId}`);
-  revalidatePath("/blog");
-  if (guide?.slug) revalidatePath(`/blog/${guide.slug}`);
+  revalidatePath("/blog", "layout");
 
   return { success: true };
 }

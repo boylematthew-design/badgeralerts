@@ -30,7 +30,7 @@ const DEFAULT_TOPIC: FaqTopic = {
 };
 
 const FAQ_TOPICS: Record<string, FaqTopic> = {
-  "google-maps-marketing-guide": {
+  "google-maps-marketing": {
     service: "Google Maps marketing",
     briefing: "your business, the areas you serve, your Google Business Profile and your main local competitors",
     quickWins: "fixing your Business Profile categories or adding missing services",

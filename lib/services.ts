@@ -12,7 +12,7 @@ export interface ServiceInfo {
 }
 
 const SERVICES: Record<string, ServiceInfo> = {
-  "google-maps-marketing-guide": {
+  "google-maps-marketing": {
     slug: "google-maps-marketing",
     title: "Google Maps Marketing",
     name: "Google Maps marketing",

@@ -44,7 +44,7 @@ export const TEAM: TeamProfile[] = [
         text: "I've helped local businesses rank higher in their area by fixing their Google Business Profiles, cleaning up citations and building location pages that convert. Local SEO is where a small business can beat much bigger competitors, and it's often the quickest win I see.",
       },
       {
-        guide: "google-maps-marketing-guide",
+        guide: "google-maps-marketing",
         topic: "Google Maps marketing",
         text: "Maps marketing is a specialism of mine, covering Google Maps, Bing Maps and Apple Maps. I've helped businesses climb into the map pack with better profiles, regular posts and a steady flow of reviews.",
       },
@@ -102,7 +102,7 @@ export const TEAM: TeamProfile[] = [
     defaultBio:
       "Matthew Boyle is a seasoned digital marketing professional with around 20 years' experience helping businesses grow their traffic, leads and sales.",
     guideBios: {
-      "google-maps-marketing-guide":
+      "google-maps-marketing":
         "Matthew Boyle is a seasoned professional having helped multiple local businesses gain new leads and business. He has deep Google Maps marketing experience.",
       "reddit-marketing":
         "Matthew Boyle is a seasoned professional having helped brands reach new audiences on Reddit without getting downvoted. He has deep experience in community-led Reddit marketing.",

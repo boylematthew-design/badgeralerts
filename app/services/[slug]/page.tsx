@@ -11,6 +11,7 @@ import { getGuideHeadings } from "@/lib/guide-headings";
 import { getGuideFaqHeading, getGuideFaqs } from "@/lib/guide-faqs";
 import { GUIDE_PRICES } from "@/lib/guide-pricing";
 import { getServiceForGuide } from "@/lib/services";
+import { guidePath } from "@/lib/blog-guides";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,13 +22,13 @@ const supabase = createClient(
 async function findService(serviceSlug: string) {
   const { data: guides } = await supabase
     .from("guides")
-    .select("slug, title, topic_name")
+    .select("id, slug, parent_id, title, topic_name")
     .eq("site", "badgeralerts")
     .eq("published", true);
 
   const guide = (guides ?? []).find((g) => getServiceForGuide(g).slug === serviceSlug);
   if (!guide) return null;
-  return { guide, service: getServiceForGuide(guide) };
+  return { guide, service: getServiceForGuide(guide), guidePath: guidePath(guide, guides ?? []) };
 }
 
 export async function generateMetadata({
@@ -79,7 +80,7 @@ export default async function ServicePage({
           <p>
             Prefer to do it yourself? My free{" "}
             <Link
-              href={`/blog/${guide.slug}`}
+              href={found.guidePath}
               className="text-accent-dark underline underline-offset-2 hover:opacity-80"
             >
               {service.name} guide

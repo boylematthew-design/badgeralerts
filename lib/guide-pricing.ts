@@ -25,7 +25,7 @@ const DEFAULT_FEATURES: PricingFeature[] = [
 ];
 
 export const GUIDE_PRICING_FEATURES: Record<string, PricingFeature[]> = {
-  "google-maps-marketing-guide": [
+  "google-maps-marketing": [
     { label: "Google Business Profile audit", audit: true, monthly: true },
     { label: "Map pack ranking check for your key searches", audit: true, monthly: true },
     { label: "Competitor profile comparison", audit: true, monthly: true },

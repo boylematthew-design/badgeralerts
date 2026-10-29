@@ -23,14 +23,13 @@ export default async function EditTipPage({
   const { id, tipId } = await params;
 
   const [{ data: guide }, { data: tip }, { data: sections }, { data: tipLinks }] = await Promise.all([
-    supabaseAdmin.from("guides").select("id, title, slug").eq("id", id).single(),
+    supabaseAdmin.from("guides").select("id, title").eq("id", id).single(),
     supabaseAdmin.from("tips").select("*").eq("id", tipId).single(),
     supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
     supabaseAdmin.from("tip_links").select("id, url, context, preview_title, preview_description, preview_favicon").eq("tip_id", tipId).order("sort_order", { ascending: true }),
   ]);
 
   if (!guide || !tip) redirect(`/admin/blog/${id}`);
-  const guideSlug = guide.slug;
 
   async function updateTip(formData: FormData) {
     "use server";
@@ -103,8 +102,7 @@ export default async function EditTipPage({
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
-    revalidatePath("/blog");
-    revalidatePath(`/blog/${guideSlug}`);
+    revalidatePath("/blog", "layout");
 
     redirect(`/admin/blog/${id}`);
   }

@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
 import { SITES, siteLabel } from "@/lib/sites";
+import { groupGuides, guidePath, tipCount } from "@/lib/blog-guides";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,7 +17,7 @@ export default async function AdminBlogPage({
 
   let query = supabaseAdmin
     .from("guides")
-    .select("id, title, slug, topic_name, published, site, created_at, tips(count)")
+    .select("id, title, slug, parent_id, topic_name, published, site, created_at, tips(count)")
     .order("created_at", { ascending: false });
 
   if (siteFilter) {
@@ -24,6 +25,11 @@ export default async function AdminBlogPage({
   }
 
   const { data: guides } = await query;
+  // Parents first, each followed by its child guides (indented).
+  const rows = groupGuides(guides ?? []).flatMap(({ children, ...parent }) => [
+    { ...parent, isChild: false },
+    ...children.map((child) => ({ ...child, isChild: true })),
+  ]);
 
   return (
     <>
@@ -71,12 +77,14 @@ export default async function AdminBlogPage({
         </div>
       ) : (
         <div className="space-y-3">
-          {guides.map((guide) => {
-            const tipCount = (guide.tips as unknown as { count: number }[])?.[0]?.count ?? 0;
+          {rows.map((guide) => {
+            const count = tipCount(guide);
             return (
               <div
                 key={guide.id}
-                className="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                className={`bg-white rounded-2xl border border-slate-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                  guide.isChild ? "ml-6 sm:ml-10 border-l-4 border-l-emerald-200" : ""
+                }`}
               >
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -93,7 +101,8 @@ export default async function AdminBlogPage({
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-1">
-                    /blog/{guide.slug} · {tipCount} tip{tipCount !== 1 ? "s" : ""}
+                    {guide.isChild && <span className="font-semibold text-emerald-600">Child guide · </span>}
+                    {guidePath(guide, guides ?? [])} · {count} tip{count !== 1 ? "s" : ""}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">

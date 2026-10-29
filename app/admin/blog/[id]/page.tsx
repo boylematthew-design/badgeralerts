@@ -5,6 +5,7 @@ import DeleteGuideButton from "./DeleteGuideButton";
 import DuplicateGuideButton from "./DuplicateGuideButton";
 import SectionManager from "./SectionManager";
 import { siteLabel } from "@/lib/sites";
+import { guidePath } from "@/lib/blog-guides";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -25,6 +26,10 @@ export default async function AdminGuidePage({
   ]);
 
   if (!guide) redirect("/admin/blog");
+
+  const { data: parent } = guide.parent_id
+    ? await supabaseAdmin.from("guides").select("id, slug, parent_id, title").eq("id", guide.parent_id).single()
+    : { data: null };
 
   return (
     <>
@@ -48,7 +53,8 @@ export default async function AdminGuidePage({
               </span>
             </div>
             <p className="text-slate-500 text-sm mt-1">
-              /blog/{guide.slug} · Topic: {guide.topic_name}
+              {guidePath(guide, parent ? [parent] : [])} · Topic: {guide.topic_name}
+              {parent && <> · Under: {parent.title}</>}
             </p>
           </div>
           <div className="flex items-center gap-1 flex-shrink-0 flex-wrap justify-end">

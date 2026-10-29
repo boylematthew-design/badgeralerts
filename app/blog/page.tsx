@@ -2,6 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { fetchPublishedGuides, groupGuides, guidePath, tipCount } from "@/lib/blog-guides";
 
 export const metadata = {
   title: "Marketing Guides | Matthew Boyle",
@@ -15,12 +16,8 @@ const supabase = createClient(
 );
 
 export default async function BlogIndexPage() {
-  const { data: guides } = await supabase
-    .from("guides")
-    .select("id, title, slug, description, topic_name, tips(count)")
-    .eq("site", "badgeralerts")
-    .eq("published", true)
-    .order("created_at", { ascending: false });
+  const guides = await fetchPublishedGuides(supabase);
+  const groups = groupGuides(guides);
 
   return (
     <div className="bg-white text-ink">
@@ -36,7 +33,7 @@ export default async function BlogIndexPage() {
           just things you can action today.
         </p>
 
-        {!guides || guides.length === 0 ? (
+        {groups.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center">
             <p className="text-[15px] text-mid font-light">
               No guides published yet. Check back soon.
@@ -44,28 +41,52 @@ export default async function BlogIndexPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {guides.map((guide) => {
-              const tipCount = (guide.tips as unknown as { count: number }[])?.[0]?.count ?? 0;
+            {groups.map((guide) => {
+              const count = tipCount(guide);
               return (
-                <Link
+                <div
                   key={guide.id}
-                  href={`/blog/${guide.slug}`}
-                  className="group block border border-border rounded-[20px] px-7 md:px-8 py-6 hover:border-accent-dark/40 transition-colors"
+                  className="border border-border rounded-[20px] hover:border-accent-dark/40 transition-colors"
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <h2 className="font-serif text-[20px] md:text-[24px] text-ink font-normal group-hover:text-accent-dark transition-colors">
-                      {guide.title}
-                    </h2>
-                    <span className="text-[12px] text-muted font-light flex-shrink-0">
-                      {tipCount} tip{tipCount !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                  {guide.description && (
-                    <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mt-2 max-w-[560px]">
-                      {guide.description}
-                    </p>
+                  <Link href={guidePath(guide, guides)} className="group block px-7 md:px-8 py-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <h2 className="font-serif text-[20px] md:text-[24px] text-ink font-normal group-hover:text-accent-dark transition-colors">
+                        {guide.title}
+                      </h2>
+                      <span className="text-[12px] text-muted font-light flex-shrink-0">
+                        {count} tip{count !== 1 ? "s" : ""}
+                      </span>
+                    </div>
+                    {guide.description && (
+                      <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mt-2 max-w-[560px]">
+                        {guide.description}
+                      </p>
+                    )}
+                  </Link>
+                  {guide.children.length > 0 && (
+                    <ul className="border-t border-border mx-7 md:mx-8 py-3">
+                      {guide.children.map((child) => {
+                        const childCount = tipCount(child);
+                        return (
+                          <li key={child.id}>
+                            <Link
+                              href={guidePath(child, guides)}
+                              className="group flex items-center justify-between gap-4 py-2"
+                            >
+                              <h3 className="font-serif text-[16px] md:text-[18px] text-ink font-normal group-hover:text-accent-dark transition-colors">
+                                <span aria-hidden="true" className="text-muted mr-2">↳</span>
+                                {child.title}
+                              </h3>
+                              <span className="text-[12px] text-muted font-light flex-shrink-0">
+                                {childCount} tip{childCount !== 1 ? "s" : ""}
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   )}
-                </Link>
+                </div>
               );
             })}
           </div>

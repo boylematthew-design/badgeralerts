@@ -5,8 +5,13 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
 import { SITES, DEFAULT_SITE } from "@/lib/sites";
+import { fetchParentOptions, validateParent, ParentGuideSelect } from "../guide-parent";
 
-export default function NewGuidePage() {
+export default async function NewGuidePage() {
+  const parentOptions = await fetchParentOptions(
+    createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  );
+
   async function createGuide(formData: FormData) {
     "use server";
 
@@ -43,6 +48,9 @@ export default function NewGuidePage() {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
+    const parentId = await validateParent(admin, { formData, site });
+    if (parentId === undefined) return;
+
     const { data: guide, error } = await admin
       .from("guides")
       .insert({
@@ -52,6 +60,7 @@ export default function NewGuidePage() {
         description: description || null,
         published,
         site,
+        parent_id: parentId,
       })
       .select("id")
       .single();
@@ -60,8 +69,7 @@ export default function NewGuidePage() {
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath("/admin/blog");
-    revalidatePath("/blog");
-    revalidatePath(`/blog/${slug}`);
+    revalidatePath("/blog", "layout");
 
     redirect(`/admin/blog/${guide.id}`);
   }
@@ -113,13 +121,16 @@ export default function NewGuidePage() {
           <input
             name="slug"
             required
-            placeholder="e.g. google-maps-marketing-guide"
+            placeholder="e.g. google-maps-marketing"
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
           />
           <p className="text-xs text-slate-400 mt-1.5">
-            This will be the page address: badgeralerts.com/blog/<span className="font-mono">your-slug</span>
+            This will be the page address: badgeralerts.live/blog/<span className="font-mono">your-slug</span>, or
+            /blog/<span className="font-mono">parent-slug/your-slug</span> if you pick a parent guide below.
           </p>
         </div>
+
+        <ParentGuideSelect options={parentOptions} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

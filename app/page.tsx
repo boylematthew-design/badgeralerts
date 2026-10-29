@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { guidePath } from "@/lib/blog-guides";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
 
@@ -55,13 +56,15 @@ export default async function Home() {
   } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
 
-  const { data: guides } = await supabase
+  // All published guides are fetched (not just the 6 shown) so child guides can build their
+  // /blog/{parent}/{child} address from their parent's slug.
+  const { data: allGuides } = await supabase
     .from("guides")
-    .select("id, title, slug, description, tips(count)")
+    .select("id, title, slug, parent_id, description, tips(count)")
     .eq("site", "badgeralerts")
     .eq("published", true)
-    .order("created_at", { ascending: false })
-    .limit(6);
+    .order("created_at", { ascending: false });
+  const guides = allGuides?.slice(0, 6);
 
   return (
     <div className="bg-white text-ink">
@@ -210,7 +213,7 @@ export default async function Home() {
               return (
                 <Link
                   key={guide.id}
-                  href={`/blog/${guide.slug}`}
+                  href={guidePath(guide, allGuides ?? [])}
                   className="group block border border-border rounded-[16px] px-6 py-6 hover:border-accent-dark/40 transition-colors"
                 >
                   <div className="flex items-center justify-between gap-4">
