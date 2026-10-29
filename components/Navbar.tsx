@@ -23,7 +23,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <LogoMark />
           <span className="text-[15px] font-medium tracking-[-0.025em] text-ink">
-            Matthew Boyle
+            Compounding Wins
           </span>
         </Link>
 

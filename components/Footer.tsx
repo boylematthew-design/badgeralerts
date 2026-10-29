@@ -12,7 +12,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2.5">
               <LogoMark size={28} />
               <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
-                Matthew Boyle
+                Compounding Wins
               </span>
             </Link>
             <p className="text-[13px] text-muted font-light leading-[1.55]">
@@ -43,7 +43,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="pt-6">
           <span className="text-[12.5px] text-muted">
-            &copy; 2026 Matthew Boyle &middot; Built in London 🇬🇧
+            &copy; 2026 Compounding Wins &middot; Built in London 🇬🇧
           </span>
         </div>
       </div>

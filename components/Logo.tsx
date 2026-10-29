@@ -5,7 +5,7 @@ export default function LogoMark({ size = 32 }: { size?: number }) {
       style={{ width: size, height: size, fontSize: size * 0.4 }}
       aria-hidden="true"
     >
-      MB
+      CW
     </div>
   );
 }
