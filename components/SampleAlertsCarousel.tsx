@@ -187,11 +187,11 @@ export default function SampleAlertsCarousel() {
             >
               {/* Slide header — leave room for the arrows top-right */}
               <div className="mb-9 max-w-2xl pr-28">
-                <h2 className="font-serif font-normal text-[28px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.01em] mb-3.5">
+                <h2 className="font-heading font-extrabold tracking-[-0.04em] text-[28px] sm:text-[36px] md:text-[40px] leading-[1.1] mb-3.5">
                   {slide.titleLine1}{" "}
-                  <em className="italic text-accent-dark">{slide.titleLine2}</em>
+                  <em className="not-italic text-accent">{slide.titleLine2}</em>
                 </h2>
-                <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] max-w-[560px]">
+                <p className="text-[15px] md:text-[16px] text-mid leading-[1.6] max-w-[560px]">
                   {slide.intro}
                 </p>
               </div>
@@ -220,7 +220,7 @@ export default function SampleAlertsCarousel() {
                     </div>
 
                     {/* Step copy */}
-                    <p className="text-[14.5px] text-mid font-light leading-[1.6] mb-5 max-w-xs">
+                    <p className="text-[14.5px] text-mid leading-[1.6] mb-5 max-w-xs">
                       {step.body}
                     </p>
 

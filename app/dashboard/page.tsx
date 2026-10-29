@@ -167,7 +167,7 @@ export default async function DashboardPage({
               <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-1.5">
                 Dashboard
               </p>
-              <h1 className="font-serif font-normal text-[26px] md:text-[34px] leading-[1.1] tracking-[-0.02em] text-ink">
+              <h1 className="font-heading font-extrabold tracking-[-0.04em] text-[26px] md:text-[34px] leading-[1.1] text-ink">
                 {greeting},{" "}
                 <em className="italic text-accent-dark">
                   {firstName ?? "there"}

@@ -1,21 +1,18 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/footer-links";
-import LogoMark from "./Logo";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border w-full">
+    <footer className="border-t border-border w-full bg-paper">
       <div className="max-w-[1120px] mx-auto px-7 md:px-12 pt-14 pb-8">
         {/* Top row: brand + link columns */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-9 md:gap-[60px] pb-12 border-b border-border">
           <div className="flex flex-col gap-3.5 max-w-xs">
-            <Link href="/" className="flex items-center gap-2.5">
-              <LogoMark size={28} />
-              <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
-                Compounding Wins
-              </span>
+            <Link href="/" aria-label="Compounding Wins home" className="flex items-center">
+              <Logo size={26} />
             </Link>
-            <p className="text-[13px] text-muted font-light leading-[1.55]">
+            <p className="text-[13px] text-muted leading-[1.55]">
               Digital marketing consulting, guides, and tools.
             </p>
           </div>
@@ -30,7 +27,7 @@ export default function Footer() {
                   <Link
                     key={link.label}
                     href={link.href}
-                    className="text-[13.5px] text-mid font-light hover:text-accent-dark transition-colors"
+                    className="text-[13.5px] text-mid hover:text-accent-dark transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -43,7 +40,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="pt-6">
           <span className="text-[12.5px] text-muted">
-            &copy; 2026 Compounding Wins &middot; Built in London 🇬🇧
+            &copy; 2026 Compounding Wins &middot; Built in London
           </span>
         </div>
       </div>

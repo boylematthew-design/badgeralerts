@@ -1,16 +1,21 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+
+export const metadata = {
+  title: "Cookie Policy | Compounding Wins",
+};
 
 export default function CookiePolicyPage() {
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <Navbar />
+      <PageHero
+        eyebrow="Legal"
+        title={<>Cookie Policy</>}
+        intro={<>Last updated: 6 May 2026</>}
+      />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">Legal</div>
-        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
-          Cookie Policy
-        </h1>
-        <p className="text-[13px] text-muted mb-12">Last updated: 6 May 2026</p>
 
         <div className="flex flex-col gap-10 text-[14px] text-mid leading-[1.75]">
 
@@ -39,7 +44,7 @@ export default function CookiePolicyPage() {
 
               <div className="bg-surface border border-border rounded-[14px] p-5">
                 <h3 className="text-[14px] font-medium text-ink mb-1">Analytics and advertising cookies</h3>
-                <p className="text-[11px] font-medium tracking-[0.06em] text-[#854F0B] uppercase mb-3">Requires consent</p>
+                <p className="text-[11px] font-medium tracking-[0.06em] text-warn uppercase mb-3">Requires consent</p>
                 <p className="mb-3">We use the Reddit Pixel to understand how visitors find and use our site, and to measure the effectiveness of our advertising campaigns. This involves Reddit placing cookies on your device.</p>
                 <ul className="list-disc pl-5 space-y-1.5 text-muted">
                   <li>Reddit Pixel (rp.gif) — tracks page visits and signup conversions</li>

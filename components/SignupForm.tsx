@@ -10,7 +10,7 @@ interface SignupFormProps {
 }
 
 const inputClass =
-  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(29,185,115,0.08)] transition-all";
+  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition-all";
 
 export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
   const [formData, setFormData] = useState({
@@ -80,10 +80,10 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-serif font-normal text-[22px] text-ink mb-2">
+        <h3 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">
           Check your email
         </h3>
-        <p className="text-[14px] text-mid font-light leading-[1.6]">
+        <p className="text-[14px] text-mid leading-[1.6]">
           We&apos;ve sent a confirmation link to{" "}
           <strong className="font-medium text-ink">{formData.email}</strong>.
           Click it to activate your account.
@@ -162,7 +162,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-dark active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+        className="w-full btn-light py-3.5 text-[15px] flex items-center justify-center gap-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed mt-2"
       >
         {loading ? (
           <>
@@ -193,7 +193,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
 
       {/* Error */}
       {error && (
-        <div className="bg-[#FEECEC] border border-[#A32D2D]/20 text-[#A32D2D] text-[13px] px-4 py-3 rounded-[10px]">
+        <div className="bg-danger-soft border border-danger/20 text-danger text-[13px] px-4 py-3 rounded-[10px]">
           {error}
         </div>
       )}

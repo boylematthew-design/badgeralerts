@@ -1,27 +1,27 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans } from "next/font/google";
+import { Sora } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
+// Sora is a variable font, so one file covers every weight we use (400–800).
+const sora = Sora({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
+  variable: "--font-sora",
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm",
-});
-
+// Icons (app/icon.svg, apple-icon.png, favicon.ico) and the social share image
+// (app/opengraph-image.png) are picked up automatically from the app folder.
 export const metadata: Metadata = {
-  title: "Matthew Boyle | Digital Marketing Consultant",
+  metadataBase: new URL("https://www.compoundingwins.com"),
+  title: "Compounding Wins | Digital Marketing Consultant",
   description:
-    "Digital marketing consulting, guides, and tools from Matthew Boyle — SEO, social, content, and paid media strategy.",
-  icons: {
-    icon: "/favicon.svg",
+    "Digital marketing consulting, guides, and tools from Compounding Wins — SEO, social, content, and paid media strategy.",
+  openGraph: {
+    siteName: "Compounding Wins",
+    type: "website",
+    locale: "en_GB",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} h-full`}>
+    <html lang="en-GB" className={`${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col font-sans antialiased">
         {children}
         {process.env.NEXT_PUBLIC_GA_ID && (

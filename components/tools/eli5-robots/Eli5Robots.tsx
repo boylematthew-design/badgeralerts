@@ -261,12 +261,12 @@ export default function Eli5Robots({ handoffTo, headingLevel = 2 }: { handoffTo?
 }
 
 const CSS = `
-.eli5r{--g:#1b7a4c;--g-soft:#e8f3ec;--ink:#1d1d1b;--body:#555;--line:#e3e3df;--amber:#9a6a00;--amber-soft:#fbf3df;--red:#a23b2c;--red-soft:#f8e9e6;
+.eli5r{--g:var(--color-accent);--g-soft:var(--color-accent-light);--ink:var(--color-ink);--body:var(--color-mid);--line:var(--color-border);--amber:#9a6a00;--amber-soft:#fbf3df;--red:#a23b2c;--red-soft:#f8e9e6;
   margin:40px 0;padding:24px 26px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--body);font:inherit;line-height:1.6}
 .eli5r *{box-sizing:border-box}
 .eli5r-title{margin:0 0 6px;color:var(--ink);font-family:inherit;font-size:1.6rem;line-height:1.15}
 .eli5r-intro{margin:0 0 16px;font-size:.95rem}
-.eli5r-drop{position:relative;border:1.5px dashed #c9cfc9;border-radius:10px;background:#fafaf8;transition:.15s}
+.eli5r-drop{position:relative;border:1.5px dashed var(--color-border-strong);border-radius:10px;background:var(--color-paper);transition:.15s}
 .eli5r-drop.is-drag,.eli5r-drop:hover{border-color:var(--g);background:var(--g-soft)}
 .eli5r-file{position:absolute;width:1px;height:1px;opacity:0}
 .eli5r-file:focus-visible + .eli5r-drop-label{outline:2px solid var(--g);outline-offset:2px;border-radius:10px}
@@ -303,7 +303,7 @@ const CSS = `
 .eli5r-line.is-note{border-left-color:#d9a72b;background:#fffcf3}
 .eli5r-line.is-comment{opacity:.7}
 .eli5r-code{display:flex;gap:12px;align-items:baseline;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);overflow-wrap:anywhere}
-.eli5r-ln{min-width:1.6em;color:#9a9a94;text-align:right;user-select:none}
+.eli5r-ln{min-width:1.6em;color:var(--color-muted);text-align:right;user-select:none}
 .eli5r-explain{margin:6px 0 0 calc(1.6em + 12px);font-size:.95rem}
 .eli5r-tag{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-size:.75rem;font-weight:600;vertical-align:1px}
 .eli5r-notes{display:grid;gap:12px}
@@ -314,15 +314,15 @@ const CSS = `
 .eli5r-muted{margin:0 0 12px;font-size:.95rem}
 .eli5r-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
 .eli5r-table{width:100%;border-collapse:collapse;font-size:.9rem}
-.eli5r-table th{padding:10px 14px;text-align:left;color:var(--ink);background:#fafaf8;font-weight:600;border-bottom:1px solid var(--line)}
+.eli5r-table th{padding:10px 14px;text-align:left;color:var(--ink);background:var(--color-paper);font-weight:600;border-bottom:1px solid var(--line)}
 .eli5r-table td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
 .eli5r-table code{color:var(--ink);font-size:.85rem;white-space:nowrap}
 .eli5r-pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:600;white-space:nowrap}
 .eli5r-pill.ok{background:var(--g-soft);color:var(--g)}
 .eli5r-pill.part{background:#eaf1f7;color:#2f5f86}
 .eli5r-pill.out{background:#eef0f4;color:#4a5568}
-.eli5r-src{display:block;margin-top:3px;font-size:.78rem;color:#8a8a84}
-.eli5r-footnote{margin:26px 0 0;font-size:.85rem;color:#8a8a84}
+.eli5r-src{display:block;margin-top:3px;font-size:.78rem;color:var(--color-muted)}
+.eli5r-footnote{margin:26px 0 0;font-size:.85rem;color:var(--color-muted)}
 @media (max-width:600px){
   .eli5r{padding:20px 16px;margin:32px 0}
   .eli5r-title{font-size:1.5rem}

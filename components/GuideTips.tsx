@@ -174,7 +174,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
         Tip {tipNumber}
       </div>
-      <Heading className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
+      <Heading className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-3">
         {tip.title}
       </Heading>
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
@@ -288,11 +288,11 @@ export function TipList({ tips, sections }: {
             <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-1">
               Section
             </div>
-            <h3 className="font-serif text-[24px] md:text-[30px] text-ink font-normal">
+            <h3 className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[30px] text-ink">
               {group.title}
             </h3>
             {group.description && (
-              <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mt-2 max-w-[560px]">
+              <p className="text-[15px] md:text-[16px] text-mid leading-[1.6] mt-2 max-w-[560px]">
                 {group.description}
               </p>
             )}

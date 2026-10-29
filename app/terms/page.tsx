@@ -1,16 +1,21 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+
+export const metadata = {
+  title: "Terms of Service | Compounding Wins",
+};
 
 export default function TermsOfServicePage() {
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <Navbar />
+      <PageHero
+        eyebrow="Legal"
+        title={<>Terms of Service</>}
+        intro={<>Last updated: 19 April 2026</>}
+      />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">Legal</div>
-        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
-          Terms of Service
-        </h1>
-        <p className="text-[13px] text-muted mb-12">Last updated: 19 April 2026</p>
 
         <div className="flex flex-col gap-10 text-[14px] text-mid leading-[1.75]">
 

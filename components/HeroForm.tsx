@@ -62,7 +62,7 @@ export default function HeroForm({ variant = "light" }: HeroFormProps) {
         {/* CTA button */}
         <button
           type="submit"
-          className="bg-accent text-white px-[22px] py-3 rounded-[8px] text-sm font-medium whitespace-nowrap hover:bg-accent-dark active:translate-y-px transition-all flex items-center justify-center gap-1.5"
+          className="bg-accent text-white px-[22px] py-3 rounded-[8px] text-sm font-medium whitespace-nowrap hover:bg-accent-hover active:translate-y-px transition-all flex items-center justify-center gap-1.5"
         >
           Get free alerts
           <svg

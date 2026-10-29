@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
+import Logo, { LogoMark } from "@/components/Logo";
 
 const navItems = [
   {
@@ -98,28 +99,6 @@ interface SidebarProps {
   website?: string;
 }
 
-function LogoMark() {
-  return (
-    <div className="w-7 h-7 flex-shrink-0" aria-hidden="true">
-      <svg viewBox="0 0 32 32" width="28" height="28">
-        <defs>
-          <clipPath id="ba-sidebar-clip">
-            <rect width="32" height="32" rx="9" />
-          </clipPath>
-        </defs>
-        <g clipPath="url(#ba-sidebar-clip)">
-          <rect width="32" height="32" rx="9" fill="#111110" />
-          <g fill="none" stroke="white" strokeWidth="1.6" strokeLinecap="round" opacity="0.85">
-            <path d="M7 25 A 8 8 0 0 1 15 17" />
-            <path d="M7 25 A 13 13 0 0 1 20 12" opacity="0.55" />
-            <path d="M7 25 A 18 18 0 0 1 25 7" opacity="0.3" />
-          </g>
-          <circle cx="7" cy="25" r="2.4" fill="#1DB973" />
-        </g>
-      </svg>
-    </div>
-  );
-}
 
 export default function Sidebar({ website }: SidebarProps) {
   const pathname = usePathname();
@@ -146,10 +125,7 @@ export default function Sidebar({ website }: SidebarProps) {
         {/* Logo */}
         <div className="px-5 pt-6 pb-5 border-b border-border">
           <Link href="/dashboard" className="flex items-center gap-2.5">
-            <LogoMark />
-            <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
-              compounding<span className="text-accent">wins</span>
-            </span>
+            <Logo size={24} />
           </Link>
         </div>
 

@@ -25,7 +25,7 @@ export default function GuideFaqs({ heading, faqs }: { heading: string; faqs: Fa
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
       />
-      <h2 id="faqs" className="font-serif text-[24px] md:text-[30px] text-ink font-normal mb-6">
+      <h2 id="faqs" className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[30px] text-ink mb-6">
         {heading}
       </h2>
       <div className="border-y border-border divide-y divide-border">
@@ -42,7 +42,7 @@ export default function GuideFaqs({ heading, faqs }: { heading: string; faqs: Fa
                 +
               </span>
             </summary>
-            <div className="pb-6 pr-8 space-y-3 text-[15px] text-mid font-light leading-[1.7]">
+            <div className="pb-6 pr-8 space-y-3 text-[15px] text-mid leading-[1.7]">
               {faq.answer.map((block, i) =>
                 block.type === "p" ? (
                   <p key={i}>{block.text}</p>

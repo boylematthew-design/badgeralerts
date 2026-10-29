@@ -23,15 +23,15 @@ export default function WaitingRoom({ name }: { name?: string }) {
         </svg>
       </div>
 
-      <h2 className="font-serif font-normal text-[26px] md:text-[32px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
+      <h2 className="font-heading font-extrabold tracking-[-0.04em] text-[26px] md:text-[32px] leading-[1.1] text-ink mb-3">
         {first ? (
-          <>Hang tight, <em className="italic text-accent-dark">{first}.</em></>
+          <>Hang tight, <em className="not-italic text-accent">{first}.</em></>
         ) : (
-          <>Your first alerts are <em className="italic text-accent-dark">on their way.</em></>
+          <>Your first alerts are <em className="not-italic text-accent">on their way.</em></>
         )}
       </h2>
 
-      <p className="text-[15px] text-mid font-light leading-[1.6] max-w-sm mb-10">
+      <p className="text-[15px] text-mid leading-[1.6] max-w-sm mb-10">
         We&apos;re scanning your site now. Your alerts will appear here the moment
         we find something worth your attention.
       </p>

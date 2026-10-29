@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LinkedInIcon from "@/components/LinkedInIcon";
+import { heroLinkClass } from "@/components/PageHero";
 import { TEAM, getTeamMember } from "@/lib/team";
 import { guidePath } from "@/lib/blog-guides";
 
@@ -28,10 +29,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const person = getTeamMember(slug);
-  if (!person) return { title: "Profile not found | Matthew Boyle" };
+  if (!person) return { title: "Profile not found | Compounding Wins" };
 
   return {
-    title: `${person.name}, ${person.role} | Matthew Boyle`,
+    title: `${person.name}, ${person.role} | Compounding Wins`,
     description: person.intro[0],
     alternates: { canonical: `/author/${person.slug}` },
   };
@@ -64,37 +65,41 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   };
 
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }}
       />
       <Navbar />
-      <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-        <Link href="/blog" className="text-[13px] text-muted hover:text-accent-dark transition-colors">
-          ← All guides
-        </Link>
-
-        {/* ── Header ───────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 mt-6 mb-10">
-          <Image
-            src={person.photo}
-            alt={`Photo of ${person.name}`}
-            width={160}
-            height={160}
-            priority
-            className="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover flex-shrink-0"
-          />
-          <div>
-            <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-2">Author profile</div>
-            <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-2">
-              {person.name}
-            </h1>
-            <p className="text-[15px] md:text-[16px] text-accent-dark font-medium">{person.role}</p>
+      {/* ── Header (dark band) ──────────────────────────────────── */}
+      <section className="bg-ink text-paper">
+        <div className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
+          <Link href="/blog" className={heroLinkClass}>
+            ← All guides
+          </Link>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 mt-6">
+            <Image
+              src={person.photo}
+              alt={`Photo of ${person.name}`}
+              width={160}
+              height={160}
+              priority
+              className="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover flex-shrink-0"
+            />
+            <div>
+              <div className="text-[11px] font-semibold tracking-[0.08em] text-muted-dark uppercase mb-2">Author profile</div>
+              <h1 className="font-heading font-extrabold tracking-[-0.04em] text-[32px] md:text-[48px] leading-[1.06] text-paper mb-2">
+                {person.name}
+              </h1>
+              <p className="text-[15px] md:text-[16px] text-lime font-semibold">{person.role}</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-4 text-[15px] md:text-[16px] text-mid font-light leading-[1.7] mb-8 max-w-[620px]">
+      <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
+
+        <div className="space-y-4 text-[15px] md:text-[16px] text-mid leading-[1.7] mb-8 max-w-[620px]">
           {person.intro.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -104,7 +109,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
 
         {/* ── Experience by topic ──────────────────────────────── */}
         <section className="mt-14" aria-labelledby="experience">
-          <h2 id="experience" className="font-serif text-[24px] md:text-[30px] text-ink font-normal mb-6">
+          <h2 id="experience" className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[30px] text-ink mb-6">
             My experience by topic
           </h2>
           <div className="divide-y divide-border border-y border-border">
@@ -112,8 +117,8 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
               const href = item.externalUrl ?? (guidePaths.get(item.guide) ?? null);
               return (
                 <div key={item.guide} className="py-6">
-                  <h3 className="font-serif text-[20px] md:text-[22px] text-ink font-normal mb-2">{item.topic}</h3>
-                  <p className="text-[15px] text-mid font-light leading-[1.7]">{item.text}</p>
+                  <h3 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[22px] text-ink mb-2">{item.topic}</h3>
+                  <p className="text-[15px] text-mid leading-[1.7]">{item.text}</p>
                   {href && (
                     <a
                       href={href}
@@ -130,10 +135,10 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
 
         {/* ── Need help ────────────────────────────────────────── */}
         <section className="border border-border rounded-[20px] px-7 md:px-10 py-8 mt-14" aria-labelledby="need-help">
-          <h2 id="need-help" className="font-serif text-[24px] md:text-[28px] text-ink font-normal mb-3">
+          <h2 id="need-help" className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[28px] text-ink mb-3">
             Need help with your marketing?
           </h2>
-          <p className="text-[15px] text-mid font-light leading-[1.7] mb-6 max-w-[560px]">
+          <p className="text-[15px] text-mid leading-[1.7] mb-6 max-w-[560px]">
             Whether you need a one-off audit or ongoing support, get in touch and tell me what
             you&apos;re working on. I&apos;ll let you know honestly whether I can help.
           </p>
@@ -150,7 +155,7 @@ function ContactButtons({ linkedin, name }: { linkedin: string; name: string }) 
     <div className="flex flex-col sm:flex-row gap-3">
       <Link
         href="/contact"
-        className="inline-flex items-center justify-center bg-accent hover:bg-accent-dark text-white font-medium px-6 py-3 rounded-[8px] text-[14px] md:text-[15px] transition-colors"
+        className="btn-light inline-flex items-center justify-center px-6 py-3 text-[14px] md:text-[15px]"
       >
         Get in touch &rarr;
       </Link>
@@ -158,7 +163,7 @@ function ContactButtons({ linkedin, name }: { linkedin: string; name: string }) 
         href={linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 border border-border text-ink font-medium px-6 py-3 rounded-[8px] text-[14px] md:text-[15px] hover:border-accent-dark/40 transition-colors"
+        className="inline-flex items-center justify-center gap-2 border border-border-strong text-ink font-semibold px-6 py-3 rounded-[8px] text-[14px] md:text-[15px] hover:border-ink transition-colors"
       >
         <LinkedInIcon size={18} />
         View {name}&apos;s LinkedIn profile

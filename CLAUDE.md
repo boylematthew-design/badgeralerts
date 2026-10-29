@@ -69,13 +69,14 @@ Every page and component must work on mobile, tablet, and desktop. This is not o
 
 ## Design system
 
-- Font: Plus Jakarta Sans (via Google Fonts)
-- CSS framework: Tailwind
-- Sidebar background: slate-950
-- Primary accent: emerald-500
-- Background: slate-50 / #eff4fb
-- Cards: white, rounded-2xl or rounded-3xl, subtle border + shadow
-- Brand name: **Matthew Boyle** (always — the site is a personal agency brand, the company/product name is "Compounding Wins")
+- Brand: **Compounding Wins** (agency name, header/footer, titles). Matthew Boyle is the person — bylines, bio, photo.
+- Logo: `components/Logo.tsx` — four rising bars + "compounding**wins**" wordmark. `variant="dark"` on Ink backgrounds.
+- Font: Sora via `next/font/google` (`font-sans` and `font-heading`). 800 + `tracking-[-0.04em]` for the wordmark and big headings, 700 for subheadings, 400–500 for body. No light (300) weights.
+- Colours: tokens in `app/globals.css` only — never hard-code hex. Ink `#0E1A14`, Paper `#F5F4EE`, Green `accent` `#0B7A45`, Lime `lime` `#C5F05A` (dark backgrounds ONLY, never text on light), `muted-dark` `#B9C2BC` (secondary text on dark), `muted` `#5C6660` (secondary text on light).
+- Buttons: `btn-light` (Green, white text) on light sections; `btn-dark` (Lime, Ink text) on dark sections.
+- Layout: bold, minimal, lots of whitespace. Flat colour — no gradients, no drop shadows, no emoji. Alternate dark (Ink) and light (Paper) sections; inner pages use `components/PageHero.tsx` (dark intro) and `components/CtaBand.tsx` (dark CTA).
+- Contrast: every text/background pair must pass WCAG AA (4.5:1 body, 3:1 large). Ratios are noted next to the tokens.
+- Icons/social: `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico`, `app/opengraph-image.png` (+ `twitter-image.png`).
 
 ## How to work with this user
 

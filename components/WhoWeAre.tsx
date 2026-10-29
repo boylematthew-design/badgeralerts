@@ -11,7 +11,7 @@ export default function WhoWeAre({ slug }: { slug: string }) {
 
   return (
     <section className="mb-12" aria-labelledby="who-we-are">
-      <h2 id="who-we-are" className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
+      <h2 id="who-we-are" className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
         Who we are
       </h2>
       <div className="space-y-4">
@@ -33,7 +33,7 @@ export default function WhoWeAre({ slug }: { slug: string }) {
                   {person.name}
                 </Link>
               </h3>
-              <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.7] mb-4">
+              <p className="text-[15px] md:text-[16px] text-mid leading-[1.7] mb-4">
                 {person.bio}
               </p>
               <a

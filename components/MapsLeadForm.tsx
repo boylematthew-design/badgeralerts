@@ -54,8 +54,8 @@ export default function MapsLeadForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-serif font-normal text-[22px] text-ink mb-2">Thanks — got it!</h3>
-        <p className="text-[14px] text-mid font-light">We&apos;ll be in touch within 1 business day with your free quote.</p>
+        <h3 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Thanks — got it!</h3>
+        <p className="text-[14px] text-mid">We&apos;ll be in touch within 1 business day with your free quote.</p>
       </div>
     );
   }
@@ -104,7 +104,7 @@ export default function MapsLeadForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-dark active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-1"
+        className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-hover active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-1"
       >
         {loading ? (
           <>

@@ -1,23 +1,60 @@
 @import "tailwindcss";
 
-/* Fonts: Instrument Serif (display/headings) + DM Sans (UI/body) */
+/* Font: Sora for everything. `font-heading` is the same family, kept as its own
+   token so headings can be re-pointed later without touching body text. */
 @theme inline {
-  --font-sans: var(--font-dm);
-  --font-serif: var(--font-instrument);
+  --font-sans: var(--font-sora);
+  --font-heading: var(--font-sora);
 }
 
-/* Brand colour tokens — available as Tailwind utilities (text-accent, bg-surface, etc.) */
+/* Compounding Wins brand tokens — available as Tailwind utilities (text-accent, bg-paper, etc.).
+   Every colour on the public site should come from here, never a hard-coded hex.
+   Contrast (WCAG AA needs 4.5:1 for body text):
+     ink on paper 16.2 · mid on paper 8.4 · muted on paper 5.4 · accent on paper 4.9
+     white on accent 5.4 · paper on ink 16.2 · muted-dark on ink 9.8 · lime on ink 13.6 · accent on accent-light 4.6 */
 @theme {
-  --color-accent: #1DB973;
-  --color-accent-light: #E8F9F1;
-  --color-accent-dark: #0F7A49;
-  --color-surface: #F9F8F6;
-  --color-warm: #FAF7F1;
-  --color-ink: #111110;
-  --color-mid: #555551;
-  --color-muted: #999994;
-  --color-border: #E8E7E2;
-  --color-border-strong: #D9D7D0;
+  --color-ink: #0E1A14;          /* dark background / main text */
+  --color-paper: #F5F4EE;        /* light background */
+  --color-accent: #0B7A45;       /* green: accent on light, links, light-section buttons */
+  --color-accent-dark: #0B7A45;  /* legacy alias of accent, still used for links */
+  --color-accent-hover: #08603A; /* button hover on light */
+  --color-accent-light: #E6F0E8; /* flat green tint for callouts */
+  --color-lime: #C5F05A;         /* accent on dark ONLY — never text on a light background */
+  --color-lime-hover: #D4F57E;
+  --color-muted-dark: #B9C2BC;   /* secondary text on dark */
+  --color-line-dark: #2A3A31;    /* borders on dark */
+  --color-surface: #ECEBE3;      /* inset blocks on paper */
+  --color-warm: #F5F4EE;
+  --color-mid: #3E4A43;          /* body text on light */
+  --color-muted: #5C6660;        /* secondary text on light */
+  --color-border: #DDDBD0;
+  --color-border-strong: #C9C7BB;
+  --color-danger: #A32D2D;       /* form errors (6.2:1 on danger-soft) */
+  --color-danger-soft: #FEECEC;
+  --color-warn: #854F0B;         /* warning labels (6.1:1 on paper) */
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Buttons: pick by the background the button sits on. */
+@utility btn-light {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 150ms;
+  &:hover { background-color: var(--color-accent-hover); }
+}
+@utility btn-dark {
+  background-color: var(--color-lime);
+  color: var(--color-ink);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 150ms;
+  &:hover { background-color: var(--color-lime-hover); }
 }
 
 /* --- Animations -------------------------------------------------- */
@@ -36,7 +73,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #1DB973;
+  background: var(--color-accent);
   animation: pulseDot 2s infinite;
   flex-shrink: 0;
 }
@@ -50,26 +87,26 @@
 
 .custom-scrollbar::-webkit-scrollbar       { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #E8E7E2; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 10px; }
 
 .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
 /* ── CSS variable aliases used by si-* illustration components ─── */
 :root {
-  --accent:        #1DB973;
-  --accent-light:  #E8F9F1;
-  --accent-dark:   #0F7A49;
+  --accent:        var(--color-accent);
+  --accent-light:  var(--color-accent-light);
+  --accent-dark:   var(--color-accent-dark);
   --bg:            #FFFFFF;
-  --bg-soft:       #F9F8F6;
-  --text:          #111110;
-  --text-mid:      #555551;
-  --text-muted:    #999994;
-  --border:        #E8E7E2;
-  --border-strong: #D9D7D0;
+  --bg-soft:       var(--color-paper);
+  --text:          var(--color-ink);
+  --text-mid:      var(--color-mid);
+  --text-muted:    var(--color-muted);
+  --border:        var(--color-border);
+  --border-strong: var(--color-border-strong);
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --sans: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
-  --serif: var(--font-instrument), Georgia, serif;
+  --sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --serif: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ── Sample illustration styles (si-*) ─────────────────────────── */

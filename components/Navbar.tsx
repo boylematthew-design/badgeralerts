@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import LogoMark from "./Logo";
+import Logo from "./Logo";
 import LinkedInIcon from "./LinkedInIcon";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
@@ -18,13 +18,10 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-white/[0.92] backdrop-blur-[12px]">
+    <nav className="sticky top-0 z-50 border-b border-border bg-paper/[0.92] backdrop-blur-[12px]">
       <div className="flex items-center justify-between px-7 md:px-12 h-[68px]">
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <LogoMark />
-          <span className="text-[15px] font-medium tracking-[-0.025em] text-ink">
-            Compounding Wins
-          </span>
+        <Link href="/" aria-label="Compounding Wins home" className="flex items-center" onClick={() => setOpen(false)}>
+          <Logo />
         </Link>
 
         {/* Desktop nav links */}
@@ -53,7 +50,7 @@ export default function Navbar() {
           </a>
           <Link
             href="/contact"
-            className="bg-ink text-white text-[14px] font-medium px-5 py-2.5 rounded-[8px] hover:opacity-80 active:translate-y-px transition-all"
+            className="btn-light text-[14px] px-5 py-2.5 active:translate-y-px"
           >
             Work with me
           </Link>
@@ -81,7 +78,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border bg-white px-7 py-4 flex flex-col gap-1">
+        <div className="md:hidden border-t border-border bg-paper px-7 py-4 flex flex-col gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -105,7 +102,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="flex-1 text-center bg-ink text-white text-[14px] font-medium px-5 py-2.5 rounded-[8px]"
+              className="flex-1 text-center btn-light text-[14px] px-5 py-2.5"
             >
               Work with me
             </Link>

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ConsultantCTA from "@/components/ConsultantCTA";
 import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
+import PageHero, { heroLinkClass } from "@/components/PageHero";
 import { TipList } from "@/components/GuideTips";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import { getGuideHeadings } from "@/lib/guide-headings";
@@ -36,7 +37,7 @@ async function resolveGuide(slug: string) {
 
 export async function guideMetadata(slug: string): Promise<Metadata> {
   const found = await resolveGuide(slug);
-  if (!found) return { title: "Guide not found | Matthew Boyle" };
+  if (!found) return { title: "Guide not found | Compounding Wins" };
 
   const { guide, path } = found;
   const alternates = { canonical: `${BASE_URL}${path}` };
@@ -44,7 +45,7 @@ export async function guideMetadata(slug: string): Promise<Metadata> {
   if (meta) return { ...meta, alternates };
 
   return {
-    title: `${guide.title} | Matthew Boyle`,
+    title: `${guide.title} | Compounding Wins`,
     description: guide.description || undefined,
     alternates,
   };
@@ -86,42 +87,40 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
   };
 
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <Navbar />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
       />
+      <PageHero
+        eyebrow="Guide"
+        title={<>{guide.title}</>}
+        before={
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-muted-dark">
+            <Link href="/blog" className={heroLinkClass}>
+              ← All guides
+            </Link>
+            {parent && (
+              <>
+                <span aria-hidden="true">/</span>
+                <Link href={guidePath(parent, guides)} className={heroLinkClass}>
+                  {parent.title}
+                </Link>
+              </>
+            )}
+          </nav>
+        }
+        intro={guide.description || undefined}
+        after={
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-6">
+            <AuthorByline variant="dark" />
+            <span className="text-[13px] text-muted-dark">Last updated: {lastUpdated}</span>
+          </div>
+        }
+      />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-        <nav aria-label="Breadcrumb" className="text-[13px] text-muted flex flex-wrap items-center gap-x-1.5 gap-y-1">
-          <Link href="/blog" className="hover:text-accent-dark transition-colors">
-            ← All guides
-          </Link>
-          {parent && (
-            <>
-              <span aria-hidden="true">/</span>
-              <Link href={guidePath(parent, guides)} className="hover:text-accent-dark transition-colors">
-                {parent.title}
-              </Link>
-            </>
-          )}
-        </nav>
-
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4 mt-6">Guide</div>
-        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-          {guide.title}
-        </h1>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-5">
-          <AuthorByline />
-          <span className="text-[13px] text-muted">Last updated: {lastUpdated}</span>
-        </div>
-        {guide.description && (
-          <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-6 max-w-[560px]">
-            {guide.description}
-          </p>
-        )}
-
-        <p className="bg-accent-light rounded-[14px] px-5 md:px-6 py-4 text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-12">
+        <p className="bg-accent-light rounded-[14px] px-5 md:px-6 py-4 text-[14px] md:text-[15px] text-mid leading-[1.6] mb-12">
           If you are looking for a {service.name} expert and services, we have a separate guide on
           that where you can learn more:{" "}
           <Link
@@ -147,10 +146,10 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
                     href={guidePath(child, guides)}
                     className="group flex items-center justify-between gap-4 border border-border rounded-[14px] px-5 py-4 hover:border-accent-dark/40 transition-colors"
                   >
-                    <span className="font-serif text-[17px] md:text-[19px] text-ink group-hover:text-accent-dark transition-colors">
+                    <span className="font-heading font-bold tracking-[-0.03em] text-[17px] md:text-[19px] text-ink group-hover:text-accent-dark transition-colors">
                       {child.title}
                     </span>
-                    <span className="text-[12px] text-muted font-light flex-shrink-0">
+                    <span className="text-[12px] text-muted flex-shrink-0">
                       {count} tip{count !== 1 ? "s" : ""}
                     </span>
                   </Link>
@@ -160,13 +159,13 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
           </section>
         )}
 
-        <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-5">
+        <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
           {headings.guide}
         </h2>
 
         {!tips || tips.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
-            <p className="text-[15px] text-mid font-light">
+            <p className="text-[15px] text-mid">
               Tips for this guide are coming soon — check back shortly.
             </p>
           </div>

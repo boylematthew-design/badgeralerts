@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
-import LogoMark from "@/components/Logo";
+import Logo from "@/components/Logo";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -43,30 +43,27 @@ function Result({ success, message }: { success: boolean; message: string }) {
     <div className="min-h-screen flex flex-col bg-surface">
       <header className="flex items-center px-7 md:px-8 py-5">
         <Link href="/" className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="text-[15px] font-medium tracking-[-0.025em] text-ink">
-            Matthew Boyle
-          </span>
+          <Logo />
         </Link>
       </header>
 
       <main className="flex-1 flex items-center justify-center px-5 py-12">
-        <div className="bg-white border border-border rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] w-full max-w-[440px] px-8 py-12 text-center">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5 ${success ? "bg-accent" : "bg-[#FEECEC]"}`}>
+        <div className="bg-white border border-border rounded-[20px] w-full max-w-[440px] px-8 py-12 text-center">
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5 ${success ? "bg-accent" : "bg-danger-soft"}`}>
             {success ? (
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
             ) : (
-              <svg className="w-6 h-6 text-[#A32D2D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-6 h-6 text-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
           </div>
-          <h1 className="font-serif font-normal text-[22px] text-ink mb-3">
+          <h1 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-3">
             {success ? "You're unsubscribed" : "Something went wrong"}
           </h1>
-          <p className="text-[14px] text-mid font-light leading-[1.6] mb-8">{message}</p>
+          <p className="text-[14px] text-mid leading-[1.6] mb-8">{message}</p>
           <Link
             href="/"
             className="text-[14px] text-accent-dark font-medium hover:underline underline-offset-2"

@@ -1,21 +1,22 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import CtaBand from "@/components/CtaBand";
+
+export const metadata = {
+  title: "About | Compounding Wins",
+};
 
 export default function AboutPage() {
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <Navbar />
+      <PageHero
+        eyebrow="About"
+        title={<>Built by someone who&apos;s{" "} <em>been in your shoes</em></>}
+        intro={<>Built by a digital marketing specialist with nearly 20 years of experience — to give every website owner the kind of insight that usually only comes from hiring a consultant.</>}
+      />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
-
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">About</div>
-        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-          Built by someone who&apos;s{" "}
-          <em className="italic text-accent-dark">been in your shoes</em>
-        </h1>
-        <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12 max-w-[560px]">
-          Built by a digital marketing specialist with nearly 20 years of experience — to give every website owner the kind of insight that usually only comes from hiring a consultant.
-        </p>
 
         {/* Founder story */}
         <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4">
@@ -37,7 +38,7 @@ export default function AboutPage() {
 
         {/* Mission */}
         <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4">
-          <h2 className="font-serif font-normal text-[20px] md:text-[24px] leading-[1.15] tracking-[-0.015em] text-ink mb-4">
+          <h2 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] leading-[1.15] text-ink mb-4">
             More than just alerts
           </h2>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
@@ -48,7 +49,7 @@ export default function AboutPage() {
 
         {/* What's coming */}
         <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-10">
-          <h2 className="font-serif font-normal text-[20px] md:text-[24px] leading-[1.15] tracking-[-0.015em] text-ink mb-4">
+          <h2 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] leading-[1.15] text-ink mb-4">
             What&apos;s coming
           </h2>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75] mb-6">
@@ -78,29 +79,13 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="bg-ink rounded-[20px] px-8 py-10 text-center relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_0%,rgba(29,185,115,0.10),transparent_50%)]" />
-          <div className="relative">
-            <h3 className="font-serif font-normal text-[22px] md:text-[28px] leading-[1.1] tracking-[-0.02em] text-white mb-2">
-              Ready to see it in action?
-            </h3>
-            <p className="text-[14px] text-white/55 font-light mb-6">
-              Sign up free and get your first alert within days.
-            </p>
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-6 py-2.5 rounded-[8px] text-[14px] transition-colors"
-            >
-              Get started free
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-
       </main>
+      <CtaBand
+        title={<>Ready to see it in action?</>}
+        body={<>Sign up free and get your first alert within days.</>}
+        href="/signup"
+        label="Get started free"
+      />
       <Footer />
     </div>
   );

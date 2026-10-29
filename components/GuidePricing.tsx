@@ -34,10 +34,10 @@ export default function GuidePricing({
 
   return (
     <section className="mb-12">
-      <h2 className="font-serif text-[22px] md:text-[26px] text-ink font-normal mb-3">
+      <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-3">
         {heading}
       </h2>
-      <p className="text-[14px] md:text-[15px] text-mid font-light leading-[1.6] mb-6">
+      <p className="text-[14px] md:text-[15px] text-mid leading-[1.6] mb-6">
         The cost of {article} {topicName} expert who provides consultancy and agency services can
         depend on the scope of the project and what exactly is needed. Below we have listed the
         prices we charge for the service. If you wish to have more information then{" "}
@@ -56,19 +56,19 @@ export default function GuidePricing({
               </th>
               <th scope="col" className="px-2 md:px-6 py-4 text-center align-bottom w-[90px] md:w-[150px]">
                 <span className="block text-[12px] md:text-[13px] font-medium text-ink">One-off audit</span>
-                <span className="block font-serif text-[20px] md:text-[26px] text-ink mt-1">{GUIDE_PRICES.audit}</span>
+                <span className="block font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[26px] text-ink mt-1">{GUIDE_PRICES.audit}</span>
               </th>
               <th scope="col" className="px-2 md:px-6 py-4 text-center align-bottom w-[90px] md:w-[150px]">
                 <span className="block text-[12px] md:text-[13px] font-medium text-ink">Monthly service</span>
-                <span className="block font-serif text-[20px] md:text-[26px] text-ink mt-1">{GUIDE_PRICES.monthly}</span>
-                <span className="block text-[11px] text-muted font-light">per month</span>
+                <span className="block font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[26px] text-ink mt-1">{GUIDE_PRICES.monthly}</span>
+                <span className="block text-[11px] text-muted">per month</span>
               </th>
             </tr>
           </thead>
           <tbody>
             {features.map((feature) => (
               <tr key={feature.label} className="border-b border-border last:border-b-0">
-                <th scope="row" className="px-4 md:px-6 py-3 text-[13px] md:text-[14px] text-mid font-light leading-[1.4]">
+                <th scope="row" className="px-4 md:px-6 py-3 text-[13px] md:text-[14px] text-mid leading-[1.4]">
                   {feature.label}
                 </th>
                 <td className="px-2 md:px-6 py-3">{feature.audit ? <Tick /> : <Cross />}</td>
@@ -82,11 +82,12 @@ export default function GuidePricing({
       <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
         <Link
           href="/contact"
-          className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-6 py-3 rounded-[8px] text-[14px] md:text-[15px] transition-colors"
+          className="btn-light inline-flex items-center justify-center gap-2 px-6 py-3 text-[14px] md:text-[15px]"
         >
-          Get your {topicName} quote &rarr;
+          {/* one span so flex doesn't collapse the spaces around {topicName} */}
+          <span>Get your {topicName} quote &rarr;</span>
         </Link>
-        <span className="text-[13px] text-muted font-light text-center sm:text-left">
+        <span className="text-[13px] text-muted text-center sm:text-left">
           No obligation &middot; just tell me what you need
         </span>
       </div>

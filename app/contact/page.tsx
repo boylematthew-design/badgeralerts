@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 
 const inputClass =
-  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(29,185,115,0.08)] transition-all";
+  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition-all";
 
 const selectClass =
-  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(29,185,115,0.08)] transition-all";
+  "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition-all";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", website: "" });
@@ -41,17 +42,15 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-paper text-ink">
       <Navbar />
+      <PageHero
+        eyebrow="Contact"
+        title={<>Get in <em>touch</em></>}
+        intro={<>Have a project in mind, or a question? I&apos;d love to hear from you.</>}
+        width="max-w-[1060px]"
+      />
       <main className="max-w-[1060px] mx-auto px-7 md:px-12 py-14 md:py-20">
-
-        <div className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-4">Contact</div>
-        <h1 className="font-serif font-normal text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-          Get in <em className="italic text-accent-dark">touch</em>
-        </h1>
-        <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12 max-w-[520px]">
-          Have a project in mind, or a question? I&apos;d love to hear from you.
-        </p>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-10">
 
@@ -103,8 +102,8 @@ export default function ContactPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h2 className="font-serif font-normal text-[22px] text-ink mb-2">Message sent!</h2>
-                  <p className="text-[14px] text-mid font-light mb-6">Thanks for reaching out. We&apos;ll get back to you within 1 business day.</p>
+                  <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Message sent!</h2>
+                  <p className="text-[14px] text-mid mb-6">Thanks for reaching out. We&apos;ll get back to you within 1 business day.</p>
                   <Link href="/" className="text-[14px] text-accent-dark font-medium hover:underline underline-offset-2">
                     Back to home
                   </Link>
@@ -155,7 +154,7 @@ export default function ContactPage() {
                     </div>
 
                     {error && (
-                      <div className="bg-[#FEECEC] border border-[#A32D2D]/20 text-[#A32D2D] text-[13px] px-4 py-3 rounded-[10px]">
+                      <div className="bg-danger-soft border border-danger/20 text-danger text-[13px] px-4 py-3 rounded-[10px]">
                         {error}
                       </div>
                     )}
@@ -163,7 +162,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-accent text-white py-3.5 rounded-[8px] text-[15px] font-medium flex items-center justify-center gap-2 hover:bg-accent-dark active:translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-1"
+                      className="w-full btn-light py-3.5 text-[15px] flex items-center justify-center gap-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed mt-1"
                     >
                       {loading ? (
                         <>

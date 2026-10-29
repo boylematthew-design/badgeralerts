@@ -13,12 +13,12 @@ export default function MarkdownContent({ content, baseLevel = 1 }: { content: s
   const H2 = tag(1);
   const H3 = tag(2);
   return (
-    <div className="text-[15px] text-mid font-light leading-[1.7]">
+    <div className="text-[15px] text-mid leading-[1.7]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: ({ ...props }) => <H1 className="font-serif text-[24px] md:text-[28px] text-ink font-normal mt-8 mb-3" {...props} />,
-          h2: ({ ...props }) => <H2 className="font-serif text-[20px] md:text-[22px] text-ink font-normal mt-7 mb-3" {...props} />,
+          h1: ({ ...props }) => <H1 className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[28px] text-ink mt-8 mb-3" {...props} />,
+          h2: ({ ...props }) => <H2 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[22px] text-ink mt-7 mb-3" {...props} />,
           h3: ({ ...props }) => <H3 className="text-[16px] md:text-[17px] text-ink font-semibold mt-6 mb-2" {...props} />,
           p: ({ ...props }) => <p className="mb-4" {...props} />,
           ul: ({ ...props }) => <ul className="list-disc pl-5 space-y-1.5 mb-4" {...props} />,
