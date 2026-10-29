@@ -16,17 +16,17 @@ export default function TermsOfServicePage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">1. Acceptance of terms</h2>
-            <p>By creating an account and using BadgerAlerts ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.</p>
+            <p>By creating an account and using Compounding Wins ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.</p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">2. Description of service</h2>
-            <p>BadgerAlerts is a digital marketing monitoring service that delivers scheduled alerts and insights about your website&apos;s digital presence, including SEO, social media, competitor activity, content strategy, and paid media performance. Alerts are curated and delivered by email on a schedule determined by BadgerAlerts.</p>
+            <p>Compounding Wins is a digital marketing monitoring service that delivers scheduled alerts and insights about your website&apos;s digital presence, including SEO, social media, competitor activity, content strategy, and paid media performance. Alerts are curated and delivered by email on a schedule determined by Compounding Wins.</p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">3. Account registration</h2>
-            <p className="mb-3">To use BadgerAlerts, you must:</p>
+            <p className="mb-3">To use Compounding Wins, you must:</p>
             <ul className="list-disc pl-5 space-y-1.5">
               <li>Provide accurate and complete information when creating your account</li>
               <li>Verify your email address</li>
@@ -50,17 +50,17 @@ export default function TermsOfServicePage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">5. Intellectual property</h2>
-            <p>All content, alerts, insights, and materials provided through BadgerAlerts are the intellectual property of BadgerAlerts. You may not reproduce, distribute, or commercially exploit any content from the Service without our written permission.</p>
+            <p>All content, alerts, insights, and materials provided through Compounding Wins are the intellectual property of Compounding Wins. You may not reproduce, distribute, or commercially exploit any content from the Service without our written permission.</p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">6. Disclaimer of warranties</h2>
-            <p>BadgerAlerts provides alerts and insights for informational purposes only. We do not guarantee specific results or outcomes from acting on any alert. The Service is provided &ldquo;as is&rdquo; without warranties of any kind, express or implied.</p>
+            <p>Compounding Wins provides alerts and insights for informational purposes only. We do not guarantee specific results or outcomes from acting on any alert. The Service is provided &ldquo;as is&rdquo; without warranties of any kind, express or implied.</p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">7. Limitation of liability</h2>
-            <p>To the fullest extent permitted by law, BadgerAlerts shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to loss of revenue, data, or business opportunities.</p>
+            <p>To the fullest extent permitted by law, Compounding Wins shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to loss of revenue, data, or business opportunities.</p>
           </section>
 
           <section>
@@ -80,7 +80,7 @@ export default function TermsOfServicePage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">11. Contact us</h2>
-            <p>If you have any questions about these Terms of Service, please contact us at <strong className="font-medium text-ink">support@badgeralerts.live</strong>.</p>
+            <p>If you have any questions about these Terms of Service, please contact us at <strong className="font-medium text-ink">support@compoundingwins.com</strong>.</p>
           </section>
 
         </div>

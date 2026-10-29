@@ -27,7 +27,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="bg-slate-950 px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/dashboard" className="text-[15px] font-extrabold tracking-tighter text-white uppercase">
-            BADGER<span className="text-emerald-500">ALERTS</span>
+            COMPOUNDING<span className="text-emerald-500">WINS</span>
           </Link>
           <span className="text-slate-700 text-lg">|</span>
           <span className="text-slate-400 text-sm font-semibold">Admin</span>

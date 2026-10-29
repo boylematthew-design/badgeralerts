@@ -15,6 +15,17 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  // The site moved from badgeralerts.live to compoundingwins.com. Permanent
+  // (308) redirects, path preserved, so old links and Google rankings carry
+  // over. Only fires while the old domain is still attached in Vercel.
+  async redirects() {
+    return ["badgeralerts.live", "www.badgeralerts.live"].map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: host }],
+      destination: "https://www.compoundingwins.com/:path*",
+      permanent: true,
+    }));
+  },
 };
 
 export default nextConfig;

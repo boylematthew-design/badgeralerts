@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 
 const faqs = [
   {
-    q: "What is BadgerAlerts?",
-    a: "BadgerAlerts is a digital marketing monitoring tool that automatically scans your website and online presence for issues and opportunities. When something is found — whether it's a drop in page speed, a competitor making moves, or an SEO opportunity — you receive a personalised alert in your dashboard and by email.",
+    q: "What is Compounding Wins?",
+    a: "Compounding Wins is a digital marketing monitoring tool that automatically scans your website and online presence for issues and opportunities. When something is found — whether it's a drop in page speed, a competitor making moves, or an SEO opportunity — you receive a personalised alert in your dashboard and by email.",
   },
   {
     q: "How does it work?",
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "I need help understanding an alert — what do I do?",
-    a: "Each alert detail page has a 'Get expert help' button at the bottom. Click it, describe what you need help with, and submit an enquiry. Our team will get back to you directly by email. You can also reach us at support@badgeralerts.live at any time.",
+    a: "Each alert detail page has a 'Get expert help' button at the bottom. Click it, describe what you need help with, and submit an enquiry. Our team will get back to you directly by email. You can also reach us at support@compoundingwins.com at any time.",
   },
   {
     q: "Can I update my account details?",
@@ -36,8 +36,8 @@ const faqs = [
     a: "Go to Settings in your dashboard and scroll to the bottom. There is a 'Delete account' button which will permanently remove your account and all associated data. This action cannot be undone.",
   },
   {
-    q: "Who is behind BadgerAlerts?",
-    a: "BadgerAlerts was built by Matthew Boyle, a digital marketing and web professional based in England with over 20 years of experience working on websites and online presence. The tool was built to surface the kinds of issues Matthew kept spotting for clients — automatically, and without the need for an ongoing consultant.",
+    q: "Who is behind Compounding Wins?",
+    a: "Compounding Wins was built by Matthew Boyle, a digital marketing and web professional based in England with over 20 years of experience working on websites and online presence. The tool was built to surface the kinds of issues Matthew kept spotting for clients — automatically, and without the need for an ongoing consultant.",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function FAQPage() {
           Frequently asked <em className="italic text-accent-dark">questions</em>
         </h1>
         <p className="text-[15px] md:text-[16px] text-mid font-light leading-[1.6] mb-12">
-          Everything you need to know about BadgerAlerts.
+          Everything you need to know about Compounding Wins.
         </p>
 
         <div className="flex flex-col gap-3 mb-12">

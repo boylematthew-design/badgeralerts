@@ -38,19 +38,19 @@ export async function POST(request: Request) {
   const firstName = record.full_name?.split(" ")[0] ?? "there";
 
   const { error } = await resend.emails.send({
-    from: "Matthew at BadgerAlerts <support@badgeralerts.live>",
+    from: "Matthew at Compounding Wins <support@compoundingwins.com>",
     to: record.email,
-    replyTo: "support@badgeralerts.live",
-    subject: "Welcome to BadgerAlerts",
+    replyTo: "support@compoundingwins.com",
+    subject: "Welcome to Compounding Wins",
     html: `
       <div style="max-width:560px;margin:0 auto;padding:40px 24px;font-family:sans-serif;color:#334155;line-height:1.7;font-size:15px;">
         <div style="margin-bottom:32px;">
-          <span style="font-size:22px;font-weight:900;color:#0f172a;">Badger<span style="color:#10b981;">Alerts</span></span>
+          <span style="font-size:22px;font-weight:900;color:#0f172a;">Compounding<span style="color:#10b981;">Wins</span></span>
         </div>
 
         <p>Hey ${firstName},</p>
 <br>
-        <p>I'm Matthew — I run BadgerAlerts and I just wanted to drop you a quick note to say welcome.</p>
+        <p>I'm Matthew — I run Compounding Wins and I just wanted to drop you a quick note to say welcome.</p>
 <br>
         <p>I've spent the past 20 years working on my own and other's websites. Over that time I have come across a lot of issues and built up knowledge along the way! I decided to build this tool that scans your website and identifies issues, offers improvements & gives suggestions. </p>
 <br>
@@ -58,10 +58,10 @@ export async function POST(request: Request) {
 <br>
         <p>If you have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
         
-        <p style="margin-top:32px;">Cheers,<br><strong>Matthew</strong><br><span style="color:#94a3b8;font-size:13px;">Founder, BadgerAlerts</span></p>
+        <p style="margin-top:32px;">Cheers,<br><strong>Matthew</strong><br><span style="color:#94a3b8;font-size:13px;">Founder, Compounding Wins</span></p>
 
         <hr style="border:none;border-top:1px solid #e2e8f0;margin:40px 0;">
-        <p style="font-size:12px;color:#cbd5e1;text-align:center;">BadgerAlerts &mdash; badgeralerts.live</p>
+        <p style="font-size:12px;color:#cbd5e1;text-align:center;">Compounding Wins &mdash; compoundingwins.com</p>
       </div>
     `,
   });

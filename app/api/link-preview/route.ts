@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; BadgerAlerts/1.0; +https://www.badgeralerts.live)" },
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; CompoundingWins/1.0; +https://www.compoundingwins.com)" },
       signal: AbortSignal.timeout(8000),
     });
 

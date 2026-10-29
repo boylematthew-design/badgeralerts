@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin/", "/dashboard/", "/reset-password", "/unsubscribe"],
     },
-    sitemap: "https://www.badgeralerts.live/sitemap.xml",
+    sitemap: "https://www.compoundingwins.com/sitemap.xml",
   };
 }

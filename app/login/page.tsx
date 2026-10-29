@@ -75,7 +75,7 @@ export default function LoginPage() {
         <Link href="/" className="flex items-center gap-2.5">
           <LogoMark />
           <span className="text-[15px] font-medium tracking-[-0.025em] text-ink">
-            badger<span className="text-accent">alerts</span>
+            compounding<span className="text-accent">wins</span>
           </span>
         </Link>
         <Link href="/" className="text-[14px] text-mid hover:text-ink transition-colors">

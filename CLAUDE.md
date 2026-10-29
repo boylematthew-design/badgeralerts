@@ -4,7 +4,7 @@
 
 This site is Matthew Boyle's personal digital marketing agency, blog, and tools platform — think a Neil Patel–style personal brand site (headline: consulting, services, free guides, and tools), not a standalone SaaS product.
 
-It started life as **BadgerAlerts**, an AI-powered digital marketing monitoring SaaS (a tool that watches a user's website and fires alerts across SEO, social, competitors, content, and paid media). That product didn't take off as a standalone SaaS, so as of August 2026 it was pivoted into Matthew's agency site. The original monitoring tool still exists and works — it now lives under **`/tools`** as one offering of the agency ("Website Monitoring Tool"), rather than being the whole site. Domain stays `badgeralerts.live` for now (may change later).
+It started life as **BadgerAlerts**, an AI-powered digital marketing monitoring SaaS (a tool that watches a user's website and fires alerts across SEO, social, competitors, content, and paid media). That product didn't take off as a standalone SaaS, so as of August 2026 it was pivoted into Matthew's agency site. The original monitoring tool still exists and works — it now lives under **`/tools`** as one offering of the agency ("Website Monitoring Tool"), rather than being the whole site. In October 2026 the site moved to **`compoundingwins.com`** (canonical: `https://www.compoundingwins.com`) and all BadgerAlerts branding became **Compounding Wins**. `badgeralerts.live` 308-redirects to the new domain via `next.config.ts`. The database `site` key for guides is still `"badgeralerts"` (see `lib/sites.ts`) — that's intentional, don't rename it.
 
 Header nav: **Blog / Services / Tools / Consulting**, plus a LinkedIn icon (links to `https://www.linkedin.com/in/mattboyle3/`) and a "Work with me" button (links to `/contact`) in the top right.
 
@@ -75,7 +75,7 @@ Every page and component must work on mobile, tablet, and desktop. This is not o
 - Primary accent: emerald-500
 - Background: slate-50 / #eff4fb
 - Cards: white, rounded-2xl or rounded-3xl, subtle border + shadow
-- Brand name: **Matthew Boyle** (always — the site is a personal agency brand, not "BadgerAlerts", though the `/tools` monitoring product may still reference its original name internally)
+- Brand name: **Matthew Boyle** (always — the site is a personal agency brand, the company/product name is "Compounding Wins")
 
 ## How to work with this user
 

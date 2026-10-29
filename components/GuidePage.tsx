@@ -18,7 +18,7 @@ import { fetchPublishedGuides, findGuideBySlug, guidePath, tipCount } from "@/li
 // Both routes look the guide up by the last part of the address, so if a guide has been moved
 // or renamed in the admin, any old address permanently redirects (308) to the current one.
 
-const BASE_URL = "https://www.badgeralerts.live";
+const BASE_URL = "https://www.compoundingwins.com";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

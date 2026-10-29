@@ -25,13 +25,13 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="text-[14px] font-medium text-ink">Matthew Boyle</p>
-              <p className="text-[13px] text-muted">Founder, BadgerAlerts — England, UK</p>
+              <p className="text-[13px] text-muted">Founder, Compounding Wins — England, UK</p>
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
             <p>I&apos;ve spent nearly two decades working in digital marketing — running campaigns, auditing websites, and helping businesses improve their online presence. Over that time, you develop a sharp eye. I can look at a website and quickly spot what&apos;s holding it back: a technical SEO issue here, a content gap there, a competitor quietly picking up ground.</p>
             <p>The problem is that kind of expertise doesn&apos;t scale. Most business owners are running their company — they don&apos;t have time to stay on top of everything that&apos;s happening online. And hiring someone to do it full-time isn&apos;t always an option.</p>
-            <p>At the start of 2026, I started building AI tools to do what I do — automatically. Tools that can scan a website, analyse what&apos;s going on in the wider landscape, and surface the issues and opportunities that matter. That intelligence is the foundation of BadgerAlerts.</p>
+            <p>At the start of 2026, I started building AI tools to do what I do — automatically. Tools that can scan a website, analyse what&apos;s going on in the wider landscape, and surface the issues and opportunities that matter. That intelligence is the foundation of Compounding Wins.</p>
           </div>
         </div>
 
@@ -41,8 +41,8 @@ export default function AboutPage() {
             More than just alerts
           </h2>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
-            <p>BadgerAlerts isn&apos;t just about flagging problems. The goal is education. Every alert comes with a full explanation — what&apos;s happening, why it matters, and what you can do about it. Over time, you build a real understanding of your website and how digital marketing actually works.</p>
-            <p>I want BadgerAlerts to be a platform that keeps ambitious website owners at the cutting edge — people who want to understand what&apos;s going on, not just be told what to do.</p>
+            <p>Compounding Wins isn&apos;t just about flagging problems. The goal is education. Every alert comes with a full explanation — what&apos;s happening, why it matters, and what you can do about it. Over time, you build a real understanding of your website and how digital marketing actually works.</p>
+            <p>I want Compounding Wins to be a platform that keeps ambitious website owners at the cutting edge — people who want to understand what&apos;s going on, not just be told what to do.</p>
           </div>
         </div>
 

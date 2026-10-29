@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">1. Who we are</h2>
-            <p>BadgerAlerts is a digital marketing monitoring service operated by BadgerAlerts (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;). We provide automated alerts about your website&apos;s digital performance, SEO, social media, and more. Our website is <strong className="font-medium text-ink">badgeralerts.live</strong>.</p>
+            <p>Compounding Wins is a digital marketing monitoring service operated by Compounding Wins (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;). We provide automated alerts about your website&apos;s digital performance, SEO, social media, and more. Our website is <strong className="font-medium text-ink">compoundingwins.com</strong>.</p>
           </section>
 
           <section>
@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-[15px] font-medium text-ink mb-2">3. How we use your data</h2>
             <p className="mb-3">We use your data to:</p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Create and manage your BadgerAlerts account</li>
+              <li>Create and manage your Compounding Wins account</li>
               <li>Send you scheduled marketing alerts and notifications by email</li>
               <li>Personalise alert content with your name and website details</li>
               <li>Communicate important service updates</li>
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">5. Email communications</h2>
-            <p>By creating an account, you agree to receive scheduled alert emails from BadgerAlerts. You can unsubscribe at any time by clicking the unsubscribe link in any email, or by visiting your account settings. Unsubscribing will stop all alert emails but you may still receive essential account notifications.</p>
+            <p>By creating an account, you agree to receive scheduled alert emails from Compounding Wins. You can unsubscribe at any time by clicking the unsubscribe link in any email, or by visiting your account settings. Unsubscribing will stop all alert emails but you may still receive essential account notifications.</p>
           </section>
 
           <section>
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">9. Contact us</h2>
-            <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <strong className="font-medium text-ink">support@badgeralerts.live</strong>.</p>
+            <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <strong className="font-medium text-ink">support@compoundingwins.com</strong>.</p>
           </section>
 
         </div>

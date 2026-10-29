@@ -3,7 +3,9 @@
 // Adding a new site here is the only change needed to offer it in the admin
 // — the dropdown and filter on the guides list both read from this list.
 export const SITES = [
-  { value: "badgeralerts", label: "BadgerAlerts" },
+  // `value` is the key stored in the database and stays "badgeralerts" from
+  // before the rebrand — renaming it would mean migrating every guide row.
+  { value: "badgeralerts", label: "Compounding Wins" },
 ] as const;
 
 export type SiteValue = (typeof SITES)[number]["value"];

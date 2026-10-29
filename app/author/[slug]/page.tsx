@@ -8,7 +8,7 @@ import LinkedInIcon from "@/components/LinkedInIcon";
 import { TEAM, getTeamMember } from "@/lib/team";
 import { guidePath } from "@/lib/blog-guides";
 
-const BASE_URL = "https://www.badgeralerts.live";
+const BASE_URL = "https://www.compoundingwins.com";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

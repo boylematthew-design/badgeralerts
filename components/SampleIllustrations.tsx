@@ -82,7 +82,7 @@ export function EmailAlertImage() {
           </div>
           <div className="si-mail-body">
             <div className="si-mail-row">
-              <span className="si-mail-from">BadgerAlerts</span>
+              <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">9:42 AM</span>
             </div>
             <div className="si-mail-subject">A competitor just launched a new local ad</div>
@@ -220,7 +220,7 @@ export function SeoScanImage() {
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" />
             </svg>
-            <span>badgeralerts.live / scan</span>
+            <span>compoundingwins.com / scan</span>
           </div>
         </div>
         <div className="si-body si-seo-body">
@@ -305,7 +305,7 @@ export function SeoEmailImage() {
           </div>
           <div className="si-mail-body">
             <div className="si-mail-row">
-              <span className="si-mail-from">BadgerAlerts</span>
+              <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">8:14 AM</span>
             </div>
             <div className="si-mail-subject">3 high-intent pages we recommend you build</div>
@@ -517,7 +517,7 @@ export function TechEmailImage() {
           </div>
           <div className="si-mail-body">
             <div className="si-mail-row">
-              <span className="si-mail-from">BadgerAlerts</span>
+              <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">10:21 AM</span>
             </div>
             <div className="si-mail-subject">We found 3 technical issues hurting your site</div>
@@ -709,7 +709,7 @@ export function PaidMediaEmailImage() {
           </div>
           <div className="si-mail-body">
             <div className="si-mail-row">
-              <span className="si-mail-from">BadgerAlerts</span>
+              <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">7:48 AM</span>
             </div>
             <div className="si-mail-subject">2 competitors are running ads you&apos;re not</div>

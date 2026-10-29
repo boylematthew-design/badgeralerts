@@ -125,7 +125,7 @@ export default async function NewGuidePage() {
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
           />
           <p className="text-xs text-slate-400 mt-1.5">
-            This will be the page address: badgeralerts.live/blog/<span className="font-mono">your-slug</span>, or
+            This will be the page address: compoundingwins.com/blog/<span className="font-mono">your-slug</span>, or
             /blog/<span className="font-mono">parent-slug/your-slug</span> if you pick a parent guide below.
           </p>
         </div>

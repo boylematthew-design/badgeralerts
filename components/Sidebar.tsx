@@ -148,7 +148,7 @@ export default function Sidebar({ website }: SidebarProps) {
           <Link href="/dashboard" className="flex items-center gap-2.5">
             <LogoMark />
             <span className="text-[14px] font-medium tracking-[-0.025em] text-ink">
-              badger<span className="text-accent">alerts</span>
+              compounding<span className="text-accent">wins</span>
             </span>
           </Link>
         </div>

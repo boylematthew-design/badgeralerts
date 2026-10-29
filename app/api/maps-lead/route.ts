@@ -18,14 +18,14 @@ export async function POST(request: Request) {
   }
 
   const { error } = await resend.emails.send({
-    from: "BadgerAlerts <alerts@badgeralerts.live>",
-    to: "support@badgeralerts.live",
+    from: "Compounding Wins <alerts@compoundingwins.com>",
+    to: "support@compoundingwins.com",
     replyTo: email,
     subject: `Maps marketing lead: ${business}`,
     html: `
       <div style="max-width:520px;margin:0 auto;padding:40px 24px;font-family:sans-serif;">
         <div style="text-align:center;margin-bottom:32px;">
-          <span style="font-size:24px;font-weight:900;color:#0f172a;">Badger<span style="color:#10b981;">Alerts</span></span>
+          <span style="font-size:24px;font-weight:900;color:#0f172a;">Compounding<span style="color:#10b981;">Wins</span></span>
         </div>
         <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:40px 32px;">
           <h2 style="color:#0f172a;font-size:20px;font-weight:800;margin:0 0 24px;">New Google Maps marketing lead</h2>

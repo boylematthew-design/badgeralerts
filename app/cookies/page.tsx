@@ -16,12 +16,12 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">What are cookies?</h2>
-            <p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work, improve performance, and provide information to website owners. This policy explains how BadgerAlerts uses cookies in line with the UK Privacy and Electronic Communications Regulations (PECR) and the UK General Data Protection Regulation (UK GDPR).</p>
+            <p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work, improve performance, and provide information to website owners. This policy explains how Compounding Wins uses cookies in line with the UK Privacy and Electronic Communications Regulations (PECR) and the UK General Data Protection Regulation (UK GDPR).</p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">Who we are</h2>
-            <p>BadgerAlerts is operated from England, United Kingdom. If you have any questions about this policy, you can contact us at <a href="mailto:support@badgeralerts.live" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@badgeralerts.live</a>.</p>
+            <p>Compounding Wins is operated from England, United Kingdom. If you have any questions about this policy, you can contact us at <a href="mailto:support@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@compoundingwins.com</a>.</p>
           </section>
 
           <section>
@@ -75,7 +75,7 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">Contact us</h2>
-            <p>If you have any questions about our use of cookies, please contact us at <a href="mailto:support@badgeralerts.live" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@badgeralerts.live</a>.</p>
+            <p>If you have any questions about our use of cookies, please contact us at <a href="mailto:support@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@compoundingwins.com</a>.</p>
           </section>
 
         </div>

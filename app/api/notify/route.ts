@@ -59,13 +59,13 @@ async function runNotifications(request: Request) {
 
     // Send the email via Resend
     const { error: emailError } = await resend.emails.send({
-      from: "BadgerAlerts <alerts@badgeralerts.live>",
+      from: "Compounding Wins <alerts@compoundingwins.com>",
       to: user.email,
       subject: postTitle,
       html: `
         <div style="max-width:520px;margin:0 auto;padding:40px 24px;font-family:sans-serif;">
           <div style="text-align:center;margin-bottom:32px;">
-            <span style="font-size:24px;font-weight:900;color:#0f172a;">Badger<span style="color:#10b981;">Alerts</span></span>
+            <span style="font-size:24px;font-weight:900;color:#0f172a;">Compounding<span style="color:#10b981;">Wins</span></span>
           </div>
           <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:40px 32px;">
             <p style="color:#0f172a;font-size:16px;margin:0 0 20px;">Hi ${firstName},</p>
@@ -73,15 +73,15 @@ async function runNotifications(request: Request) {
             <h2 style="color:#0f172a;font-size:20px;font-weight:800;margin:0 0 24px;">${post.title}</h2>
             <p style="color:#475569;font-size:15px;line-height:1.6;margin:0 0 32px;">To view the alert in detail and take action, please login to your dashboard to proceed.</p>
             <p style="text-align:center;margin:0 0 32px;">
-              <a href="https://badgeralerts.live/dashboard" style="background:#10b981;color:#ffffff;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:999px;display:inline-block;font-size:15px;">
+              <a href="https://www.compoundingwins.com/dashboard" style="background:#10b981;color:#ffffff;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:999px;display:inline-block;font-size:15px;">
                 View in Dashboard
               </a>
             </p>
-            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0;">Many thanks,<br><strong>BadgerAlerts</strong></p>
+            <p style="color:#475569;font-size:15px;line-height:1.6;margin:0;">Many thanks,<br><strong>Compounding Wins</strong></p>
             <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0;">
-            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">This is an automated alert from BadgerAlerts. You are receiving this email because you have an active account.<br><br>Don't want to receive alerts anymore? <a href="https://badgeralerts.live/unsubscribe?token=${user.unsubscribe_token}" style="color:#10b981;text-decoration:underline;">Unsubscribe here</a> and we'll stop sending you alerts.</p>
+            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">This is an automated alert from Compounding Wins. You are receiving this email because you have an active account.<br><br>Don't want to receive alerts anymore? <a href="https://www.compoundingwins.com/unsubscribe?token=${user.unsubscribe_token}" style="color:#10b981;text-decoration:underline;">Unsubscribe here</a> and we'll stop sending you alerts.</p>
           </div>
-          <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">© 2026 BadgerAlerts. All rights reserved.</p>
+          <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">© 2026 Compounding Wins. All rights reserved.</p>
         </div>
       `,
     });
