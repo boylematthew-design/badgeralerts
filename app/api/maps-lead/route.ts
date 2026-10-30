@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     from: "Compounding Wins <alerts@compoundingwins.com>",
     to: "hello@compoundingwins.com",
     // Backup copy while iCloud is silently filtering mail sent via Resend.
-    bcc: "boyle.matthew@gmail.com",
+    bcc: "m.boyle98765@googlemail.com",
     replyTo: email,
     subject: `Maps marketing lead: ${business}`,
     html: `
