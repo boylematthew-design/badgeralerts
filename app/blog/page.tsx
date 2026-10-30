@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import { fetchPublishedGuides, groupGuides, guidePath, tipCount } from "@/lib/blog-guides";
 
 export const metadata = {
-  title: "Marketing Guides | Compounding Wins",
+  title: "Marketing guides | Compounding Wins",
   description:
     "Free, regularly updated digital marketing guides covering Google Maps, Reddit, SEO, and more — packed with practical tips.",
 };

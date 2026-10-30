@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata = {
-  title: "Free Marketing & SEO Tools | Compounding Wins",
+  title: "Free marketing & SEO tools | Compounding Wins",
   description:
     "Free digital marketing and SEO tools from Matthew Boyle. Simple, single-purpose tools that run in your browser, with no sign-up needed.",
 };

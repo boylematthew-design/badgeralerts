@@ -7,7 +7,7 @@ import CtaBand from "@/components/CtaBand";
 import { getServiceForGuide } from "@/lib/services";
 
 export const metadata = {
-  title: "Digital Marketing Expert, Agency & Consultant Services | Compounding Wins",
+  title: "Digital marketing expert, agency & consultant services | Compounding Wins",
   description:
     "Hire a digital marketing expert and consultant. Agency-quality services from Matthew Boyle covering Google Maps marketing, local SEO, technical SEO, AI search, Reddit and more.",
 };

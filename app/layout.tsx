@@ -13,7 +13,7 @@ const sora = Sora({
 // (app/opengraph-image.png) are picked up automatically from the app folder.
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.compoundingwins.com"),
-  title: "Compounding Wins | Digital Marketing Consultant",
+  title: "Compounding Wins | Digital marketing consultant",
   description:
     "Digital marketing consulting, guides, and tools from Compounding Wins — SEO, social, content, and paid media strategy.",
   openGraph: {

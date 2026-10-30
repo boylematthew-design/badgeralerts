@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 
 export const metadata = {
-  title: "Terms of Service | Compounding Wins",
+  title: "Terms of service | Compounding Wins",
 };
 
 export default function TermsOfServicePage() {

@@ -5,7 +5,7 @@ import PageHero, { heroLinkClass } from "@/components/PageHero";
 import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
 
 export const metadata = {
-  title: "ELI5 My robots.txt | Free Tool | Compounding Wins",
+  title: "ELI5 my robots.txt | Free tool | Compounding Wins",
   description:
     "Upload or paste your robots.txt and get a plain-English explanation of what it's telling search engines and AI bots. Runs entirely in your browser — nothing is uploaded.",
 };

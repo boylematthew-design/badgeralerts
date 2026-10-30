@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 
 export const metadata = {
-  title: "Cookie Policy | Compounding Wins",
+  title: "Cookie policy | Compounding Wins",
 };
 
 export default function CookiePolicyPage() {

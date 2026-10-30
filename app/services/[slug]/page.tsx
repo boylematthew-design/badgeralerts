@@ -41,9 +41,12 @@ export async function generateMetadata({
   const found = await findService(slug);
   if (!found) return { title: "Service not found | Compounding Wins" };
   const { service } = found;
+  // Meta titles are sentence case, so build from the mid-sentence name ("technical SEO")
+  // rather than the Title Case one, capitalising just the first letter.
+  const name = service.name.charAt(0).toUpperCase() + service.name.slice(1);
 
   return {
-    title: `${service.title} Expert, Agency & Consultant Services | Compounding Wins`,
+    title: `${name} expert, agency & consultant services | Compounding Wins`,
     description: `Hire a ${service.name} expert and consultant. Agency-quality ${service.name} services from Matthew Boyle: a one-off audit for ${GUIDE_PRICES.audit} or hands-on monthly support for ${GUIDE_PRICES.monthly}.`,
   };
 }

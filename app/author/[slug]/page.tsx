@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!person) return { title: "Profile not found | Compounding Wins" };
 
   return {
-    title: `${person.name}, ${person.role} | Compounding Wins`,
+    title: `${person.name}, ${person.role.charAt(0).toLowerCase()}${person.role.slice(1)} | Compounding Wins`,
     description: person.intro[0],
     alternates: { canonical: `/author/${person.slug}` },
   };

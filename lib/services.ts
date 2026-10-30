@@ -6,7 +6,7 @@
 
 export interface ServiceInfo {
   slug: string; // URL slug under /services
-  title: string; // Title Case, used in the page title and H1
+  title: string; // Title Case, used in the H1 and services list (meta titles use `name`, sentence case)
   name: string; // how the service reads mid-sentence, e.g. "technical SEO"
   pitch: string; // one or two sentences on what the work involves
 }
