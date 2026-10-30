@@ -7,7 +7,9 @@ import SubmitButton from "./SubmitButton";
 import TipNewsFields from "../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../TipStatsFields";
+import TipToolsFields from "../TipToolsFields";
 import { parseTipStats } from "@/lib/tip-stats";
+import { parseTipTools } from "@/lib/tip-tools";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -59,6 +61,9 @@ export default async function NewTipPage({
     const stats = parseTipStats(formData);
     if (!stats) return;
 
+    const tools = parseTipTools(formData);
+    if (!tools) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -100,6 +105,7 @@ export default async function NewTipPage({
       published,
       ...news,
       stats,
+      tools,
     });
 
     await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
@@ -174,6 +180,8 @@ export default async function NewTipPage({
         </div>
 
         <TipStatsFields />
+
+        <TipToolsFields />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

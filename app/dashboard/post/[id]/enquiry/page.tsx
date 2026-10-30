@@ -9,6 +9,7 @@ import UserMenu from "@/components/UserMenu";
 import { getInitials } from "@/lib/initials";
 import { Resend } from "resend";
 import SubmitEnquiryButton from "./SubmitEnquiryButton";
+import { escapeHtml } from "@/lib/escape-html";
 
 export default async function EnquiryPage({
   params,
@@ -100,15 +101,15 @@ export default async function EnquiryPage({
           <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:40px 32px;">
             <h2 style="color:#0f172a;font-size:20px;font-weight:800;margin:0 0 24px;">New expert enquiry</h2>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
-              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;width:100px;">User</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${profile?.full_name ?? "Unknown"}</td></tr>
-              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Email</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${profile?.email ?? user.email}</td></tr>
-              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Website</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${profile?.website ?? "—"}</td></tr>
-              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Alert</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${postData?.title ?? "Unknown"}</td></tr>
+              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;width:100px;">User</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(profile?.full_name ?? "Unknown")}</td></tr>
+              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Email</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(profile?.email ?? user.email)}</td></tr>
+              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Website</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(profile?.website ?? "—")}</td></tr>
+              <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Alert</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(postData?.title ?? "Unknown")}</td></tr>
             </table>
             <hr style="border:none;border-top:1px solid #e2e8f0;margin-bottom:24px;">
-            <p style="color:#475569;font-size:15px;line-height:1.7;margin:0;white-space:pre-wrap;">${message}</p>
+            <p style="color:#475569;font-size:15px;line-height:1.7;margin:0;white-space:pre-wrap;">${escapeHtml(message)}</p>
           </div>
-          <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">Reply directly to this email to respond to ${profile?.full_name ?? "the user"}.</p>
+          <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">Reply directly to this email to respond to ${escapeHtml(profile?.full_name ?? "the user")}.</p>
         </div>
       `,
     });

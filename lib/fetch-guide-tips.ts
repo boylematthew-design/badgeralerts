@@ -11,7 +11,7 @@ export async function fetchGuideTips(
 ): Promise<{ tips: TipData[]; sections: SectionData[] }> {
   let tipsQuery = supabase
     .from("tips")
-    .select("id, title, content, image_url, image_alt, image_caption, section_id, news_date, news_headline, news_url, stats")
+    .select("id, title, content, image_url, image_alt, image_caption, section_id, news_date, news_headline, news_url, stats, tools")
     .eq("guide_id", guideId)
     .order("sort_order", { ascending: true });
 

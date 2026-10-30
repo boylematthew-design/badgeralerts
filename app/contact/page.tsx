@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,6 +17,24 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+
+  // Links like the guides' "Get it listed" (/contact?subject=Tool%20listing&tip=...) pre-fill the
+  // form. Only a subject from the dropdown is accepted; the tip title just seeds the message text.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("subject") !== "Tool listing") return;
+    const tip = params.get("tip")?.slice(0, 200);
+    // Reading the URL is a one-off sync with the browser after hydration, so the page itself still
+    // pre-renders in full for search engines.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFormData((current) => ({
+      ...current,
+      subject: "Tool listing",
+      message:
+        current.message ||
+        `I'd like my tool to be considered for listing${tip ? ` on the tip "${tip}"` : ""}.\n\nTool name:\nWebsite:\nFree or paid:\nHow it helps:`,
+    }));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -136,6 +154,7 @@ export default function ContactPage() {
                         <option value="Account help">Account help</option>
                         <option value="Billing">Billing</option>
                         <option value="Partnership">Partnership</option>
+                        <option value="Tool listing">Tool listing</option>
                         <option value="Other">Other</option>
                       </select>
                     </div>

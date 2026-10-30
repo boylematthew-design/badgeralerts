@@ -2,6 +2,7 @@ import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
 import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
 import type { TipStat } from "@/lib/tip-stats";
+import type { TipTool } from "@/lib/tip-tools";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -27,6 +28,7 @@ export interface TipData {
   news_headline: string | null;
   news_url: string | null;
   stats: TipStat[] | null;
+  tools: TipTool[] | null;
   tip_links: TipLink[];
 }
 
@@ -145,6 +147,86 @@ function TipStatsBox({ stats }: { stats: TipStat[] }) {
   );
 }
 
+// Free/Paid badge. Freemium tools count as paid; the exact pricing note is in the tooltip and
+// read out to screen readers.
+function ToolPriceBadge({ paid, pricing }: { paid: boolean; pricing: string }) {
+  return (
+    <span
+      title={pricing || undefined}
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10.5px] font-semibold leading-[16px] flex-shrink-0 ${
+        paid ? "bg-white border border-border-strong text-mid" : "bg-accent text-white"
+      }`}
+    >
+      {paid ? (
+        <span aria-hidden="true" className="font-bold">£</span>
+      ) : (
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M5 12l5 5L20 7" />
+        </svg>
+      )}
+      {paid ? "Paid" : "Free"}
+      {pricing && <span className="sr-only">: {pricing}</span>}
+    </span>
+  );
+}
+
+// Tool logo from /public/tool-icons (downloaded once, so readers' browsers never call the
+// tool's own site). Tools added later without an icon get their first letter instead.
+function ToolIcon({ name, icon }: { name: string; icon?: string | null }) {
+  if (icon) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={icon} alt="" width={20} height={20} loading="lazy" className="w-5 h-5 rounded-[4px] flex-shrink-0 mt-[1px]" />;
+  }
+  return (
+    <span aria-hidden="true" className="w-5 h-5 rounded-[4px] bg-ink text-paper text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-[1px]">
+      {name.charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+// Optional "Tools" box under a tip: the tools that help put the tip into practice, each with a
+// short explanation, plus a way for tool makers to ask to be listed.
+function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }) {
+  const listingHref = `/contact?subject=${encodeURIComponent("Tool listing")}&tip=${encodeURIComponent(tipTitle)}`;
+  return (
+    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-3 mt-5 max-w-[620px]">
+      <span className="mt-[1px] flex-shrink-0 rounded-full bg-white border border-accent/40 text-accent-dark text-[10px] font-semibold tracking-[0.08em] uppercase px-2 py-0.5">
+        Tools
+      </span>
+      <div className="min-w-0 flex-1">
+        <ul className="space-y-3">
+          {tools.map((tool) => (
+            <li key={tool.url + tool.name} className="flex items-start gap-2.5">
+              <ToolIcon name={tool.name} icon={tool.icon} />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <a
+                    href={tool.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13.5px] md:text-[14px] font-semibold text-ink underline underline-offset-2 decoration-border-strong hover:text-accent-dark hover:decoration-accent transition-colors"
+                  >
+                    {tool.name}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                  <ToolPriceBadge paid={tool.paid} pricing={tool.pricing} />
+                </div>
+                <p className="text-[13px] md:text-[14px] text-mid leading-[1.5] mt-0.5">{tool.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 pt-2.5 border-t border-accent/20 text-[12px] text-muted leading-[1.45]">
+          Make or work on a tool that belongs here?{" "}
+          <a href={listingHref} className="font-semibold text-accent-dark underline underline-offset-2 hover:opacity-80">
+            Get it listed
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export interface SectionData {
   id: string;
   title: string;
@@ -169,6 +251,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
 }) {
   const Heading = level === 4 ? "h4" : "h3";
   const stats = tip.stats ?? [];
+  const tools = tip.tools ?? [];
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
@@ -195,6 +278,7 @@ export function TipCard({ tip, tipNumber, level = 3 }: {
       )}
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
+      {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
         <div className="mt-6">
           <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">

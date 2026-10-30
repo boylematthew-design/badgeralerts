@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { escapeHtml } from "@/lib/escape-html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -17,6 +18,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
+  // Re-check on the server: the browser's own limits can be bypassed by posting directly.
+  if (
+    typeof name !== "string" || name.length > 200 ||
+    typeof email !== "string" || email.length > 320 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    typeof business !== "string" || business.length > 200 ||
+    (message != null && (typeof message !== "string" || message.length > 5000))
+  ) {
+    return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
+  }
+
   const { error } = await resend.emails.send({
     from: "Compounding Wins <alerts@compoundingwins.com>",
     to: "support@compoundingwins.com",
@@ -30,13 +41,13 @@ export async function POST(request: Request) {
         <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:40px 32px;">
           <h2 style="color:#0f172a;font-size:20px;font-weight:800;margin:0 0 24px;">New Google Maps marketing lead</h2>
           <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
-            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;width:120px;">Name</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${name}</td></tr>
-            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Email</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${email}</td></tr>
-            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Business</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${business}</td></tr>
+            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;width:120px;">Name</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(name)}</td></tr>
+            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Email</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(email)}</td></tr>
+            <tr><td style="padding:8px 0;color:#94a3b8;font-size:13px;font-weight:600;">Business</td><td style="padding:8px 0;color:#0f172a;font-size:14px;">${escapeHtml(business)}</td></tr>
           </table>
-          ${message ? `<hr style="border:none;border-top:1px solid #e2e8f0;margin-bottom:24px;"><p style="color:#475569;font-size:15px;line-height:1.7;margin:0;white-space:pre-wrap;">${message}</p>` : ""}
+          ${message ? `<hr style="border:none;border-top:1px solid #e2e8f0;margin-bottom:24px;"><p style="color:#475569;font-size:15px;line-height:1.7;margin:0;white-space:pre-wrap;">${escapeHtml(message)}</p>` : ""}
         </div>
-        <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
+        <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">Reply directly to this email to respond to ${escapeHtml(name)}.</p>
       </div>
     `,
   });
