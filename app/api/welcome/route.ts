@@ -38,9 +38,9 @@ export async function POST(request: Request) {
   const firstName = record.full_name?.split(" ")[0] ?? "there";
 
   const { error } = await resend.emails.send({
-    from: "Matthew at Compounding Wins <support@compoundingwins.com>",
+    from: "Matthew at Compounding Wins <hello@compoundingwins.com>",
     to: record.email,
-    replyTo: "support@compoundingwins.com",
+    replyTo: "hello@compoundingwins.com",
     subject: "Welcome to Compounding Wins",
     html: `
       <div style="max-width:560px;margin:0 auto;padding:40px 24px;font-family:sans-serif;color:#334155;line-height:1.7;font-size:15px;">

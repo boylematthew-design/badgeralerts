@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "I need help understanding an alert — what do I do?",
-    a: "Each alert detail page has a 'Get expert help' button at the bottom. Click it, describe what you need help with, and submit an enquiry. Our team will get back to you directly by email. You can also reach us at support@compoundingwins.com at any time.",
+    a: "Each alert detail page has a 'Get expert help' button at the bottom. Click it, describe what you need help with, and submit an enquiry. Our team will get back to you directly by email. You can also reach us at hello@compoundingwins.com at any time.",
   },
   {
     q: "Can I update my account details?",

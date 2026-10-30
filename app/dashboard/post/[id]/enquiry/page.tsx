@@ -90,7 +90,7 @@ export default async function EnquiryPage({
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: "Compounding Wins <alerts@compoundingwins.com>",
-      to: "support@compoundingwins.com",
+      to: "hello@compoundingwins.com",
       replyTo: profile?.email ?? user.email!,
       subject: `New expert enquiry: ${postData?.title ?? "Unknown alert"}`,
       html: `

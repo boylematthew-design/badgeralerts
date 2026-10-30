@@ -26,7 +26,7 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">Who we are</h2>
-            <p>Compounding Wins is operated from England, United Kingdom. If you have any questions about this policy, you can contact us at <a href="mailto:support@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@compoundingwins.com</a>.</p>
+            <p>Compounding Wins is operated from England, United Kingdom. If you have any questions about this policy, you can contact us at <a href="mailto:hello@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">hello@compoundingwins.com</a>.</p>
           </section>
 
           <section>
@@ -80,7 +80,7 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2 className="text-[15px] font-medium text-ink mb-2">Contact us</h2>
-            <p>If you have any questions about our use of cookies, please contact us at <a href="mailto:support@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">support@compoundingwins.com</a>.</p>
+            <p>If you have any questions about our use of cookies, please contact us at <a href="mailto:hello@compoundingwins.com" className="text-accent-dark underline underline-offset-2 decoration-border-strong hover:text-accent transition-colors">hello@compoundingwins.com</a>.</p>
           </section>
 
         </div>
