@@ -31,6 +31,8 @@ export async function POST(request: Request) {
   const { error } = await resend.emails.send({
     from: "Compounding Wins <alerts@compoundingwins.com>",
     to: "hello@compoundingwins.com",
+    // Backup copy while iCloud is silently filtering mail sent via Resend.
+    bcc: "boyle.matthew@gmail.com",
     replyTo: email,
     subject: `Maps marketing lead: ${business}`,
     html: `
