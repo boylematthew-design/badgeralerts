@@ -95,9 +95,9 @@ export default async function ServicePage({
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
         <WhoWeAre slug={guide.slug} />
 
-        <CaseStudies studies={getCaseStudiesForService(service.slug)} />
-
         <GuidePricing slug={guide.slug} topicName={service.name} heading={headings.pricing} />
+
+        <CaseStudies studies={getCaseStudiesForService(service.slug)} />
 
         <GuideFaqs heading={getGuideFaqHeading(guide.slug)} faqs={getGuideFaqs(guide.slug)} />
 

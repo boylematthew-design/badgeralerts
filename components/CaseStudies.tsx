@@ -8,7 +8,7 @@ export default function CaseStudies({ studies }: { studies: CaseStudy[] }) {
   if (studies.length === 0) return null;
 
   return (
-    <section className="mb-12" aria-labelledby="case-studies">
+    <section className="mt-14" aria-labelledby="case-studies">
       <h2 id="case-studies" className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
         {studies.length === 1 ? "Case study" : "Case studies"}
       </h2>
