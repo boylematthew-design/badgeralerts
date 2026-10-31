@@ -8,10 +8,12 @@ import PageHero, { heroLinkClass } from "@/components/PageHero";
 import GuidePricing from "@/components/GuidePricing";
 import WhoWeAre from "@/components/WhoWeAre";
 import GuideFaqs from "@/components/GuideFaqs";
+import CaseStudies from "@/components/CaseStudies";
 import { getGuideHeadings } from "@/lib/guide-headings";
 import { getGuideFaqHeading, getGuideFaqs } from "@/lib/guide-faqs";
 import { GUIDE_PRICES } from "@/lib/guide-pricing";
 import { getServiceForGuide } from "@/lib/services";
+import { getCaseStudiesForService } from "@/lib/case-studies";
 import { guidePath } from "@/lib/blog-guides";
 
 const supabase = createClient(
@@ -92,6 +94,8 @@ export default async function ServicePage({
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
         <WhoWeAre slug={guide.slug} />
+
+        <CaseStudies studies={getCaseStudiesForService(service.slug)} />
 
         <GuidePricing slug={guide.slug} topicName={service.name} heading={headings.pricing} />
 
