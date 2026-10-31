@@ -8,19 +8,29 @@ export function WhatWeDo({ process }: { process: ServiceProcess }) {
   return (
     <section className="mb-12" aria-labelledby="what-we-do">
       <h2 id="what-we-do" className={headingClass}>
-        What we do
+        {process.heading ?? "What we do"}
       </h2>
       <div className="border border-border rounded-[20px] px-6 md:px-10 py-7 md:py-9 bg-white">
         <p className="text-[15px] md:text-[16px] text-mid leading-[1.7] mb-5">{process.whatWeDo}</p>
-        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
-          {process.covers.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-[14.5px] text-ink leading-[1.5]">
-              <svg width="16" height="16" viewBox="0 0 24 24" className="text-accent-dark flex-shrink-0 mt-[3px]" aria-hidden="true">
-                <path fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-              {item}
-            </li>
-          ))}
+        <ul className={`grid sm:grid-cols-2 gap-x-6 ${process.covers.some((c) => typeof c !== "string") ? "gap-y-4" : "gap-y-2.5"}`}>
+          {process.covers.map((item) => {
+            const label = typeof item === "string" ? item : item.label;
+            return (
+              <li key={label} className="flex items-start gap-2.5 text-[14.5px] text-ink leading-[1.5]">
+                <svg width="16" height="16" viewBox="0 0 24 24" className="text-accent-dark flex-shrink-0 mt-[3px]" aria-hidden="true">
+                  <path fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {typeof item === "string" ? (
+                  label
+                ) : (
+                  <div>
+                    <p className="font-medium">{label}</p>
+                    <p className="text-[14px] text-muted leading-[1.55] mt-0.5">{item.detail}</p>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

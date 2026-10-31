@@ -19,22 +19,82 @@ export const AUDIT_STEP_COUNT = 5;
 
 type Steps = [string, string, string, string, string, string, string, string];
 
+// A covered item is either a short label, or a label with a one-line explanation under it.
+export type CoverItem = string | { label: string; detail: string };
+
 export interface ServiceProcess {
+  heading?: string; // defaults to "What we do"
   whatWeDo: string;
-  covers: string[];
+  covers: CoverItem[];
   steps: Steps;
 }
 
 const SERVICE_PROCESS: Record<string, ServiceProcess> = {
   "google-maps-marketing": {
+    heading: "What a Google Maps marketing expert does",
     whatWeDo:
       "We help local businesses show up in the Google map pack, the box of three businesses Google shows for searches like “plumber near me”, and turn those views into calls, direction requests and bookings.",
     covers: [
-      "Google Business Profile set-up and optimisation",
-      "Weekly Google Posts and fresh photos",
-      "A steady flow of genuine reviews, with replies",
-      "Consistent business listings across directories",
-      "Local ranking grid reports across your service area",
+      {
+        label: "Building a steady flow of genuine reviews",
+        detail: "A simple routine for asking happy customers, and reply templates, so reviews keep coming within Google's rules.",
+      },
+      {
+        label: "Competitor research",
+        detail: "Why the businesses above you rank there: their categories, reviews, photos, posting and links.",
+      },
+      {
+        label: "Keeping your profile up to date",
+        detail: "Hours, services, photos and Posts kept current, so Google and customers see an active business.",
+      },
+      {
+        label: "Help with paid ads",
+        detail: "Advice and set-up for Local Services Ads and Google Ads location campaigns, when paid visibility makes sense.",
+      },
+      {
+        label: "Local citations and links",
+        detail: "Consistent listings on trusted directories, plus links from local partners, suppliers and community sites.",
+      },
+      {
+        label: "Website optimisation",
+        detail: "Your website matched to your profile, with service and location pages built to turn visitors into enquiries.",
+      },
+      {
+        label: "Business schema markup",
+        detail: "Structured data that tells Google your name, address, hours and services in a format it reads easily.",
+      },
+      {
+        label: "Fighting competitor spam",
+        detail: "Reporting fake listings, keyword-stuffed names and fake reviews that push genuine businesses down the map.",
+      },
+      {
+        label: "Reinstating suspended profiles",
+        detail: "If Google suspends your profile, we work out why, fix the cause and handle the reinstatement request.",
+      },
+      {
+        label: "Rankings and geo-grid tracking",
+        detail: "Ranking grids that show where you appear across your service area, street by street, for the searches that matter.",
+      },
+      {
+        label: "Message and call tracking",
+        detail: "Calls and messages from your profile tracked, so you know which enquiries Google Maps brings in.",
+      },
+      {
+        label: "Advanced conversion tracking",
+        detail: "Bookings, form fills and direction requests tracked through to your analytics, not just profile views.",
+      },
+      {
+        label: "Clear reporting",
+        detail: "Simple reports on impressions, visitors and conversions, and what changed them.",
+      },
+      {
+        label: "Multi-location management",
+        detail: "One consistent approach across every branch, with each location's profile, page and reviews looked after.",
+      },
+      {
+        label: "Training your staff",
+        detail: "Showing your team how to ask for reviews, reply well and keep the profile fresh, so results last.",
+      },
     ],
     steps: [
       "Our brief asks about your services, service area, opening hours, best customers and the searches you want to win.",
@@ -42,7 +102,7 @@ const SERVICE_PROCESS: Record<string, ServiceProcess> = {
       "We get manager access to your Google Business Profile and run a ranking grid, so we know exactly where you appear on the map today.",
       "We review your profile, website and reviews to see how clearly Google understands what you do and where you do it.",
       "We compare your profile with the businesses ranking above you: their categories, reviews, photos and posting habits.",
-      "Quick fixes come first, like categories, services and attributes, then weekly Posts, photo uploads, review requests and listing clean-up.",
+      "Quick fixes come first, like categories, services and attributes, then weekly Posts, photo uploads, a review routine for your team and listing clean-up.",
       "Each month you get a ranking grid and a simple report on calls, direction requests and website clicks from your profile, and what moved them.",
       "Regular check-ins to look at new reviews, seasonal offers and new areas or services worth targeting.",
     ],
