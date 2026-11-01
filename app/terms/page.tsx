@@ -4,6 +4,8 @@ import PageHero from "@/components/PageHero";
 
 export const metadata = {
   title: "Terms of service | Compounding Wins",
+  // Kept out of search results; links on the page are still followed.
+  robots: { index: false, follow: true },
 };
 
 export default function TermsOfServicePage() {

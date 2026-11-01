@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/admin/", "/dashboard/", "/reset-password", "/unsubscribe"],
+      disallow: ["/admin/", "/dashboard/", "/unsubscribe"],
     },
     sitemap: "https://www.compoundingwins.com/sitemap.xml",
   };
