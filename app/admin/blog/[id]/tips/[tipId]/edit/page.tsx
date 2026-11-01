@@ -9,6 +9,8 @@ import TipNewsFields from "../../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../../TipStatsFields";
 import TipToolsFields from "../../TipToolsFields";
+import TipContentField from "../../TipContentField";
+import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
 
@@ -50,7 +52,7 @@ export default async function EditTipPage({
     if (!profile?.is_admin) redirect("/dashboard");
 
     const title = (formData.get("title") as string)?.trim();
-    const content = (formData.get("content") as string)?.trim();
+    const content = normalizeTipContent((formData.get("content") as string) ?? "");
     const published = formData.get("published") === "on";
     const sectionId = (formData.get("section_id") as string) || null;
     const imageFile = formData.get("image") as File | null;
@@ -166,15 +168,7 @@ export default async function EditTipPage({
 
         <TipNewsFields date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />
 
-        <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">Content</label>
-          <textarea
-            name="content"
-            rows={10}
-            defaultValue={tip.content || ""}
-            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
-          />
-        </div>
+        <TipContentField initial={tip.content || ""} />
 
         <TipStatsFields initial={tip.stats} />
 
