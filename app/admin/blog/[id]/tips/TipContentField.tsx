@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import MarkdownContent from "@/components/MarkdownContent";
-import { normalizeTipContent } from "@/lib/tip-content";
+import { normalizeTipContent, TABLE_TEMPLATE } from "@/lib/tip-content";
 
 const MARKER = /^(\s*)(?:[-*+]|\d+\.)\s+/;
 
@@ -41,6 +41,31 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
     el.setRangeText(updated.join("\n"), start, end, "select");
   }
 
+  // Puts `text` at the cursor as its own block, with blank lines around it so markdown treats it
+  // as a list or table rather than part of the paragraph next to it.
+  function insertBlock(text: string) {
+    const el = ref.current;
+    if (!el) return;
+    const { value, selectionStart, selectionEnd } = el;
+    const before = value.slice(0, selectionStart);
+    const after = value.slice(selectionEnd);
+    const lead = before === "" || before.endsWith("\n\n") ? "" : before.endsWith("\n") ? "\n" : "\n\n";
+    const trail = after === "" || after.startsWith("\n\n") ? "" : after.startsWith("\n") ? "\n" : "\n\n";
+    el.focus();
+    el.setRangeText(lead + text + trail, selectionStart, selectionEnd, "end");
+  }
+
+  // Tables copied from Claude, ChatGPT, Docs, Word, Excel or a web page paste as tab-separated text,
+  // and pasted lists can bring "•" bullets. Convert them as they're pasted so they look right
+  // straight away (the same tidy-up runs again on save).
+  function handlePaste(e: React.ClipboardEvent<HTMLTextAreaElement>) {
+    const text = e.clipboardData.getData("text/plain");
+    const tidied = normalizeTipContent(text);
+    if (!text.includes("\t") || tidied === text.trim()) return;
+    e.preventDefault();
+    insertBlock(tidied);
+  }
+
   function togglePreview() {
     setPreview((current) => (current === null ? normalizeTipContent(ref.current?.value ?? "") : null));
   }
@@ -61,6 +86,9 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
           <button type="button" onClick={() => toggleList("numbered")} disabled={preview !== null} className={buttonClass}>
             1. Numbered list
           </button>
+          <button type="button" onClick={() => insertBlock(TABLE_TEMPLATE)} disabled={preview !== null} className={buttonClass}>
+            ▦ Table
+          </button>
           <button type="button" onClick={togglePreview} className={buttonClass} aria-pressed={preview !== null}>
             {preview === null ? "Preview" : "Edit"}
           </button>
@@ -73,6 +101,7 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
         name="content"
         rows={10}
         defaultValue={initial}
+        onPaste={handlePaste}
         placeholder="Write the tip here. You can use markdown for formatting..."
         className={`w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono ${preview !== null ? "hidden" : ""}`}
       />
@@ -82,8 +111,9 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
         </div>
       )}
       <p className="text-xs text-slate-400 mt-1.5">
-        Select some lines and press a list button, or start lines with &quot;- &quot; or &quot;1. &quot;. Lists pasted from
-        Google Docs, Word or Notes are turned into proper lists when you save.
+        Select some lines and press a list button, or start lines with &quot;- &quot; or &quot;1. &quot;. Tables and lists
+        pasted from Claude, ChatGPT, Google Docs, Word or Excel are turned into proper tables and lists. Use
+        Preview to check.
       </p>
     </div>
   );
