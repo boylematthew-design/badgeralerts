@@ -169,9 +169,9 @@ export default async function NewTipPage({
           </div>
         )}
 
-        <TipNewsFields />
-
         <TipContentField />
+
+        <TipNewsFields />
 
         <TipStatsFields />
 

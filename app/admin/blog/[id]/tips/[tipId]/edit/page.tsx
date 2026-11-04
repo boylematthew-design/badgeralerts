@@ -166,9 +166,9 @@ export default async function EditTipPage({
           </div>
         )}
 
-        <TipNewsFields date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />
-
         <TipContentField initial={tip.content || ""} />
+
+        <TipNewsFields date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />
 
         <TipStatsFields initial={tip.stats} />
 
