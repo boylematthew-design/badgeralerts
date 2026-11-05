@@ -44,6 +44,8 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+              // Google tag created by Google Ads, sharing the gtag.js loaded above.
+              gtag('config', 'G-TSQLNZGLTY');
             `}</Script>
           </>
         )}
