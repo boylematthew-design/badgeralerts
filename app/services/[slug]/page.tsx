@@ -16,6 +16,8 @@ import { GUIDE_PRICES } from "@/lib/guide-pricing";
 import { getServiceForGuide } from "@/lib/services";
 import { getCaseStudiesForService } from "@/lib/case-studies";
 import { getServiceProcess } from "@/lib/service-process";
+import { getServiceCallTopics } from "@/lib/service-call-topics";
+import BookACall from "@/components/BookACall";
 import { guidePath } from "@/lib/blog-guides";
 
 const supabase = createClient(
@@ -101,6 +103,8 @@ export default async function ServicePage({
         <WhoWeAre slug={guide.slug} />
 
         <HowWeWork process={serviceProcess} />
+
+        <BookACall serviceName={service.name} topics={getServiceCallTopics(guide.slug, service.name)} />
 
         <GuidePricing slug={guide.slug} topicName={service.name} heading={headings.pricing} />
 
