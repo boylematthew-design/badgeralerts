@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import MarkdownContent from "@/components/MarkdownContent";
-import { normalizeTipContent, TABLE_TEMPLATE } from "@/lib/tip-content";
+import { CODE_TEMPLATE, normalizeTipContent, TABLE_TEMPLATE } from "@/lib/tip-content";
 
 const MARKER = /^(\s*)(?:[-*+]|\d+\.)\s+/;
 
@@ -55,13 +55,30 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
     el.setRangeText(lead + text + trail, selectionStart, selectionEnd, "end");
   }
 
+  // Wraps the selected lines in a ``` code block (or inserts an empty one), shown on the page as a
+  // copyable code box.
+  function insertCode() {
+    const el = ref.current;
+    if (!el) return;
+    const selected = el.value.slice(el.selectionStart, el.selectionEnd).replace(/^\n+|\n+$/g, "");
+    if (!selected) {
+      insertBlock(CODE_TEMPLATE);
+      // Put the cursor on the empty line inside the block, ready to paste.
+      const inside = el.value.lastIndexOf("```html\n", el.selectionStart) + "```html\n".length;
+      el.setSelectionRange(inside, inside);
+      return;
+    }
+    insertBlock("```html\n" + selected + "\n```");
+  }
+
   // Tables copied from Claude, ChatGPT, Docs, Word, Excel or a web page paste as tab-separated text,
-  // and pasted lists can bring "•" bullets. Convert them as they're pasted so they look right
-  // straight away (the same tidy-up runs again on save).
+  // pasted lists can bring "•" bullets, and pasted code loses its ``` fence. Convert them as they're
+  // pasted so they look right straight away (the same tidy-up runs again on save).
   function handlePaste(e: React.ClipboardEvent<HTMLTextAreaElement>) {
     const text = e.clipboardData.getData("text/plain");
     const tidied = normalizeTipContent(text);
-    if (!text.includes("\t") || tidied === text.trim()) return;
+    const codeFound = tidied.includes("```") && !text.includes("```");
+    if (!(text.includes("\t") || codeFound) || tidied === text.trim()) return;
     e.preventDefault();
     insertBlock(tidied);
   }
@@ -89,6 +106,9 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
           <button type="button" onClick={() => insertBlock(TABLE_TEMPLATE)} disabled={preview !== null} className={buttonClass}>
             ▦ Table
           </button>
+          <button type="button" onClick={insertCode} disabled={preview !== null} className={buttonClass}>
+            &lt;/&gt; Code
+          </button>
           <button type="button" onClick={togglePreview} className={buttonClass} aria-pressed={preview !== null}>
             {preview === null ? "Preview" : "Edit"}
           </button>
@@ -112,8 +132,8 @@ export default function TipContentField({ initial = "" }: { initial?: string }) 
       )}
       <p className="text-xs text-slate-400 mt-1.5">
         Select some lines and press a list button, or start lines with &quot;- &quot; or &quot;1. &quot;. Tables and lists
-        pasted from Claude, ChatGPT, Google Docs, Word or Excel are turned into proper tables and lists. Use
-        Preview to check.
+        pasted from Claude, ChatGPT, Google Docs, Word or Excel are turned into proper tables and lists. Pasted
+        HTML becomes a copyable code box, or select code and press Code. Use Preview to check.
       </p>
     </div>
   );

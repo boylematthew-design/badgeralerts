@@ -2,6 +2,15 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CodeBlock from "./CodeBlock";
+
+// Plain text of a markdown syntax-tree node (used to get the raw code out of a ``` block).
+type TreeNode = { type: string; value?: string; children?: TreeNode[]; properties?: { className?: unknown } };
+function textOf(node: TreeNode | undefined): string {
+  if (!node) return "";
+  if (node.type === "text") return node.value ?? "";
+  return (node.children ?? []).map(textOf).join("");
+}
 
 type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -27,6 +36,16 @@ export default function MarkdownContent({ content, baseLevel = 1 }: { content: s
           a: ({ ...props }) => <a className="text-accent-dark underline hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" {...props} />,
           strong: ({ ...props }) => <strong className="font-semibold text-ink" {...props} />,
           blockquote: ({ ...props }) => <blockquote className="border-l-2 border-border pl-4 italic text-muted my-4" {...props} />,
+          // ``` blocks become a copyable code box. Raw HTML in tips is never rendered as HTML
+          // (no rehype-raw), so pasted code always shows as text and can't run on the page.
+          pre: ({ node }) => {
+            const codeNode = (node as TreeNode | undefined)?.children?.find((c) => c.type === "element");
+            const classes = codeNode?.properties?.className;
+            const languageClass = (Array.isArray(classes) ? classes : []).find(
+              (c): c is string => typeof c === "string" && c.startsWith("language-")
+            );
+            return <CodeBlock code={textOf(codeNode).replace(/\n$/, "")} language={languageClass?.slice(9)} />;
+          },
           code: ({ ...props }) => <code className="bg-slate-100 text-ink rounded px-1.5 py-0.5 text-[13px] font-mono" {...props} />,
           hr: () => <hr className="border-border my-6" />,
           table: ({ ...props }) => <div className="overflow-x-auto mb-4"><table className="w-full text-left border-collapse" {...props} /></div>,
