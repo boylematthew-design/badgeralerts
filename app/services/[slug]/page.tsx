@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -26,15 +26,28 @@ const supabase = createClient(
 );
 
 // Services pages are derived from published guides, so find the guide whose service slug matches.
+// When a guide's slug is changed in the admin, the old one is kept in previous_slugs (see
+// app/admin/blog/[id]/edit/page.tsx), so an old services address permanently redirects to the
+// current one, just like the blog pages do. No redirect list to maintain by hand.
 async function findService(serviceSlug: string) {
   const { data: guides } = await supabase
     .from("guides")
-    .select("id, slug, parent_id, title, topic_name")
+    .select("id, slug, parent_id, title, topic_name, previous_slugs")
     .eq("site", "badgeralerts")
     .eq("published", true);
 
   const guide = (guides ?? []).find((g) => getServiceForGuide(g).slug === serviceSlug);
-  if (!guide) return null;
+  if (!guide) {
+    const moved = (guides ?? []).find((g) =>
+      ((g.previous_slugs as string[] | null) ?? []).some(
+        (old) => getServiceForGuide({ ...g, slug: old }).slug === serviceSlug
+      )
+    );
+    // The destination is always built from our own guide data, never from the request, so this
+    // can't be used as an open redirect.
+    if (moved) permanentRedirect(`/services/${getServiceForGuide(moved).slug}`);
+    return null;
+  }
   return { guide, service: getServiceForGuide(guide), guidePath: guidePath(guide, guides ?? []) };
 }
 
