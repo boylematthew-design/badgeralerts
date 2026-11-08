@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/footer-links";
+import SocialLinks from "./SocialLinks";
 
 export default function DashboardFooter() {
   return (
@@ -8,7 +9,7 @@ export default function DashboardFooter() {
         <p className="text-[12px] text-muted">
           &copy; 2026 Compounding Wins &middot; Built in London
         </p>
-        <nav className="flex flex-wrap gap-x-5 gap-y-1.5">
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
           {footerLinks.flatMap((section) =>
             section.links.map((link) => (
               <Link
@@ -21,6 +22,7 @@ export default function DashboardFooter() {
               </Link>
             ))
           )}
+          <SocialLinks size="sm" />
         </nav>
       </div>
     </footer>

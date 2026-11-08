@@ -1,7 +1,12 @@
-// external: true opens the link in a new tab (for other websites, like social profiles).
+// external: true opens the link in a new tab (for other websites).
 type FooterLink = { label: string; href: string; external?: boolean };
 
-export const YOUTUBE_URL = "https://www.youtube.com/@compoundingwins";
+// Social profiles, shown as logos in both footers. The label is also in the HTML as hidden text,
+// so screen readers, search engines and AI tools still read "YouTube" / "LinkedIn".
+export const socialLinks = [
+  { label: "YouTube", href: "https://www.youtube.com/@compoundingwins", icon: "youtube" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/mattboyle3/", icon: "linkedin" },
+] as const;
 
 export const footerLinks: { heading: string; links: FooterLink[] }[] = [
   {
@@ -18,9 +23,7 @@ export const footerLinks: { heading: string; links: FooterLink[] }[] = [
     links: [
       { label: "About", href: "/about" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "/contact" },
-      { label: "YouTube", href: YOUTUBE_URL, external: true },
-    ],
+      { label: "Contact", href: "/contact" },    ],
   },
   {
     heading: "Legal",

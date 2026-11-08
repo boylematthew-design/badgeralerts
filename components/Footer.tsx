@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/footer-links";
 import Logo from "./Logo";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   return (
@@ -15,6 +16,7 @@ export default function Footer() {
             <p className="text-[13px] text-muted leading-[1.55]">
               Digital marketing consulting, guides, and tools.
             </p>
+            <SocialLinks />
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-10">
