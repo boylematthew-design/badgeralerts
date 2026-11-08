@@ -14,6 +14,7 @@ export default function DashboardFooter() {
               <Link
                 key={link.label}
                 href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="text-[12px] text-muted hover:text-accent-dark transition-colors"
               >
                 {link.label}

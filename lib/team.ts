@@ -33,6 +33,7 @@ export const TEAM: TeamProfile[] = [
     role: "Digital marketing consultant",
     photo: "/matthew-boyle-linkedin.jpg",
     linkedin: "https://www.linkedin.com/in/mattboyle3/",
+    otherProfiles: ["https://www.youtube.com/@compoundingwins"],
     intro: [
       "I'm a digital marketing consultant with around 20 years' experience helping businesses get found online and turn that visibility into leads and sales.",
       "My background spans SEO, local search, social platforms, marketplaces and, more recently, AI search. I write the guides on this site from hands-on work, and I offer the same expertise as one-off audits or ongoing monthly support.",
