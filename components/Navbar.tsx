@@ -7,6 +7,12 @@ import LinkedInIcon from "./LinkedInIcon";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
 
+// /book redirects to the booking tool (see next.config.ts). Outlined so it sits
+// beside the solid "Work with me" button without competing with it.
+const BOOK_URL = "/book";
+const bookClass =
+  "border border-accent text-accent-dark rounded-[8px] font-semibold text-[14px] px-5 py-2.5 hover:bg-accent-light transition-colors active:translate-y-px";
+
 const navLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/services", label: "Services" },
@@ -47,6 +53,10 @@ export default function Navbar() {
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-mid hover:text-ink hover:border-border-strong transition-colors"
           >
             <LinkedInIcon />
+          </a>
+          {/* Hidden on tablet widths, where the header is too tight for three actions */}
+          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className={`hidden lg:inline-block ${bookClass}`}>
+            Book a call
           </a>
           <Link
             href="/contact"
@@ -89,6 +99,15 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <a
+            href={BOOK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className={`mt-2 text-center ${bookClass}`}
+          >
+            Book a call
+          </a>
           <div className="flex items-center gap-3 mt-2 pt-3 border-t border-border">
             <a
               href={LINKEDIN_URL}
