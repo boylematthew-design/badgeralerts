@@ -74,6 +74,27 @@ export default function ContactPage() {
 
           {/* Left — contact info */}
           <div className="flex flex-col gap-4">
+            {/* Booking — /book redirects to the booking tool (see next.config.ts) */}
+            <div className="border border-accent rounded-[14px] p-5">
+              <div className="w-9 h-9 rounded-[9px] bg-accent-light flex items-center justify-center mb-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" className="text-accent-dark" aria-hidden="true">
+                  <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h2 className="text-[13.5px] font-medium text-ink mb-0.5">Book a free call</h2>
+              <p className="text-[13px] text-muted mb-4">Prefer to talk? Pick a time for a free 30-minute call on Google Meet.</p>
+              <a
+                href="/book"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-light w-full py-2.5 text-[14px] flex items-center justify-center gap-2 active:translate-y-px"
+              >
+                Book a call
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
             {[
               {
                 label: "Email us",
