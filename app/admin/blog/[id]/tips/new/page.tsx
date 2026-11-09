@@ -8,6 +8,8 @@ import TipNewsFields from "../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../TipStatsFields";
 import TipToolsFields from "../TipToolsFields";
+import TipHelpFields from "../TipHelpFields";
+import { parseTipHelp } from "@/lib/tip-help";
 import TipContentField from "../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
@@ -66,6 +68,9 @@ export default async function NewTipPage({
     const tools = parseTipTools(formData);
     if (!tools) return;
 
+    const help = parseTipHelp(formData);
+    if (!help) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -108,6 +113,7 @@ export default async function NewTipPage({
       ...news,
       stats,
       tools,
+      ...help,
     });
 
     await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
@@ -176,6 +182,8 @@ export default async function NewTipPage({
         <TipStatsFields />
 
         <TipToolsFields />
+
+        <TipHelpFields />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

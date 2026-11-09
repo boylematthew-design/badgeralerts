@@ -174,7 +174,7 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
             {tips.length > 1 && (
               <TableOfContents tips={tips} sections={sections} />
             )}
-            <TipList tips={tips} sections={sections} />
+            <TipList tips={tips} sections={sections} guide={{ name: topicName, url: `${BASE_URL}${path}` }} />
           </>
         )}
 

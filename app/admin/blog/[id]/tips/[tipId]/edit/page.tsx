@@ -9,6 +9,8 @@ import TipNewsFields from "../../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../../TipStatsFields";
 import TipToolsFields from "../../TipToolsFields";
+import TipHelpFields from "../../TipHelpFields";
+import { parseTipHelp } from "@/lib/tip-help";
 import TipContentField from "../../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
@@ -70,6 +72,9 @@ export default async function EditTipPage({
     const tools = parseTipTools(formData);
     if (!tools) return;
 
+    const help = parseTipHelp(formData);
+    if (!help) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -103,6 +108,7 @@ export default async function EditTipPage({
         ...news,
         stats,
         tools,
+        ...help,
       })
       .eq("id", tipId);
 
@@ -173,6 +179,8 @@ export default async function EditTipPage({
         <TipStatsFields initial={tip.stats} />
 
         <TipToolsFields initial={tip.tools} />
+
+        <TipHelpFields enabled={tip.help_enabled} text={tip.help_text} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
