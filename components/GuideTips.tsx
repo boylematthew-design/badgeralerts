@@ -4,6 +4,7 @@ import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
 import type { TipStat } from "@/lib/tip-stats";
 import type { TipTool } from "@/lib/tip-tools";
 import { helpContactHref, helpQuestion } from "@/lib/tip-help";
+import TipActions from "@/components/TipActions";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -237,30 +238,6 @@ function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }
   );
 }
 
-// Optional "Help" box under a tip: for tips a small business owner might struggle to do alone. Links
-// to the contact form, pre-filled with the tip, guide and page, so the enquiry arrives with context.
-function TipHelpBox({ tip, tipNumber, guide }: { tip: TipData; tipNumber: number; guide: GuideContext }) {
-  const href = helpContactHref(tip.title, guide.name, `${guide.url}#tip-${tipNumber}`);
-  return (
-    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-3 mt-5 max-w-[620px]">
-      <span className="mt-[1px] flex-shrink-0 rounded-full bg-white border border-accent/40 text-accent-dark text-[10px] font-semibold tracking-[0.08em] uppercase px-2 py-0.5">
-        Help
-      </span>
-      <div className="min-w-0 flex-1">
-        <p className="text-[13.5px] md:text-[14px] font-semibold text-ink leading-[1.45]">
-          {helpQuestion(tip.title, tip.help_text ?? null)}
-        </p>
-        <p className="text-[13px] md:text-[14px] text-mid leading-[1.5] mt-0.5">
-          We can do it for you, or talk you through it. Send us an enquiry and we&apos;ll reply within 1 business day.
-        </p>
-        <a href={href} className="btn-light inline-block text-[13px] px-4 py-2 mt-2.5 active:translate-y-px">
-          Ask for help
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export interface SectionData {
   id: string;
   title: string;
@@ -295,6 +272,12 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       <Heading className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-3">
         {tip.title}
       </Heading>
+      <TipActions
+        tipId={tip.id}
+        tipTitle={tip.title}
+        helpQuestion={helpQuestion(tip.title, tip.help_text ?? null)}
+        helpHref={guide ? helpContactHref(tip.title, guide.name, `${guide.url}#tip-${tipNumber}`) : null}
+      >
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
@@ -314,7 +297,6 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
-      {tip.help_enabled && guide && <TipHelpBox tip={tip} tipNumber={tipNumber} guide={guide} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
         <div className="mt-6">
           <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">
@@ -353,6 +335,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
           </div>
         </div>
       )}
+      </TipActions>
     </div>
   );
 }
