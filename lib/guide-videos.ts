@@ -7,7 +7,7 @@
 
 export interface GuideVideo {
   youtubeId: string;
-  title: string;
+  title: string; // sentence case, matching YouTube; shown on the page followed by a full stop
   description: string;
   uploadDate: string; // ISO 8601 with time zone, as YouTube shows it
   duration: string; // ISO 8601, e.g. PT12M51S
@@ -17,7 +17,7 @@ export interface GuideVideo {
 const GUIDE_VIDEOS: Record<string, GuideVideo> = {
   "google-maps-marketing": {
     youtubeId: "pbK4I2hIDwU",
-    title: "Google Maps Marketing Strategy Review 2026: Expert Tips, Advice and More from a Consultant",
+    title: "Google Maps marketing strategy review 2026: expert tips, advice and more from a consultant",
     description:
       "Google Maps marketing strategy for 2026: 25 practical tips to get your local business found, from filling out your listing to getting better reviews, restaurant-specific wins and going beyond Google.",
     uploadDate: "2026-11-09T06:44:11-08:00",

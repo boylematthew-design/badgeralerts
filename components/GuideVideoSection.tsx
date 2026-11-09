@@ -35,7 +35,7 @@ export default function GuideVideoSection({ video }: { video: GuideVideo }) {
         durationLabel={video.durationLabel}
       />
       <p className="text-[14px] text-mid leading-[1.6] mt-3">
-        <span className="font-semibold text-ink">{video.title}</span>{" "}
+        <span className="font-semibold text-ink">{video.title}.</span>{" "}
         <a
           href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
           target="_blank"
