@@ -16,11 +16,11 @@ export interface GuideVideo {
 
 const GUIDE_VIDEOS: Record<string, GuideVideo> = {
   "google-maps-marketing": {
-    youtubeId: "7KSLFPRdIHw",
+    youtubeId: "pbK4I2hIDwU",
     title: "Google Maps Marketing Strategy Review 2026: Expert Tips, Advice and More from a Consultant",
     description:
       "Google Maps marketing strategy for 2026: 25 practical tips to get your local business found, from filling out your listing to getting better reviews, restaurant-specific wins and going beyond Google.",
-    uploadDate: "2026-11-09T06:26:37-08:00",
+    uploadDate: "2026-11-09T06:44:11-08:00",
     duration: "PT12M51S",
     durationLabel: "12:51",
   },
