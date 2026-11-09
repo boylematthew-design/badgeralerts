@@ -9,6 +9,8 @@ import TableOfContents from "@/components/TableOfContents";
 import AuthorByline from "@/components/AuthorByline";
 import PageHero, { heroLinkClass } from "@/components/PageHero";
 import { TipList } from "@/components/GuideTips";
+import GuideVideoSection from "@/components/GuideVideoSection";
+import { getGuideVideo } from "@/lib/guide-videos";
 import { fetchGuideTips } from "@/lib/fetch-guide-tips";
 import { getGuideHeadings } from "@/lib/guide-headings";
 import { getServiceForGuide } from "@/lib/services";
@@ -66,6 +68,7 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
 
   const { tips, sections } = await fetchGuideTips(supabase, guide.id);
   const topicName = guide.topic_name || guide.title;
+  const video = getGuideVideo(guide.slug);
   const headings = getGuideHeadings(guide.slug, topicName);
   const service = getServiceForGuide(guide);
 
@@ -174,6 +177,7 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
             {tips.length > 1 && (
               <TableOfContents tips={tips} sections={sections} />
             )}
+            {video && <GuideVideoSection video={video} />}
             <TipList tips={tips} sections={sections} guide={{ name: topicName, url: `${BASE_URL}${path}` }} />
           </>
         )}
