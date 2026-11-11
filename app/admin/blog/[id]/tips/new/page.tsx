@@ -14,6 +14,8 @@ import TipContentField from "../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
+import { parseTipImageUrl } from "@/lib/tip-image";
+import TipImageField from "../TipImageField";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -53,7 +55,7 @@ export default async function NewTipPage({
     const content = normalizeTipContent((formData.get("content") as string) ?? "");
     const published = formData.get("published") === "on";
     const sectionId = (formData.get("section_id") as string) || null;
-    const imageFile = formData.get("image") as File | null;
+    const imageUrl = parseTipImageUrl(formData);
     const imageAlt = (formData.get("image_alt") as string)?.trim();
     const imageCaption = (formData.get("image_caption") as string)?.trim();
 
@@ -75,20 +77,6 @@ export default async function NewTipPage({
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
-
-    let imageUrl: string | null = null;
-    if (imageFile && imageFile.size > 0) {
-      const ext = imageFile.name.split(".").pop();
-      const fileName = `${Date.now()}.${ext}`;
-      const { error: uploadError } = await admin.storage
-        .from("blog-images")
-        .upload(fileName, imageFile, { contentType: imageFile.type });
-
-      if (!uploadError) {
-        const { data: urlData } = admin.storage.from("blog-images").getPublicUrl(fileName);
-        imageUrl = urlData.publicUrl;
-      }
-    }
 
     const { data: maxTip } = await admin
       .from("tips")
@@ -185,18 +173,7 @@ export default async function NewTipPage({
 
         <TipHelpFields />
 
-        <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Image <span className="text-slate-400 font-normal">(optional)</span>
-          </label>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 transition"
-          />
-          <p className="text-xs text-slate-400 mt-1.5">Recommended: JPG or PNG, under 2MB</p>
-        </div>
+        <TipImageField />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">

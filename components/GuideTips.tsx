@@ -282,17 +282,20 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {tip.image_url && (
-        <div className="mt-5 max-w-[320px]">
+        <figure className="mt-5 max-w-[720px]">
+          {/* Plain <img>, not next/image, so animated GIFs keep playing. Lazy so big GIFs don't slow the page top. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={tip.image_url}
             alt={tip.image_alt || tip.title}
-            className="w-full rounded-[14px] border border-border"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-auto rounded-[14px] border border-border"
           />
           {tip.image_caption && (
-            <p className="text-[13px] text-muted italic mt-2">{tip.image_caption}</p>
+            <figcaption className="text-[13px] text-muted italic mt-2">{tip.image_caption}</figcaption>
           )}
-        </div>
+        </figure>
       )}
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}

@@ -15,6 +15,8 @@ import TipContentField from "../../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
+import { parseTipImageUrl } from "@/lib/tip-image";
+import TipImageField from "../../TipImageField";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -57,7 +59,7 @@ export default async function EditTipPage({
     const content = normalizeTipContent((formData.get("content") as string) ?? "");
     const published = formData.get("published") === "on";
     const sectionId = (formData.get("section_id") as string) || null;
-    const imageFile = formData.get("image") as File | null;
+    const imageUrl = parseTipImageUrl(formData);
     const imageAlt = (formData.get("image_alt") as string)?.trim();
     const imageCaption = (formData.get("image_caption") as string)?.trim();
 
@@ -79,21 +81,6 @@ export default async function EditTipPage({
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
-
-    let imageUrl: string | null = formData.get("existing_image_url") as string || null;
-
-    if (imageFile && imageFile.size > 0) {
-      const ext = imageFile.name.split(".").pop();
-      const fileName = `${Date.now()}.${ext}`;
-      const { error: uploadError } = await admin.storage
-        .from("blog-images")
-        .upload(fileName, imageFile, { contentType: imageFile.type });
-
-      if (!uploadError) {
-        const { data: urlData } = admin.storage.from("blog-images").getPublicUrl(fileName);
-        imageUrl = urlData.publicUrl;
-      }
-    }
 
     await admin
       .from("tips")
@@ -141,7 +128,6 @@ export default async function EditTipPage({
       </div>
 
       <form action={updateTip} encType="multipart/form-data" className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6 shadow-sm">
-        <input type="hidden" name="existing_image_url" value={tip.image_url ?? ""} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Tip title</label>
@@ -182,21 +168,7 @@ export default async function EditTipPage({
 
         <TipHelpFields enabled={tip.help_enabled} text={tip.help_text} />
 
-        <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Image <span className="text-slate-400 font-normal">(optional — upload a new one to replace)</span>
-          </label>
-          {tip.image_url && (
-            <img src={tip.image_url} alt="Current image" className="w-full rounded-xl mb-3 border border-slate-200" />
-          )}
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 transition"
-          />
-          <p className="text-xs text-slate-400 mt-1.5">Leave blank to keep the existing image</p>
-        </div>
+        <TipImageField initialUrl={tip.image_url} />
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
