@@ -5,6 +5,19 @@ import { createClient } from "@/lib/supabase";
 import { TIP_IMAGE_BUCKET, TIP_IMAGE_MAX_BYTES, TIP_IMAGE_TYPES } from "@/lib/tip-image";
 import { createTipImageUpload } from "./image-upload-action";
 
+const SHARP_MIN_WIDTH = 1440;
+
+// Reads an image file's pixel width in the browser (null if it can't be read).
+function imageWidth(file: File): Promise<number | null> {
+  return new Promise((resolve) => {
+    const src = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { resolve(img.naturalWidth); URL.revokeObjectURL(src); };
+    img.onerror = () => { resolve(null); URL.revokeObjectURL(src); };
+    img.src = src;
+  });
+}
+
 // Tip image picker, shared by "Add a tip" and "Edit tip". The file uploads to Supabase Storage as
 // soon as it's picked (see lib/tip-image.ts for why), and only the resulting URL goes in the form
 // as "image_url". While an upload is running, or if it failed, the form won't submit.
@@ -45,8 +58,16 @@ export default function TipImageField({ initialUrl = null }: { initialUrl?: stri
 
     setUrl(ticket.publicUrl);
     setStatus("idle");
-    setMessage("");
     block("");
+
+    // Warn (don't block) when the image is too small to look sharp. Tip images show up to 720px
+    // wide, and phones/retina screens need double that in real pixels to look crisp.
+    const width = await imageWidth(file);
+    setMessage(
+      width && width < SHARP_MIN_WIDTH
+        ? `Uploaded, but this image is only ${width}px wide so it may look small or soft. For a sharp result, use the original screenshot (at least ${SHARP_MIN_WIDTH}px wide).`
+        : ""
+    );
   }
 
   function remove() {
@@ -87,7 +108,7 @@ export default function TipImageField({ initialUrl = null }: { initialUrl?: stri
         </p>
       ) : (
         <p className="text-xs text-slate-400 mt-1.5">
-          JPG, PNG, WebP or GIF, up to 25MB. {url ? "Pick a new file to replace the current image." : ""}
+          JPG, PNG, WebP or GIF, up to 25MB. Use full-size screenshots (at least 1,440px wide) so they look sharp. {url ? "Pick a new file to replace the current image." : ""}
         </p>
       )}
     </div>

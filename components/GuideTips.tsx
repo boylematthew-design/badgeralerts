@@ -283,14 +283,17 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {tip.image_url && (
         <figure className="mt-5 max-w-[720px]">
-          {/* Plain <img>, not next/image, so animated GIFs keep playing. Lazy so big GIFs don't slow the page top. */}
+          {/* Plain <img>, not next/image, so animated GIFs keep playing. Lazy so big GIFs don't slow the page top.
+              w-auto + max-w-full: shown at its own size up to the column width, never stretched bigger
+              (stretching a small image is what makes it blurry). max-h stops tall phone screenshots
+              taking over the page; the aspect ratio is kept because width and height are both auto. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={tip.image_url}
             alt={tip.image_alt || tip.title}
             loading="lazy"
             decoding="async"
-            className="w-full h-auto rounded-[14px] border border-border"
+            className="block w-auto h-auto max-w-full max-h-[720px] rounded-[14px] border border-border"
           />
           {tip.image_caption && (
             <figcaption className="text-[13px] text-muted italic mt-2">{tip.image_caption}</figcaption>
