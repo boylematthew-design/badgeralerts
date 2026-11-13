@@ -132,22 +132,45 @@ export function caseStudyOptions(): { id: string; client: string }[] {
 
 export const MAX_TIP_CASE_STUDIES = 5;
 
-// The admin tip form sends the chosen ids as JSON in a hidden "case_studies" field. Returns the
-// cleaned list, or null if it isn't valid. Only ids that exist in CASE_STUDIES are accepted.
-export function parseTipCaseStudies(formData: FormData): string[] | null {
-  const raw = (formData.get("case_studies") as string) ?? "";
-  if (!raw.trim()) return [];
-  let input: unknown;
-  try {
-    input = JSON.parse(raw);
-  } catch {
-    return null;
-  }
-  if (!Array.isArray(input) || input.length > MAX_TIP_CASE_STUDIES) return null;
+export const MAX_CASE_STUDY_NOTE_LENGTH = 300;
+
+export interface TipCaseStudyChoice {
+  ids: string[];
+  notes: Record<string, string>;
+}
+
+// The admin tip form sends the chosen ids as JSON in a hidden "case_studies" field, and the custom
+// context for each one in "case_study_notes" ({id: note}). Returns the cleaned choice, or null if
+// it isn't valid. Only ids that exist in CASE_STUDIES are accepted, and only notes for chosen ids.
+export function parseTipCaseStudies(formData: FormData): TipCaseStudyChoice | null {
+  const parse = (name: string): unknown => {
+    const raw = (formData.get(name) as string) ?? "";
+    if (!raw.trim()) return undefined;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  };
+
+  const idsInput = parse("case_studies") ?? [];
+  if (!Array.isArray(idsInput) || idsInput.length > MAX_TIP_CASE_STUDIES) return null;
   const ids: string[] = [];
-  for (const id of input) {
+  for (const id of idsInput) {
     if (typeof id !== "string" || !CASE_STUDIES.some((c) => c.id === id)) return null;
     if (!ids.includes(id)) ids.push(id);
   }
-  return ids;
+
+  const notesInput = parse("case_study_notes") ?? {};
+  if (typeof notesInput !== "object" || notesInput === null || Array.isArray(notesInput)) return null;
+  const notes: Record<string, string> = {};
+  for (const [id, note] of Object.entries(notesInput)) {
+    if (typeof note !== "string") return null;
+    const clean = note.trim();
+    if (!clean || !ids.includes(id)) continue; // notes for removed case studies are just dropped
+    if (clean.length > MAX_CASE_STUDY_NOTE_LENGTH) return null;
+    notes[id] = clean;
+  }
+
+  return { ids, notes };
 }

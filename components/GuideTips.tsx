@@ -37,6 +37,7 @@ export interface TipData {
   stats: TipStat[] | null;
   tools: TipTool[] | null;
   case_studies?: string[] | null;
+  case_study_notes?: Record<string, string> | null;
   help_enabled?: boolean | null;
   help_text?: string | null;
   tip_links: TipLink[];
@@ -244,9 +245,10 @@ function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }
   );
 }
 
-// Optional "Case study" box under a tip: a real client result that backs the tip up, linking to the
+// Optional "Case study" box under a tip: a real client result that backs the tip up, with the tip's
+// own context for it (or the case study's summary if there's none), linking to the
 // full write-up on the services page (internal link, same tab, which also passes SEO value there).
-function TipCaseStudyBox({ studies }: { studies: CaseStudy[] }) {
+function TipCaseStudyBox({ studies, notes }: { studies: CaseStudy[]; notes: Record<string, string> }) {
   return (
     <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-3 mt-5 max-w-[620px]">
       <span className="mt-[1px] flex-shrink-0 rounded-full bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-2 py-0.5">
@@ -261,7 +263,7 @@ function TipCaseStudyBox({ studies }: { studies: CaseStudy[] }) {
             >
               {study.client}
             </Link>
-            <p className="text-[13px] md:text-[14px] text-mid leading-[1.5] mt-0.5">{study.summary}</p>
+            <p className="text-[13px] md:text-[14px] text-mid leading-[1.5] mt-0.5">{notes[study.id] || study.summary}</p>
           </li>
         ))}
       </ul>
@@ -337,7 +339,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
-      {caseStudies.length > 0 && <TipCaseStudyBox studies={caseStudies} />}
+      {caseStudies.length > 0 && <TipCaseStudyBox studies={caseStudies} notes={tip.case_study_notes ?? {}} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
         <div className="mt-6">
           <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">

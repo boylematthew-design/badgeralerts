@@ -106,7 +106,8 @@ export default async function EditTipPage({
         ...news,
         stats,
         tools,
-        case_studies: caseStudies,
+        case_studies: caseStudies.ids,
+        case_study_notes: caseStudies.notes,
         ...help,
       })
       .eq("id", tipId);
@@ -182,7 +183,7 @@ export default async function EditTipPage({
 
         <TipLinksFields initial={tipLinks ?? []} />
 
-        <TipCaseStudyFields options={caseStudyOptions()} initial={tip.case_studies} />
+        <TipCaseStudyFields options={caseStudyOptions()} initial={tip.case_studies} initialNotes={tip.case_study_notes} />
 
         <TipHelpFields enabled={tip.help_enabled} text={tip.help_text} />
 

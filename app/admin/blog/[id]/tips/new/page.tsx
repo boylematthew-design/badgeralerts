@@ -109,7 +109,8 @@ export default async function NewTipPage({
       ...news,
       stats,
       tools,
-      case_studies: caseStudies,
+      case_studies: caseStudies.ids,
+      case_study_notes: caseStudies.notes,
       ...help,
     }).select("id").single();
 
