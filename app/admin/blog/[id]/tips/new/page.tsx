@@ -15,6 +15,8 @@ import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
 import { parseTipImages } from "@/lib/tip-image";
+import TipLinksFields from "../TipLinksFields";
+import { parseTipLinks, saveTipLinks } from "@/lib/tip-links";
 import TipImagesField from "../TipImagesField";
 
 const supabaseAdmin = createClient(
@@ -73,6 +75,9 @@ export default async function NewTipPage({
     const images = parseTipImages(formData);
     if (!images) return;
 
+    const links = parseTipLinks(formData);
+    if (!links) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -88,7 +93,7 @@ export default async function NewTipPage({
 
     const nextOrder = (maxTip?.sort_order ?? 0) + 1;
 
-    await admin.from("tips").insert({
+    const { data: newTip } = await admin.from("tips").insert({
       guide_id: id,
       title,
       content: content || null,
@@ -100,7 +105,9 @@ export default async function NewTipPage({
       stats,
       tools,
       ...help,
-    });
+    }).select("id").single();
+
+    if (newTip) await saveTipLinks(admin, newTip.id, links);
 
     await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
 
@@ -168,6 +175,8 @@ export default async function NewTipPage({
         <TipStatsFields />
 
         <TipToolsFields />
+
+        <TipLinksFields />
 
         <TipHelpFields />
 

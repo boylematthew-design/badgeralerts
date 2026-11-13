@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SubmitButton from "./SubmitButton";
-import TipLinksManager from "./TipLinksManager";
 import TipNewsFields from "../../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../../TipStatsFields";
@@ -16,6 +15,8 @@ import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
 import { parseTipImages, tipImagesOf } from "@/lib/tip-image";
+import TipLinksFields from "../../TipLinksFields";
+import { parseTipLinks, saveTipLinks } from "@/lib/tip-links";
 import TipImagesField from "../../TipImagesField";
 
 const supabaseAdmin = createClient(
@@ -34,7 +35,7 @@ export default async function EditTipPage({
     supabaseAdmin.from("guides").select("id, title").eq("id", id).single(),
     supabaseAdmin.from("tips").select("*").eq("id", tipId).single(),
     supabaseAdmin.from("tip_sections").select("id, title").eq("guide_id", id).order("sort_order", { ascending: true }),
-    supabaseAdmin.from("tip_links").select("id, url, context, preview_title, preview_description, preview_favicon").eq("tip_id", tipId).order("sort_order", { ascending: true }),
+    supabaseAdmin.from("tip_links").select("url, context, preview_title, preview_description, preview_favicon").eq("tip_id", tipId).order("sort_order", { ascending: true }),
   ]);
 
   if (!guide || !tip) redirect(`/admin/blog/${id}`);
@@ -77,6 +78,9 @@ export default async function EditTipPage({
     const images = parseTipImages(formData);
     if (!images) return;
 
+    const links = parseTipLinks(formData);
+    if (!links) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -100,6 +104,8 @@ export default async function EditTipPage({
         ...help,
       })
       .eq("id", tipId);
+
+    await saveTipLinks(admin, tipId, links);
 
     await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
 
@@ -168,6 +174,8 @@ export default async function EditTipPage({
 
         <TipToolsFields initial={tip.tools} />
 
+        <TipLinksFields initial={tipLinks ?? []} />
+
         <TipHelpFields enabled={tip.help_enabled} text={tip.help_text} />
 
         <TipImagesField initial={tipImagesOf(tip)} />
@@ -188,7 +196,6 @@ export default async function EditTipPage({
         <SubmitButton />
       </form>
 
-      <TipLinksManager tipId={tipId} initialLinks={tipLinks ?? []} />
     </div>
   );
 }
