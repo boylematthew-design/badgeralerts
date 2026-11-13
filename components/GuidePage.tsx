@@ -135,8 +135,29 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
           .
         </p>
 
+        <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
+          {headings.guide}
+        </h2>
+
+        {!tips || tips.length === 0 ? (
+          <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
+            <p className="text-[15px] text-mid">
+              Tips for this guide are coming soon — check back shortly.
+            </p>
+          </div>
+        ) : (
+          <>
+            {tips.length > 1 && (
+              <TableOfContents tips={tips} sections={sections} />
+            )}
+            {video && <GuideVideoSection video={video} />}
+            <TipList tips={tips} sections={sections} guide={{ name: topicName, url: `${BASE_URL}${path}` }} />
+          </>
+        )}
+
+        {/* Sub-guides sit after the tips so readers go straight into the guide, then get somewhere to go next. */}
         {children.length > 0 && (
-          <section className="mb-12">
+          <section className="mt-14">
             <h2 className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">
               More {topicName} guides
             </h2>
@@ -160,26 +181,6 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
               })}
             </div>
           </section>
-        )}
-
-        <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
-          {headings.guide}
-        </h2>
-
-        {!tips || tips.length === 0 ? (
-          <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-4">
-            <p className="text-[15px] text-mid">
-              Tips for this guide are coming soon — check back shortly.
-            </p>
-          </div>
-        ) : (
-          <>
-            {tips.length > 1 && (
-              <TableOfContents tips={tips} sections={sections} />
-            )}
-            {video && <GuideVideoSection video={video} />}
-            <TipList tips={tips} sections={sections} guide={{ name: topicName, url: `${BASE_URL}${path}` }} />
-          </>
         )}
 
         <ConsultantCTA />
