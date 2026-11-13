@@ -32,7 +32,13 @@ export function businessSchema() {
           "Digital marketing consulting, guides and tools from Compounding Wins: SEO, local SEO, social, content and paid media strategy.",
         address: { "@type": "PostalAddress", addressLocality: "London", addressCountry: "GB" },
         hasMap: GOOGLE_MAPS_URL,
-        areaServed: { "@type": "Country", name: "United Kingdom" },
+        // Matches the Google Business Profile service areas, plus the UK for remote work.
+        areaServed: [
+          { "@type": "City", name: "London" },
+          { "@type": "City", name: "Croydon" },
+          { "@type": "Place", name: "Lewisham, London" },
+          { "@type": "Country", name: "United Kingdom" },
+        ],
         sameAs: socialLinks.filter((l) => l.business).map((l) => l.href),
         ...(founder && { founder: { "@id": personSchemaId(founder.slug) } }),
       },
