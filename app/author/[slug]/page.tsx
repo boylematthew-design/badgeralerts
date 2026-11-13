@@ -8,6 +8,7 @@ import LinkedInIcon from "@/components/LinkedInIcon";
 import { heroLinkClass } from "@/components/PageHero";
 import { TEAM, getTeamMember } from "@/lib/team";
 import { guidePath } from "@/lib/blog-guides";
+import { personSchemaId } from "@/lib/business-schema";
 
 const BASE_URL = "https://www.compoundingwins.com";
 
@@ -56,6 +57,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": personSchemaId(person.slug), // same id as the site-wide schema, so Google merges them
     name: person.name,
     jobTitle: person.role,
     url: `${BASE_URL}/author/${person.slug}`,

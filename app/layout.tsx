@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { businessSchema } from "@/lib/business-schema";
 
 // Sora is a variable font, so one file covers every weight we use (400–800).
 const sora = Sora({
@@ -32,6 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={`${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema()).replace(/</g, "\\u003c") }}
+        />
         {children}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
