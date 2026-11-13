@@ -6,6 +6,7 @@ type FooterLink = { label: string; href: string; external?: boolean };
 export const socialLinks = [
   { label: "YouTube", href: "https://www.youtube.com/@compoundingwins", icon: "youtube" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/mattboyle3/", icon: "linkedin" },
+  { label: "Yell", href: "https://www.yell.com/biz/compounding-wins-london-11066334/", icon: "yell" },
 ] as const;
 
 export const footerLinks: { heading: string; links: FooterLink[] }[] = [

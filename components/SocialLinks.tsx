@@ -1,6 +1,7 @@
 import { socialLinks } from "@/lib/footer-links";
 import LinkedInIcon from "./LinkedInIcon";
 import YouTubeIcon from "./YouTubeIcon";
+import YellIcon from "./YellIcon";
 
 // Social profile logos for the footers. Links live in lib/footer-links.ts.
 export default function SocialLinks({ size = "md" }: { size?: "sm" | "md" }) {
@@ -15,7 +16,7 @@ export default function SocialLinks({ size = "md" }: { size?: "sm" | "md" }) {
             rel="noopener noreferrer"
             className={`${box} rounded-full border border-border flex items-center justify-center text-mid hover:text-ink hover:border-border-strong transition-colors`}
           >
-            {link.icon === "youtube" ? <YouTubeIcon /> : <LinkedInIcon />}
+            {link.icon === "youtube" ? <YouTubeIcon /> : link.icon === "yell" ? <YellIcon /> : <LinkedInIcon />}
             <span className="sr-only">{link.label}</span>
           </a>
         </li>
