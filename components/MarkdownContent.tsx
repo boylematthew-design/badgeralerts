@@ -50,7 +50,18 @@ export default function MarkdownContent({ content, baseLevel = 1 }: { content: s
           hr: () => <hr className="border-border my-6" />,
           table: ({ ...props }) => <div className="overflow-x-auto mb-4"><table className="w-full text-left border-collapse" {...props} /></div>,
           th: ({ ...props }) => <th className="border-b border-border py-2 pr-4 font-semibold text-ink" {...props} />,
-          td: ({ ...props }) => <td className="border-b border-border py-2 pr-4" {...props} />,
+          td: ({ ...props }) => <td className="border-b border-border py-2 pr-4 align-top" {...props} />,
+          // Logos from /public/tool-icons (e.g. a platform's favicon in a table) show small, inline
+          // with the name. Self-hosted, so readers' browsers never call the other site. Any other
+          // image shows at its own size, up to the column width.
+          img: ({ src, alt }) =>
+            typeof src === "string" && src.startsWith("/tool-icons/") ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={src} alt={alt ?? ""} width={20} height={20} loading="lazy" className="inline-block w-5 h-5 rounded-[4px] mr-2 align-[-4px]" />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={typeof src === "string" ? src : undefined} alt={alt ?? ""} loading="lazy" className="max-w-full h-auto rounded-[14px]" />
+            ),
         }}
       >
         {content}
