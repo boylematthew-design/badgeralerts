@@ -112,3 +112,42 @@ export const CASE_STUDIES: CaseStudy[] = [
 export function getCaseStudiesForService(serviceSlug: string): CaseStudy[] {
   return CASE_STUDIES.filter((c) => c.services.includes(serviceSlug));
 }
+
+// Where a case study lives: its first services page, jumping straight to it (the accordion opens
+// on arrival, see components/CaseStudyHashOpener.tsx).
+export function caseStudyHref(study: CaseStudy): string {
+  return `/services/${study.services[0]}#case-study-${study.id}`;
+}
+
+// The case studies chosen for a tip, in order. Ids that no longer exist in CASE_STUDIES are skipped,
+// so removing a case study from this file can never break a guide page.
+export function getCaseStudiesByIds(ids: string[] | null | undefined): CaseStudy[] {
+  return (ids ?? []).flatMap((id) => CASE_STUDIES.filter((c) => c.id === id));
+}
+
+// Just the id + name, for the admin dropdown (keeps the full write-ups out of the admin's JavaScript).
+export function caseStudyOptions(): { id: string; client: string }[] {
+  return CASE_STUDIES.map((c) => ({ id: c.id, client: c.client }));
+}
+
+export const MAX_TIP_CASE_STUDIES = 5;
+
+// The admin tip form sends the chosen ids as JSON in a hidden "case_studies" field. Returns the
+// cleaned list, or null if it isn't valid. Only ids that exist in CASE_STUDIES are accepted.
+export function parseTipCaseStudies(formData: FormData): string[] | null {
+  const raw = (formData.get("case_studies") as string) ?? "";
+  if (!raw.trim()) return [];
+  let input: unknown;
+  try {
+    input = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  if (!Array.isArray(input) || input.length > MAX_TIP_CASE_STUDIES) return null;
+  const ids: string[] = [];
+  for (const id of input) {
+    if (typeof id !== "string" || !CASE_STUDIES.some((c) => c.id === id)) return null;
+    if (!ids.includes(id)) ids.push(id);
+  }
+  return ids;
+}

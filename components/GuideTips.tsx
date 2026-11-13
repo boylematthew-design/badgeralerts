@@ -5,6 +5,8 @@ import type { TipStat } from "@/lib/tip-stats";
 import type { TipTool } from "@/lib/tip-tools";
 import { helpContactHref, helpQuestion } from "@/lib/tip-help";
 import TipActions from "@/components/TipActions";
+import Link from "next/link";
+import { caseStudyHref, getCaseStudiesByIds, type CaseStudy } from "@/lib/case-studies";
 import TipImageCarousel from "@/components/TipImageCarousel";
 import { tipImagesOf, type TipImage } from "@/lib/tip-image";
 
@@ -34,6 +36,7 @@ export interface TipData {
   news_url: string | null;
   stats: TipStat[] | null;
   tools: TipTool[] | null;
+  case_studies?: string[] | null;
   help_enabled?: boolean | null;
   help_text?: string | null;
   tip_links: TipLink[];
@@ -241,6 +244,31 @@ function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }
   );
 }
 
+// Optional "Case study" box under a tip: a real client result that backs the tip up, linking to the
+// full write-up on the services page (internal link, same tab, which also passes SEO value there).
+function TipCaseStudyBox({ studies }: { studies: CaseStudy[] }) {
+  return (
+    <div className="flex items-start gap-2.5 rounded-[12px] bg-accent-light border border-accent/20 px-3.5 py-3 mt-5 max-w-[620px]">
+      <span className="mt-[1px] flex-shrink-0 rounded-full bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-2 py-0.5">
+        Case study
+      </span>
+      <ul className="min-w-0 space-y-3">
+        {studies.map((study) => (
+          <li key={study.id}>
+            <Link
+              href={caseStudyHref(study)}
+              className="text-[13.5px] md:text-[14px] font-semibold text-ink underline underline-offset-2 decoration-border-strong hover:text-accent-dark hover:decoration-accent transition-colors"
+            >
+              {study.client}
+            </Link>
+            <p className="text-[13px] md:text-[14px] text-mid leading-[1.5] mt-0.5">{study.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export interface SectionData {
   id: string;
   title: string;
@@ -268,6 +296,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
   const stats = tip.stats ?? [];
   const tools = tip.tools ?? [];
   const images = tipImagesOf(tip);
+  const caseStudies = getCaseStudiesByIds(tip.case_studies);
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
@@ -308,6 +337,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
+      {caseStudies.length > 0 && <TipCaseStudyBox studies={caseStudies} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
         <div className="mt-6">
           <p className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase mb-3">

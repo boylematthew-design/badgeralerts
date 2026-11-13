@@ -15,6 +15,8 @@ import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
 import { parseTipImages } from "@/lib/tip-image";
+import TipCaseStudyFields from "../TipCaseStudyFields";
+import { caseStudyOptions, parseTipCaseStudies } from "@/lib/case-studies";
 import TipLinksFields from "../TipLinksFields";
 import { parseTipLinks, saveTipLinks } from "@/lib/tip-links";
 import TipImagesField from "../TipImagesField";
@@ -78,6 +80,9 @@ export default async function NewTipPage({
     const links = parseTipLinks(formData);
     if (!links) return;
 
+    const caseStudies = parseTipCaseStudies(formData);
+    if (!caseStudies) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -104,6 +109,7 @@ export default async function NewTipPage({
       ...news,
       stats,
       tools,
+      case_studies: caseStudies,
       ...help,
     }).select("id").single();
 
@@ -177,6 +183,8 @@ export default async function NewTipPage({
         <TipToolsFields />
 
         <TipLinksFields />
+
+        <TipCaseStudyFields options={caseStudyOptions()} />
 
         <TipHelpFields />
 

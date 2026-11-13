@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/lib/case-studies";
+import CaseStudyHashOpener from "@/components/CaseStudyHashOpener";
 
 // Case study accordions on the services pages. Like GuideFaqs they use native <details>/<summary>,
 // so the full write-up and image alt text are in the page HTML while closed, for search engines
@@ -12,9 +13,10 @@ export default function CaseStudies({ studies }: { studies: CaseStudy[] }) {
       <h2 id="case-studies" className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
         {studies.length === 1 ? "Case study" : "Case studies"}
       </h2>
+      <CaseStudyHashOpener />
       <div className="space-y-4">
         {studies.map((study) => (
-          <details key={study.id} id={`case-study-${study.id}`} className="group border border-border rounded-[20px] bg-white">
+          <details key={study.id} id={`case-study-${study.id}`} className="group border border-border rounded-[20px] bg-white scroll-mt-[96px]">
             <summary className="flex items-start justify-between gap-4 px-6 md:px-8 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
               <div>
                 <h3 className="text-[17px] md:text-[18px] font-medium text-ink leading-[1.4] group-hover:text-accent-dark transition-colors">
