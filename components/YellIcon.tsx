@@ -1,25 +1,19 @@
-// Yell logo mark, simplified to one colour (currentColor) so it matches the YouTube and LinkedIn icons:
-// a speech bubble with a "y" cut out of it.
+// Yell's "walking fingers" mark, simplified to one colour (currentColor) so it matches the
+// YouTube, LinkedIn and X icons: a hand coming down from the top, two fingers walking, and the
+// line they walk along. Traced from Yell's own favicon.
 export default function YellIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <defs>
-        <mask id="yell-y-cutout">
-          <rect width="24" height="24" fill="white" />
-          <path
-            d="M8.5 7.5 12 13.5M15.5 7.5 10.5 17"
-            stroke="black"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            fill="none"
-          />
-        </mask>
-      </defs>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6.8 0h5.3c.1 2.5 1.3 4.3 3.7 5.4 1.1.5 1.6 1.7 1.1 2.8-.5 1.1-1.8 1.5-2.9 1C10.2 7.6 7.4 4.6 6.8 0Z" />
       <path
-        fill="currentColor"
-        mask="url(#yell-y-cutout)"
-        d="M12 1.5C6.2 1.5 1.5 5.6 1.5 10.75c0 2.9 1.5 5.5 3.85 7.2L4.5 22.5l4.6-2.6c.93.23 1.9.35 2.9.35 5.8 0 10.5-4.1 10.5-9.5S17.8 1.5 12 1.5Z"
+        d="M11.4 9 5.1 17.6M11.4 9l5.7 7.7c.4.6 1 .9 1.9 1"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
+      <rect x="4.4" y="19.2" width="15.2" height="2" rx="1" />
     </svg>
   );
 }
