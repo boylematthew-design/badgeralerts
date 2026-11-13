@@ -14,8 +14,8 @@ import TipContentField from "../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
 import { parseTipTools } from "@/lib/tip-tools";
-import { parseTipImageUrl } from "@/lib/tip-image";
-import TipImageField from "../TipImageField";
+import { parseTipImages } from "@/lib/tip-image";
+import TipImagesField from "../TipImagesField";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -55,9 +55,6 @@ export default async function NewTipPage({
     const content = normalizeTipContent((formData.get("content") as string) ?? "");
     const published = formData.get("published") === "on";
     const sectionId = (formData.get("section_id") as string) || null;
-    const imageUrl = parseTipImageUrl(formData);
-    const imageAlt = (formData.get("image_alt") as string)?.trim();
-    const imageCaption = (formData.get("image_caption") as string)?.trim();
 
     if (!title) return;
 
@@ -72,6 +69,9 @@ export default async function NewTipPage({
 
     const help = parseTipHelp(formData);
     if (!help) return;
+
+    const images = parseTipImages(formData);
+    if (!images) return;
 
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -92,9 +92,7 @@ export default async function NewTipPage({
       guide_id: id,
       title,
       content: content || null,
-      image_url: imageUrl,
-      image_alt: imageUrl ? imageAlt || null : null,
-      image_caption: imageUrl ? imageCaption || null : null,
+      images,
       sort_order: nextOrder,
       section_id: sectionId,
       published,
@@ -173,31 +171,7 @@ export default async function NewTipPage({
 
         <TipHelpFields />
 
-        <TipImageField />
-
-        <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Image alt text <span className="text-slate-400 font-normal">(for accessibility &amp; SEO)</span>
-          </label>
-          <input
-            name="image_alt"
-            placeholder="e.g. Screenshot of a Google Business Profile review reply"
-            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          <p className="text-xs text-slate-400 mt-1.5">Describes the image for screen readers and search engines.</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">
-            Image caption <span className="text-slate-400 font-normal">(optional)</span>
-          </label>
-          <input
-            name="image_caption"
-            placeholder="e.g. A Google review reply on a busy café's profile"
-            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          <p className="text-xs text-slate-400 mt-1.5">Shown in italics below the image on the guide page.</p>
-        </div>
+        <TipImagesField />
 
         <div className="flex items-center gap-3">
           <input

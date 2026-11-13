@@ -5,6 +5,8 @@ import type { TipStat } from "@/lib/tip-stats";
 import type { TipTool } from "@/lib/tip-tools";
 import { helpContactHref, helpQuestion } from "@/lib/tip-help";
 import TipActions from "@/components/TipActions";
+import TipImageCarousel from "@/components/TipImageCarousel";
+import { tipImagesOf, type TipImage } from "@/lib/tip-image";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -25,6 +27,7 @@ export interface TipData {
   image_url: string | null;
   image_alt: string | null;
   image_caption: string | null;
+  images?: TipImage[] | null;
   section_id: string | null;
   news_date: string | null;
   news_headline: string | null;
@@ -264,6 +267,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
   const Heading = level === 4 ? "h4" : "h3";
   const stats = tip.stats ?? [];
   const tools = tip.tools ?? [];
+  const images = tipImagesOf(tip);
   return (
     <div id={`tip-${tipNumber}`} className="py-8 first:pt-0 last:pb-0 scroll-mt-[96px]">
       <div className="text-[11px] font-medium tracking-[0.08em] text-accent-dark uppercase mb-2">
@@ -281,7 +285,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
       {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
       {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
-      {tip.image_url && (
+      {images.length === 1 && (
         <figure className="mt-5 max-w-[720px]">
           {/* Plain <img>, not next/image, so animated GIFs keep playing. Lazy so big GIFs don't slow the page top.
               w-auto + max-w-full: shown at its own size up to the column width, never stretched bigger
@@ -289,17 +293,18 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
               taking over the page; the aspect ratio is kept because width and height are both auto. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={tip.image_url}
-            alt={tip.image_alt || tip.title}
+            src={images[0].url}
+            alt={images[0].alt || tip.title}
             loading="lazy"
             decoding="async"
             className="block w-auto h-auto max-w-full max-h-[720px] rounded-[14px] border border-border"
           />
-          {tip.image_caption && (
-            <figcaption className="text-[13px] text-muted italic mt-2">{tip.image_caption}</figcaption>
+          {images[0].caption && (
+            <figcaption className="text-[13px] text-muted italic mt-2">{images[0].caption}</figcaption>
           )}
         </figure>
       )}
+      {images.length > 1 && <TipImageCarousel images={images} tipTitle={tip.title} />}
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
