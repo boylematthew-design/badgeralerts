@@ -3,7 +3,8 @@
 // all belong to one business, Compounding Wins, founded by Matthew Boyle. That consistency is a
 // local SEO and trust signal.
 //
-// Only put facts here that match the Google Business Profile exactly (name, area, map pin).
+// Only put facts here that match the Google Business Profile exactly. It is a service-area
+// business: never add the street address or map coordinates (geo), as they would reveal the location.
 // Profile links come from lib/footer-links.ts, so adding a profile there updates this too.
 
 import { GOOGLE_MAPS_URL, socialLinks } from "./footer-links";
@@ -30,8 +31,6 @@ export function businessSchema() {
         description:
           "Digital marketing consulting, guides and tools from Compounding Wins: SEO, local SEO, social, content and paid media strategy.",
         address: { "@type": "PostalAddress", addressLocality: "London", addressCountry: "GB" },
-        // Pin from the Google Business Profile listing.
-        geo: { "@type": "GeoCoordinates", latitude: 51.5010738, longitude: -0.1015987 },
         hasMap: GOOGLE_MAPS_URL,
         areaServed: { "@type": "Country", name: "United Kingdom" },
         sameAs: socialLinks.filter((l) => l.business).map((l) => l.href),
