@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
+import GoogleReviews from "@/components/GoogleReviews";
 import { guidePath } from "@/lib/blog-guides";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
@@ -180,6 +181,9 @@ export default async function Home() {
         </div>
       </div>
       </section>
+
+      {/* ── GOOGLE REVIEWS (hidden until set up, see lib/google-reviews.ts) ── */}
+      <GoogleReviews />
 
       {/* ── FREE GUIDES ───────────────────────────────────────────── */}
       {guides && guides.length > 0 && (
