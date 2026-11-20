@@ -10,6 +10,24 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "image-seo-prep",
+    name: "Image SEO: rename, compress & alt text",
+    description:
+      "Batch rename photos to descriptive file names, compress and resize them, check they're big enough for zoom, and write alt text.",
+  },
+  {
+    slug: "social-image-resizer",
+    name: "Social image resizer with text overlay",
+    description:
+      "Resize one photo for link previews, Pinterest, Instagram, TikTok covers and YouTube thumbnails, with padding, text and your logo.",
+  },
+  {
+    slug: "favicon-generator",
+    name: "Favicon generator",
+    description:
+      "Turn your logo into favicon.ico, Apple and Android icons and a web manifest, with the HTML tags to add them.",
+  },
+  {
     slug: "schema-generator",
     name: "Local business schema generator",
     description:

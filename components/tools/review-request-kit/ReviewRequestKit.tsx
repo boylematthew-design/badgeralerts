@@ -237,7 +237,7 @@ export default function ReviewRequestKit() {
             <input id="rk-name" className={input} value={previewName} onChange={(e) => setPreviewName(e.target.value)} />
           </div>
         </div>
-        <div className="mt-4 rounded-[12px] bg-surface p-4 text-[14.5px] text-ink whitespace-pre-wrap leading-[1.55]">{message}</div>
+        <div className="mt-4 rounded-[12px] bg-surface p-4 text-[14.5px] text-ink whitespace-pre-wrap [overflow-wrap:anywhere] leading-[1.55]">{message}</div>
         <div className="flex flex-wrap gap-2 mt-3">
           <CopyButton text={message} label="Copy message" />
           {activeLink && (
@@ -305,39 +305,29 @@ export default function ReviewRequestKit() {
         </div>
 
         {data.customers.length > 0 && (
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full text-[14px] min-w-[520px]">
-              <thead>
-                <tr className="text-left text-[12px] text-muted uppercase tracking-[0.06em]">
-                  <th className="py-2 pr-2">Customer</th><th className="py-2 pr-2">Asked</th><th className="py-2 pr-2">Send</th><th className="py-2"><span className="sr-only">Remove</span></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {data.customers.map((c) => {
-                  const s = sendLinks(c);
-                  return (
-                    <tr key={c.id}>
-                      <td className="py-2.5 pr-2"><span className="font-semibold text-ink">{c.name}</span><br /><span className="text-muted text-[13px]">{c.contact}</span></td>
-                      <td className="py-2.5 pr-2 text-mid">{c.askedOn ? `${c.askedOn} (${PLATFORMS.find((p) => p.id === c.platform)?.name})` : "Not yet"}</td>
-                      <td className="py-2.5 pr-2">
-                        <div className="flex flex-wrap gap-1.5">
-                          {activeLink && <>
-                            <a className={btnSmall} href={s.whatsapp} target="_blank" rel="noopener noreferrer" onClick={() => markAsked(c)}>WhatsApp</a>
-                            <a className={btnSmall} href={s.sms} onClick={() => markAsked(c)}>Text</a>
-                            <a className={btnSmall} href={s.email} onClick={() => markAsked(c)}>Email</a>
-                          </>}
-                          <button type="button" className={btnSmall} onClick={() => markAsked(c)}>Mark asked</button>
-                        </div>
-                      </td>
-                      <td className="py-2.5 text-right">
-                        <button type="button" className="text-[13px] text-muted hover:text-danger" onClick={() => update({ customers: data.customers.filter((x) => x.id !== c.id) })}>Remove</button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <ul className="mt-6 border-y border-border divide-y divide-border" aria-label="Customers">
+            {data.customers.map((c) => {
+              const s = sendLinks(c);
+              return (
+                <li key={c.id} className="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <div className="sm:w-48 min-w-0">
+                    <p className="font-semibold text-ink text-[14px] truncate">{c.name}</p>
+                    <p className="text-muted text-[13px] truncate">{c.contact}</p>
+                  </div>
+                  <p className="text-[13px] text-mid sm:w-36">{c.askedOn ? `Asked ${c.askedOn} (${PLATFORMS.find((p) => p.id === c.platform)?.name})` : "Not asked yet"}</p>
+                  <div className="flex flex-wrap gap-1.5 sm:ml-auto items-center">
+                    {activeLink && <>
+                      <a className={btnSmall} href={s.whatsapp} target="_blank" rel="noopener noreferrer" onClick={() => markAsked(c)}>WhatsApp</a>
+                      <a className={btnSmall} href={s.sms} onClick={() => markAsked(c)}>Text</a>
+                      <a className={btnSmall} href={s.email} onClick={() => markAsked(c)}>Email</a>
+                    </>}
+                    <button type="button" className={btnSmall} onClick={() => markAsked(c)}>Mark asked</button>
+                    <button type="button" className="text-[13px] text-muted hover:text-danger px-1" onClick={() => update({ customers: data.customers.filter((x) => x.id !== c.id) })}>Remove</button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         )}
 
         <div className="flex flex-wrap gap-2 mt-5">
