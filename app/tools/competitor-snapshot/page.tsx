@@ -4,7 +4,7 @@ import CompetitorSnapshot from "@/components/tools/competitor-snapshot/Competito
 export const metadata = {
   title: "Free competitor website & ads snapshot | Compounding Wins",
   description:
-    "Compare your website's pages with your competitors' using their sitemaps, find pages you're missing, jump to their Google and Meta ads and reviews, and compare Business Profile services.",
+    "Compare your website's pages with your competitors' using their sitemaps, find pages you're missing, and jump to their Google and Meta ads, reviews and Reddit mentions.",
   alternates: { canonical: "/tools/competitor-snapshot" },
 };
 

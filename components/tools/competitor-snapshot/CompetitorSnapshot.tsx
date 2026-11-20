@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { downloadText, toCsv, useSavedState } from "../shared";
-import { btn, btnGhost, btnSmall, card, h2, h3, hint, input, label, textarea } from "../ui";
+import { btn, btnGhost, btnSmall, card, h2, h3, hint, input, label } from "../ui";
 
 // Competitor snapshot: lists each competitor's pages from their public sitemap, grouped by
-// section, shows pages they have that you don't, links out to their ads and reviews, and
-// compares Google Business Profile services lists.
+// section, shows pages they have that you don't, and links out to their ads, reviews and
+// Reddit mentions.
 
 interface Site { name: string; domain: string }
 interface Pages { origin: string; pages: string[]; note?: string; error?: string; capped?: boolean }
@@ -29,34 +29,6 @@ function launchers(s: Site) {
     { label: "Checkatrade", href: `https://www.google.com/search?q=${encodeURIComponent(`site:checkatrade.com "${name}"`)}` },
     { label: "Reddit mentions", href: `https://www.reddit.com/search/?q=${encodeURIComponent(`"${name}"`)}` },
   ];
-}
-
-function ServicesCompare() {
-  const [mine, setMine] = useState("");
-  const [theirs, setTheirs] = useState("");
-  const norm = (t: string) => [...new Set(t.split(/\n|,|•/).map((x) => x.trim()).filter(Boolean))];
-  const a = norm(mine), b = norm(theirs);
-  const lower = (l: string[]) => new Set(l.map((x) => x.toLowerCase()));
-  const onlyTheirs = b.filter((x) => !lower(a).has(x.toLowerCase()));
-  const onlyMine = a.filter((x) => !lower(b).has(x.toLowerCase()));
-  const both = a.filter((x) => lower(b).has(x.toLowerCase()));
-  return (
-    <section className={card} aria-labelledby="cs-services">
-      <h2 id="cs-services" className={h2}>Compare Google Business Profile services</h2>
-      <p className="text-[14px] text-mid mt-2">Copy the services list from your Business Profile and a competitor&apos;s (on Google Maps, open their profile and look under Services). One per line.</p>
-      <div className="grid sm:grid-cols-2 gap-3 mt-4">
-        <div><label className={label} htmlFor="cs-mine">Your services</label><textarea id="cs-mine" className={textarea} value={mine} onChange={(e) => setMine(e.target.value)} /></div>
-        <div><label className={label} htmlFor="cs-theirs">Their services</label><textarea id="cs-theirs" className={textarea} value={theirs} onChange={(e) => setTheirs(e.target.value)} /></div>
-      </div>
-      {(a.length > 0 || b.length > 0) && (
-        <div className="grid sm:grid-cols-3 gap-3 mt-4 text-[14px]">
-          <div className="rounded-[12px] bg-danger-soft p-3"><p className="font-semibold text-danger">Only they list ({onlyTheirs.length})</p><ul className="mt-1 text-ink space-y-0.5">{onlyTheirs.map((x) => <li key={x}>{x}</li>)}</ul></div>
-          <div className="rounded-[12px] bg-accent-light p-3"><p className="font-semibold text-accent-dark">Only you list ({onlyMine.length})</p><ul className="mt-1 text-ink space-y-0.5">{onlyMine.map((x) => <li key={x}>{x}</li>)}</ul></div>
-          <div className="rounded-[12px] bg-surface p-3"><p className="font-semibold text-ink">Both ({both.length})</p><ul className="mt-1 text-mid space-y-0.5">{both.map((x) => <li key={x}>{x}</li>)}</ul></div>
-        </div>
-      )}
-    </section>
-  );
 }
 
 export default function CompetitorSnapshot() {
@@ -180,7 +152,6 @@ export default function CompetitorSnapshot() {
         );
       })}
 
-      <ServicesCompare />
     </div>
   );
 }
