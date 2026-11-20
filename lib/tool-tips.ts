@@ -10,6 +10,12 @@ export interface TipToolLink {
 
 // A tip can have more than one tool: use an array, and each gets its own card.
 export const TIP_TOOL_LINKS: Record<string, TipToolLink | TipToolLink[]> = {
+  // Schema generator: only on the dedicated "Add ... schema" tips, nowhere else.
+  "dd31eb64-2ff5-47d3-88db-f86a65a32852": { tool: "schema-generator", note: "Fill in a short form and copy ready-made Dentist schema with your hours, treatments and contact details." }, // Add Dentist schema
+  "47cae765-7617-4588-b028-f335d0697fee": { tool: "schema-generator", note: "Fill in a short form and copy ready-made Electrician schema with your services, areas covered and hours." }, // Add Electrician schema
+  "9779e93d-3fc5-49ed-844f-97e1476a8bae": { tool: "schema-generator", note: "Pick your trade, fill in a short form and copy ready-made schema with your services and areas covered." }, // Add the right trade schema
+  "4ff8cbae-c807-4a26-a431-9d4e8b7abd1d": { tool: "schema-generator", note: "Fill in a short form and copy ready-made Plumber schema with your services, call-out fee and areas covered." }, // Add Plumber schema
+  "4a644cec-bac0-42a0-88a2-ddf3732593b3": { tool: "schema-generator", note: "Fill in a short form and copy ready-made Restaurant schema with your opening hours, menu link and cuisine." }, // Add Restaurant schema
   "987bfa46-4d22-4098-9c17-5b6acd114a6c": [ // Check your robots.txt file
     { tool: "eli5-robots", note: "Paste or upload your robots.txt and get a plain-English explanation of what it tells search engines and AI bots, line by line." },
     { tool: "website-checker", note: "Reads your robots.txt and flags rules that block Google or AI crawlers." },
