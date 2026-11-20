@@ -1,4 +1,5 @@
-// Free tools listed on the /tools directory and in the sitemap.
+// Free tools listed on the /tools directory, in the sitemap, and as "Free tool" cards under the
+// tips they help with (see lib/tool-tips.ts).
 // To add a new tool: build it under app/tools/<slug>, then add an entry here (newest first).
 
 export interface Tool {
@@ -9,9 +10,25 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "schema-generator",
+    name: "Local business schema generator",
+    description:
+      "Fill in one form and get ready-to-paste price lists, services, hours, address and map, team and trust sections, with matching schema.",
+  },
+  {
+    slug: "review-request-kit",
+    name: "Google review link & request kit",
+    description:
+      "Make your direct Google review link, ready-to-send review requests, printable QR table cards, and a log of who you've asked.",
+  },
+  {
     slug: "eli5-robots",
     name: "ELI5 my robots.txt",
     description:
       "Upload or paste your robots.txt and get a plain-English explanation of what it's telling search engines and AI bots, line by line.",
   },
 ];
+
+export function getTool(slug: string): Tool | undefined {
+  return TOOLS.find((t) => t.slug === slug);
+}

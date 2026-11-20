@@ -9,6 +9,8 @@ import Link from "next/link";
 import { caseStudyHref, getCaseStudiesByIds, type CaseStudy } from "@/lib/case-studies";
 import TipImageCarousel from "@/components/TipImageCarousel";
 import { tipImagesOf, type TipImage } from "@/lib/tip-image";
+import { TIP_TOOL_LINKS } from "@/lib/tool-tips";
+import { getTool } from "@/lib/tools";
 
 const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
@@ -245,6 +247,30 @@ function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }
   );
 }
 
+// "Free tool" card under a tip: one of our own tools that does the work for this tip (mapping in
+// lib/tool-tips.ts). Only shows once the tool is live in lib/tools.ts. Internal link, same tab.
+function TipFreeToolCard({ tipId }: { tipId: string }) {
+  const link = TIP_TOOL_LINKS[tipId];
+  const tool = link ? getTool(link.tool) : undefined;
+  if (!link || !tool) return null;
+  return (
+    <Link
+      href={`/tools/${tool.slug}`}
+      className="group flex items-start gap-3 rounded-[12px] bg-ink px-4 py-3.5 mt-5 max-w-[620px] no-underline"
+    >
+      <span className="mt-[1px] flex-shrink-0 rounded-full bg-lime text-ink text-[10px] font-semibold tracking-[0.08em] uppercase px-2 py-0.5">
+        Free tool
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[14px] md:text-[15px] font-semibold text-paper group-hover:text-lime transition-colors">
+          {tool.name} →
+        </span>
+        <span className="block text-[13px] md:text-[14px] text-muted-dark leading-[1.5] mt-0.5">{link.note}</span>
+      </span>
+    </Link>
+  );
+}
+
 // Optional "Case study" box under a tip: a real client result that backs the tip up, with the tip's
 // own context for it (or the case study's summary if there's none), linking to the
 // full write-up on the services page (internal link, same tab, which also passes SEO value there).
@@ -338,6 +364,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {images.length > 1 && <TipImageCarousel images={images} tipTitle={tip.title} />}
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
+      <TipFreeToolCard tipId={tip.id} />
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
       {caseStudies.length > 0 && <TipCaseStudyBox studies={caseStudies} notes={tip.case_study_notes ?? {}} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
