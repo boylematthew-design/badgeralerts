@@ -76,16 +76,17 @@ function analyseLine(line: string, r: Result) {
 
 async function analyseFile(file: File, onProgress: (pct: number) => void): Promise<Result> {
   const r: Result = { lines: 0, parsed: 0, bots: new Map() };
-  let stream: ReadableStream<Uint8Array> = file.stream();
-  if (/\.gz$/i.test(file.name)) stream = stream.pipeThrough(new DecompressionStream("gzip"));
-  const reader = stream.pipeThrough(new TextDecoderStream()).getReader();
+  const raw: ReadableStream = file.stream();
+  const stream: ReadableStream<Uint8Array> = /\.gz$/i.test(file.name) ? raw.pipeThrough(new DecompressionStream("gzip")) : raw;
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
   let buf = "";
   let read = 0;
   for (;;) {
     const { value, done } = await reader.read();
     if (done) break;
-    buf += value;
-    read += value.length;
+    buf += decoder.decode(value, { stream: true });
+    read += value.byteLength;
     const lines = buf.split("\n");
     buf = lines.pop() ?? "";
     for (const l of lines) analyseLine(l, r);
