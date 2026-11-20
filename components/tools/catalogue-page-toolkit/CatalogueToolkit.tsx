@@ -74,11 +74,15 @@ function parseProducts(rows: Record<string, string>[], storeUrl: string): Produc
       if (v && v !== "Default Title" && name.toLowerCase() !== "title") add(p, name, v);
     }
     for (const [k, raw] of Object.entries(row)) {
-      const key = k.trim();
+      // Shopify metafield columns look like "Stone (product.metafields.custom.stone)": keep "Stone".
+      const key = k.trim().replace(/\s*\((product|variant)\.metafields\.[^)]*\)$/i, "");
       const lk = key.toLowerCase();
       if (!raw || SKIP.has(lk) || /^option\d/.test(lk) || lk.startsWith("variant ")) continue;
+      // "Product Category" is Shopify's Google taxonomy (e.g. "Apparel & Accessories > Jewelry"),
+      // not the shop's own type, so it stays a separate field.
+      const field = lk === "product type" ? "Type" : lk === "product category" ? "Category" : key;
       const values = lk === "tags" || lk === "categories" ? raw.split(/[,|]/) : [raw];
-      for (const v of values) add(p, key === "Product Type" || lk === "product category" ? "Type" : key, v.trim());
+      for (const v of values) add(p, field, v.trim());
     }
   }
   return out;
