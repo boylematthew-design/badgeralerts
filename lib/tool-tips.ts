@@ -1,6 +1,5 @@
 // Which of our own free tools helps with each tip, keyed by tip ID, with a line on how it helps
-// with that tip in particular. Shown as a "Free tool" card under the tip, and in reverse as
-// "Tips this tool helps with" on the tool's own page, so guides and tools link to each other.
+// with that tip in particular. Shown as a "Free tool" card under the tip.
 // A card only appears once the tool is live (listed in lib/tools.ts), so tips for tools that
 // aren't built yet can sit here safely. Generated from the tips-with-tools spreadsheet.
 
@@ -130,6 +129,3 @@ export const TIP_TOOL_LINKS: Record<string, TipToolLink> = {
   "4536494d-75ae-4295-a2b3-f3da0db21fca": { tool: "customer-signup-kit", note: "Collects customers' birthdays and anniversaries in a Google Sheet so you can see upcoming dates and contact them yourself." }, // Run a birthday and anniversary campaign
 };
 
-export function tipIdsForTool(slug: string): string[] {
-  return Object.keys(TIP_TOOL_LINKS).filter((id) => TIP_TOOL_LINKS[id].tool === slug);
-}

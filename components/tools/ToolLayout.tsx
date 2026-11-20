@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero, { heroLinkClass } from "@/components/PageHero";
@@ -8,20 +7,13 @@ import CtaBand from "@/components/CtaBand";
 import GuideFaqs from "@/components/GuideFaqs";
 import type { Faq } from "@/lib/guide-faqs";
 import { getTool } from "@/lib/tools";
-import { fetchRelatedTips } from "@/lib/tool-related-tips";
 
 const BASE_URL = "https://www.compoundingwins.com";
 
-// Read-only public key: tool pages only ever read published tips and guides.
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-// Shared landing page for every free tool: dark intro, the tool itself, how to use it, the
-// guide tips it helps with (internal links both ways between tools and guides), FAQs with
-// FAQPage schema, and a closing call to action. Each tool page only supplies its own copy.
-export default async function ToolLayout({
+// Shared landing page for every free tool: dark intro, the tool itself, how to use it, FAQs
+// with FAQPage schema, and a closing call to action. Each tool page only supplies its own copy.
+// (Guides link to tools through the "Free tool" cards under tips, see lib/tool-tips.ts.)
+export default function ToolLayout({
   slug,
   title,
   intro,
@@ -41,7 +33,6 @@ export default async function ToolLayout({
   wide?: boolean;
 }) {
   const tool = getTool(slug);
-  const relatedTips = await fetchRelatedTips(supabase, slug);
   const width = wide ? "max-w-[1040px]" : "max-w-[760px]";
 
   const appSchema = tool && {
@@ -102,28 +93,6 @@ export default async function ToolLayout({
             ))}
           </ol>
         </section>
-
-        {relatedTips.length > 0 && (
-          <section className="mt-16" aria-labelledby="related-tips">
-            <h2 id="related-tips" className="font-heading font-extrabold tracking-[-0.04em] text-[24px] md:text-[30px] text-ink mb-2">
-              Tips this tool helps with
-            </h2>
-            <p className="text-[15px] text-mid mb-6">From the free guides on this site.</p>
-            <ul className="border-y border-border divide-y divide-border">
-              {relatedTips.map((tip) => (
-                <li key={tip.id} className="py-4">
-                  <Link href={tip.href} className="group block">
-                    <span className="text-[11px] font-medium tracking-[0.08em] text-muted uppercase">{tip.guideTitle}</span>
-                    <span className="block text-[16px] font-semibold text-ink group-hover:text-accent-dark underline underline-offset-2 decoration-border-strong group-hover:decoration-accent transition-colors mt-0.5">
-                      {tip.title}
-                    </span>
-                    {tip.note && <span className="block text-[14px] text-mid leading-[1.55] mt-1">{tip.note}</span>}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
 
         {faqs.length > 0 && <GuideFaqs heading="Questions about this tool" faqs={faqs} />}
       </main>
