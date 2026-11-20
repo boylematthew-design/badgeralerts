@@ -8,7 +8,12 @@ export interface TipToolLink {
   note: string;
 }
 
-export const TIP_TOOL_LINKS: Record<string, TipToolLink> = {
+// A tip can have more than one tool: use an array, and each gets its own card.
+export const TIP_TOOL_LINKS: Record<string, TipToolLink | TipToolLink[]> = {
+  "987bfa46-4d22-4098-9c17-5b6acd114a6c": [ // Check your robots.txt file
+    { tool: "eli5-robots", note: "Paste or upload your robots.txt and get a plain-English explanation of what it tells search engines and AI bots, line by line." },
+    { tool: "website-checker", note: "Reads your robots.txt and flags rules that block Google or AI crawlers." },
+  ],
   "3b8272ee-6dd9-4e0d-bdca-d455e20b2216": { tool: "review-request-kit", note: "Question prompts for the review request (who it was for, how they use it) that get more detailed reviews." }, // Ask for more indepth reviews from your customers
   "e5ee40b8-c2c9-4d2b-af88-d8bca8402341": { tool: "review-request-kit", note: "Templates for the post-order review email; your shop or review app does the automatic sending." }, // Collect reviews after every order
   "db8ef4c5-8dfa-4656-b445-f3e286eceac9": { tool: "review-request-kit", note: "Paste a list of past customers and send each one a pre-written request with your review link; it logs who you've asked." }, // Ask past customers for reviews
@@ -47,7 +52,6 @@ export const TIP_TOOL_LINKS: Record<string, TipToolLink> = {
   "d98d88fc-75dc-449e-b41c-a49e70e836ff": { tool: "website-checker", note: "Checks your services, prices, hours and contact details are readable without JavaScript and marked up with schema." }, // Make sure AI agents can read your menu, see your opening hours and und
   "52924975-8d97-483e-bd59-6e1fbc2dee3f": { tool: "website-checker", note: "Crawls your site monthly and emails a list of broken pages, slow pages, oversized images and pages blocked from Google." }, // Run a regular technical audit of your website
   "8b85eb96-16b5-479a-aa2a-7acabb7fec99": { tool: "website-checker", note: "Fetches the page like a crawler (no JavaScript) and checks your FAQ answers are in the raw HTML." }, // Check that your FAQ sections that are hidden in accordions on your web
-  "987bfa46-4d22-4098-9c17-5b6acd114a6c": { tool: "website-checker", note: "Reads your robots.txt and flags rules that block Google or AI crawlers." }, // Check your robots.txt file
   "75b3734e-18e7-4e5f-bdf9-c10911f980ec": { tool: "website-checker", note: "Builds a sitemap.xml from the crawl and checks every URL in it loads properly." }, // Create a sitemap and submit it to relevant tools
   "44c14c98-6f81-490f-a248-aba373989c1f": { tool: "website-checker", note: "Generates hreflang tags for your country versions and checks each page links back correctly." }, // Set up hreflang tags
   "6b562ffb-da22-4071-9416-89877d5c4a4f": { tool: "website-checker", note: "Shows each page's heading outline (H1, H2, H3) and flags missing or duplicate H1s." }, // Structure your pages with proper heading tags
@@ -128,3 +132,7 @@ export const TIP_TOOL_LINKS: Record<string, TipToolLink> = {
   "4536494d-75ae-4295-a2b3-f3da0db21fca": { tool: "customer-signup-kit", note: "Collects customers' birthdays and anniversaries in a Google Sheet so you can see upcoming dates and contact them yourself." }, // Run a birthday and anniversary campaign
 };
 
+export function toolLinksForTip(tipId: string): TipToolLink[] {
+  const v = TIP_TOOL_LINKS[tipId];
+  return v ? (Array.isArray(v) ? v : [v]) : [];
+}

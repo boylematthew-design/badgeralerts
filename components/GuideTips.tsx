@@ -1,6 +1,5 @@
 import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
-import Eli5Robots from "@/components/tools/eli5-robots/Eli5Robots";
 import type { TipStat } from "@/lib/tip-stats";
 import type { TipTool } from "@/lib/tip-tools";
 import { helpContactHref, helpQuestion } from "@/lib/tip-help";
@@ -9,10 +8,9 @@ import Link from "next/link";
 import { caseStudyHref, getCaseStudiesByIds, type CaseStudy } from "@/lib/case-studies";
 import TipImageCarousel from "@/components/TipImageCarousel";
 import { tipImagesOf, type TipImage } from "@/lib/tip-image";
-import { TIP_TOOL_LINKS } from "@/lib/tool-tips";
-import { getTool } from "@/lib/tools";
+import { toolLinksForTip, type TipToolLink } from "@/lib/tool-tips";
+import { getTool, type Tool } from "@/lib/tools";
 
-const ELI5_ROBOTS_PATH = "/tools/eli5-robots";
 
 export interface TipLink {
   id: string;
@@ -249,14 +247,23 @@ function TipToolsBox({ tools, tipTitle }: { tools: TipTool[]; tipTitle: string }
 
 // "Free tool" card under a tip: one of our own tools that does the work for this tip (mapping in
 // lib/tool-tips.ts). Only shows once the tool is live in lib/tools.ts. Internal link, same tab.
-function TipFreeToolCard({ tipId }: { tipId: string }) {
-  const link = TIP_TOOL_LINKS[tipId];
-  const tool = link ? getTool(link.tool) : undefined;
-  if (!link || !tool) return null;
+function TipFreeToolCards({ tipId }: { tipId: string }) {
+  const cards = toolLinksForTip(tipId)
+    .map((link) => ({ link, tool: getTool(link.tool) }))
+    .filter((c): c is { link: TipToolLink; tool: Tool } => Boolean(c.tool));
+  if (cards.length === 0) return null;
+  return (
+    <div className="mt-5 space-y-2 max-w-[620px]">
+      {cards.map(({ link, tool }) => <TipFreeToolCard key={tool.slug} link={link} tool={tool} />)}
+    </div>
+  );
+}
+
+function TipFreeToolCard({ link, tool }: { link: TipToolLink; tool: Tool }) {
   return (
     <Link
       href={`/tools/${tool.slug}`}
-      className="group flex items-start gap-3 rounded-[12px] bg-ink px-4 py-3.5 mt-5 max-w-[620px] no-underline"
+      className="group flex items-start gap-3 rounded-[12px] bg-ink px-4 py-3.5 no-underline"
     >
       <span className="mt-[1px] flex-shrink-0 rounded-full bg-lime text-ink text-[10px] font-semibold tracking-[0.08em] uppercase px-2 py-0.5">
         Free tool
@@ -340,8 +347,6 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
         helpHref={guide ? helpContactHref(tip.title, guide.name, `${guide.url}#tip-${tipNumber}`) : null}
       >
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
-      {/* Any tip that links to the robots.txt tool gets the tool's input form right under it. Results open on the full tool page. */}
-      {tip.content?.includes(ELI5_ROBOTS_PATH) && <Eli5Robots handoffTo={ELI5_ROBOTS_PATH} headingLevel={level + 1} />}
       {images.length === 1 && (
         <figure className="mt-5 max-w-[720px]">
           {/* Plain <img>, not next/image, so animated GIFs keep playing. Lazy so big GIFs don't slow the page top.
@@ -364,7 +369,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       {images.length > 1 && <TipImageCarousel images={images} tipTitle={tip.title} />}
       {tip.news_headline && <TipNewsLabel date={tip.news_date} headline={tip.news_headline} url={tip.news_url} />}
       {stats.length > 0 && <TipStatsBox stats={stats} />}
-      <TipFreeToolCard tipId={tip.id} />
+      <TipFreeToolCards tipId={tip.id} />
       {tools.length > 0 && <TipToolsBox tools={tools} tipTitle={tip.title} />}
       {caseStudies.length > 0 && <TipCaseStudyBox studies={caseStudies} notes={tip.case_study_notes ?? {}} />}
       {tip.tip_links && tip.tip_links.length > 0 && (
