@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { downloadText, toCsv, useSavedState } from "../shared";
-import { btn, btnGhost, btnSmall, card, errorBox, h2, h3, hint, input, label, textarea } from "../ui";
+import { btn, btnGhost, btnSmall, card, h2, h3, hint, input, label, textarea } from "../ui";
 
 // Competitor snapshot: lists each competitor's pages from their public sitemap, grouped by
 // section, shows pages they have that you don't, links out to their ads and reviews, and
