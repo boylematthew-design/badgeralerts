@@ -10,6 +10,24 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "customer-signup-kit",
+    name: "Birthday club sign-up kit",
+    description:
+      "Collect customers' birthdays and contact details with consent using a free Google Form you own, print QR cards, and see who to contact each month.",
+  },
+  {
+    slug: "crawl-log-analyser",
+    name: "Crawl log analyser",
+    description:
+      "Upload your server access log to see which pages Googlebot and AI crawlers visit, how often, and where they hit errors.",
+  },
+  {
+    slug: "catalogue-page-toolkit",
+    name: "Catalogue page toolkit",
+    description:
+      "Upload your product export to find filter pages with enough stock, and build quick links, gift guides by price and comparison tables.",
+  },
+  {
     slug: "image-seo-prep",
     name: "Image SEO: rename, compress & alt text",
     description:
