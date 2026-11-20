@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimited, safeFetch } from "@/lib/safe-fetch";
 
 function getMeta(html: string, property: string): string | null {
   const patterns = [
@@ -46,15 +47,21 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 
+  // safeFetch blocks private and internal addresses (SSRF protection), since this route will
+  // fetch whatever URL it's given.
+  if (rateLimited(req, "link-preview", 60, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; CompoundingWins/1.0; +https://www.compoundingwins.com)" },
-      signal: AbortSignal.timeout(8000),
+    const res = await safeFetch(url, {
+      userAgent: "Mozilla/5.0 (compatible; CompoundingWins/1.0; +https://www.compoundingwins.com)",
+      timeoutMs: 8000,
+      maxBytes: 1_500_000,
     });
 
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (res.status < 200 || res.status >= 300) throw new Error(`HTTP ${res.status}`);
 
-    const html = await res.text();
+    const html = res.body;
     const origin = parsed.origin;
 
     return NextResponse.json({

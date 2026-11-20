@@ -10,6 +10,24 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "competitor-snapshot",
+    name: "Competitor snapshot",
+    description:
+      "Compare your pages with competitors' sitemaps, find pages you're missing, and jump to their ads, reviews and Reddit mentions.",
+  },
+  {
+    slug: "question-finder",
+    name: "Question & topic finder",
+    description:
+      "Type a problem or product and find the questions and long, specific searches people type into Google and YouTube in the UK.",
+  },
+  {
+    slug: "website-checker",
+    name: "Website checker: what Google & AI crawlers see",
+    description:
+      "See whether Googlebot, ChatGPT, Claude and Perplexity can reach your page, what they can read without JavaScript, and the technical basics.",
+  },
+  {
     slug: "customer-signup-kit",
     name: "Birthday club sign-up kit",
     description:
