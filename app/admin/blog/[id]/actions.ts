@@ -121,8 +121,6 @@ export async function duplicateGuideToSite(formData: FormData) {
         tools: tip.tools,
         case_studies: tip.case_studies ?? [],
         case_study_notes: tip.case_study_notes ?? {},
-        help_enabled: tip.help_enabled ?? false,
-        help_text: tip.help_text ?? null,
         section_id: tip.section_id ? sectionIdMap.get(tip.section_id) ?? null : null,
       })
       .select("id")

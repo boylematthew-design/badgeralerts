@@ -2,7 +2,6 @@ import MarkdownContent from "@/components/MarkdownContent";
 import FaviconImage from "@/components/FaviconImage";
 import type { TipStat } from "@/lib/tip-stats";
 import type { TipTool } from "@/lib/tip-tools";
-import { helpContactHref, helpQuestion } from "@/lib/tip-help";
 import TipActions from "@/components/TipActions";
 import Link from "next/link";
 import { caseStudyHref, getCaseStudiesByIds, type CaseStudy } from "@/lib/case-studies";
@@ -38,16 +37,7 @@ export interface TipData {
   tools: TipTool[] | null;
   case_studies?: string[] | null;
   case_study_notes?: Record<string, string> | null;
-  help_enabled?: boolean | null;
-  help_text?: string | null;
   tip_links: TipLink[];
-}
-
-// Where the tips are shown, so the Help box can tell the contact form which guide and page the
-// reader came from.
-export interface GuideContext {
-  name: string;
-  url: string;
 }
 
 // "9 June 2026" — British date order. The date is stored as a plain calendar day, so it's
@@ -321,11 +311,10 @@ function getDomain(url: string) {
 
 // Heading levels follow the page outline: the guide page's H2 sits above the tips, so a tip
 // on its own is an H3, and a tip inside a section (itself an H3) is an H4.
-export function TipCard({ tip, tipNumber, level = 3, guide }: {
+export function TipCard({ tip, tipNumber, level = 3 }: {
   tip: TipData;
   tipNumber: number;
   level?: 3 | 4;
-  guide?: GuideContext;
 }) {
   const Heading = level === 4 ? "h4" : "h3";
   const stats = tip.stats ?? [];
@@ -340,12 +329,7 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
       <Heading className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-3">
         {tip.title}
       </Heading>
-      <TipActions
-        tipId={tip.id}
-        tipTitle={tip.title}
-        helpQuestion={helpQuestion(tip.title, tip.help_text ?? null)}
-        helpHref={guide ? helpContactHref(tip.title, guide.name, `${guide.url}#tip-${tipNumber}`) : null}
-      >
+      <TipActions tipId={tip.id} tipTitle={tip.title}>
       {tip.content && <MarkdownContent content={tip.content} baseLevel={level + 1} />}
       {images.length === 1 && (
         <figure className="mt-5 max-w-[720px]">
@@ -415,10 +399,9 @@ export function TipCard({ tip, tipNumber, level = 3, guide }: {
   );
 }
 
-export function TipList({ tips, sections, guide }: {
+export function TipList({ tips, sections }: {
   tips: TipData[];
   sections: SectionData[];
-  guide?: GuideContext;
 }) {
   const hasSections = sections.length > 0;
 
@@ -430,7 +413,6 @@ export function TipList({ tips, sections, guide }: {
             key={tip.id}
             tip={tip}
             tipNumber={index + 1}
-            guide={guide}
           />
         ))}
       </div>
@@ -456,7 +438,6 @@ export function TipList({ tips, sections, guide }: {
                 key={tip.id}
                 tip={tip}
                 tipNumber={globalIndex}
-                guide={guide}
               />
             );
           })}
@@ -487,7 +468,6 @@ export function TipList({ tips, sections, guide }: {
                   tip={tip}
                   tipNumber={globalIndex}
                   level={4}
-                  guide={guide}
                 />
               );
             })}

@@ -8,8 +8,6 @@ import TipNewsFields from "../TipNewsFields";
 import { parseTipNews } from "@/lib/tip-news";
 import TipStatsFields from "../TipStatsFields";
 import TipToolsFields from "../TipToolsFields";
-import TipHelpFields from "../TipHelpFields";
-import { parseTipHelp } from "@/lib/tip-help";
 import TipContentField from "../TipContentField";
 import { normalizeTipContent } from "@/lib/tip-content";
 import { parseTipStats } from "@/lib/tip-stats";
@@ -71,9 +69,6 @@ export default async function NewTipPage({
     const tools = parseTipTools(formData);
     if (!tools) return;
 
-    const help = parseTipHelp(formData);
-    if (!help) return;
-
     const images = parseTipImages(formData);
     if (!images) return;
 
@@ -111,7 +106,6 @@ export default async function NewTipPage({
       tools,
       case_studies: caseStudies.ids,
       case_study_notes: caseStudies.notes,
-      ...help,
     }).select("id").single();
 
     if (newTip) await saveTipLinks(admin, newTip.id, links);
@@ -186,8 +180,6 @@ export default async function NewTipPage({
         <TipLinksFields />
 
         <TipCaseStudyFields options={caseStudyOptions()} />
-
-        <TipHelpFields />
 
         <TipImagesField />
 

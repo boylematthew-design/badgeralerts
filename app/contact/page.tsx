@@ -5,7 +5,6 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { HELP_SUBJECT } from "@/lib/tip-help";
 
 const inputClass =
   "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition-all";
@@ -20,10 +19,9 @@ export default function ContactPage() {
   const [error, setError] = useState("");
 
   // Links from the guides pre-fill the form: "Get it listed" in a Tools box
-  // (/contact?subject=Tool%20listing&tip=...) and "Ask for help" in a Help box
-  // (/contact?subject=Help%20with%20a%20tip&tip=...&guide=...&page=...). Only a subject from the
-  // dropdown is accepted; the other values are plain text that just seeds the message (React shows
-  // them as text, and the email escapes them), so they can't inject anything.
+  // (/contact?subject=Tool%20listing&tip=...). Only a subject from the dropdown is accepted; the tip
+  // is plain text that just seeds the message (React shows it as text, and the email escapes it),
+  // so it can't inject anything.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const subject = params.get("subject");
@@ -31,11 +29,6 @@ export default function ContactPage() {
     let message = "";
     if (subject === "Tool listing") {
       message = `I'd like my tool to be considered for listing${tip ? ` on the tip "${tip}"` : ""}.\n\nTool name:\nWebsite:\nFree or paid:\nHow it helps:`;
-    } else if (subject === HELP_SUBJECT) {
-      const guide = params.get("guide")?.slice(0, 200);
-      const page = params.get("page")?.slice(0, 300);
-      const from = [guide ? `${guide} guide` : "", page && /^https:\/\/www\.compoundingwins\.com\//.test(page) ? page : ""].filter(Boolean).join("\n");
-      message = `I'd like help with the tip "${tip ?? ""}".${from ? `\n${from}` : ""}\n\nMy website:\nWhat I need help with:`;
     } else {
       return;
     }
@@ -181,7 +174,6 @@ export default function ContactPage() {
                       <select name="subject" value={formData.subject} onChange={handleChange} required className={selectClass}>
                         <option value="">Select a topic</option>
                         <option value="General enquiry">General enquiry</option>
-                        <option value={HELP_SUBJECT}>{HELP_SUBJECT}</option>
                         <option value="Account help">Account help</option>
                         <option value="Billing">Billing</option>
                         <option value="Partnership">Partnership</option>
