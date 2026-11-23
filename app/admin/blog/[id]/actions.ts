@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { SITES } from "@/lib/sites";
+import { guideUrls, queueGuideChanged, queueIndexNow } from "@/lib/indexnow";
 
 async function getAdminSupabase() {
   const cookieStore = await cookies();
@@ -28,9 +29,14 @@ export async function deleteGuide(formData: FormData) {
   const admin = await getAdminSupabase();
   if (!admin) return;
 
+  // Tell IndexNow the page is gone (and the guide list changed). The address has to be worked out
+  // before the guide is deleted.
+  const removedUrls = await guideUrls(guideId);
+
   // Tips are removed automatically via ON DELETE CASCADE. Any child guides under it are kept and
   // become top-level guides (ON DELETE SET NULL); their old addresses redirect to the new ones.
   await admin.from("guides").delete().eq("id", guideId);
+  if (removedUrls.length) queueIndexNow([...removedUrls, "/blog"]);
 
   revalidatePath("/admin/blog");
   revalidatePath("/blog", "layout");
@@ -177,6 +183,7 @@ export async function deleteTip(formData: FormData) {
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 }
 
 export async function createSection(formData: FormData) {
@@ -208,6 +215,7 @@ export async function createSection(formData: FormData) {
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 }
 
 export async function updateSection(formData: FormData) {
@@ -225,6 +233,7 @@ export async function updateSection(formData: FormData) {
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 }
 
 export async function deleteSection(formData: FormData) {
@@ -240,6 +249,7 @@ export async function deleteSection(formData: FormData) {
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 }
 
 export async function reorderTips(
@@ -270,6 +280,7 @@ export async function reorderTips(
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 
   return { success: true };
 }
@@ -300,6 +311,7 @@ export async function reorderSections(
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
+  queueGuideChanged(guideId);
 
   return { success: true };
 }

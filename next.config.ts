@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
   // The site moved from badgeralerts.live to compoundingwins.com. Permanent
   // (308) redirects, path preserved, so old links and Google rankings carry
   // over. Only fires while the old domain is still attached in Vercel.
+  // IndexNow key file: /{INDEXNOW_KEY}.txt is served by app/api/indexnow-key (see lib/indexnow.ts).
+  // Only a 32-character hex key is accepted, so nothing odd can end up in the route pattern.
+  async rewrites() {
+    const key = process.env.INDEXNOW_KEY;
+    return key && /^[a-f0-9]{32}$/.test(key) ? [{ source: `/${key}.txt`, destination: "/api/indexnow-key" }] : [];
+  },
   async redirects() {
     return [
       ...["badgeralerts.live", "www.badgeralerts.live"].map((host) => ({

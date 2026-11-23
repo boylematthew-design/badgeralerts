@@ -18,6 +18,7 @@ import { caseStudyOptions, parseTipCaseStudies } from "@/lib/case-studies";
 import TipLinksFields from "../TipLinksFields";
 import { parseTipLinks, saveTipLinks } from "@/lib/tip-links";
 import TipImagesField from "../TipImagesField";
+import { queueGuideChanged } from "@/lib/indexnow";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -115,6 +116,7 @@ export default async function NewTipPage({
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
     revalidatePath("/blog", "layout");
+    queueGuideChanged(id);
 
     redirect(`/admin/blog/${id}`);
   }

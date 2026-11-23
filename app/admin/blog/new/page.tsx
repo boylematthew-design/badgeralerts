@@ -6,6 +6,7 @@ import Link from "next/link";
 import SubmitButton from "./SubmitButton";
 import { SITES, DEFAULT_SITE } from "@/lib/sites";
 import { fetchParentOptions, validateParent, ParentGuideSelect } from "../guide-parent";
+import { queueGuideChanged } from "@/lib/indexnow";
 
 export default async function NewGuidePage() {
   const parentOptions = await fetchParentOptions(
@@ -70,6 +71,7 @@ export default async function NewGuidePage() {
     const { revalidatePath } = await import("next/cache");
     revalidatePath("/admin/blog");
     revalidatePath("/blog", "layout");
+    if (published) queueGuideChanged(guide.id, ["/blog"]);
 
     redirect(`/admin/blog/${guide.id}`);
   }

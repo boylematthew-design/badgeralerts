@@ -6,6 +6,7 @@ import Link from "next/link";
 import SubmitButton from "./SubmitButton";
 import { SITES, DEFAULT_SITE } from "@/lib/sites";
 import { fetchParentOptions, validateParent, ParentGuideSelect } from "../../guide-parent";
+import { guideUrls, queueGuideChanged } from "@/lib/indexnow";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -67,6 +68,10 @@ export default async function EditGuidePage({
 
     const { data: existing } = await admin.from("guides").select("slug, previous_slugs").eq("id", id).single();
 
+    // Its address before this save, so IndexNow also hears about an old address after a rename,
+    // or a page that has just been unpublished.
+    const urlsBefore = await guideUrls(id);
+
     // Remember the old slug so its address keeps redirecting to this guide.
     const previousSlugs = [...new Set([...(existing?.previous_slugs ?? []), existing?.slug])].filter(
       (s): s is string => !!s && s !== slug
@@ -90,6 +95,7 @@ export default async function EditGuidePage({
     const { revalidatePath } = await import("next/cache");
     revalidatePath("/admin/blog");
     revalidatePath("/blog", "layout");
+    queueGuideChanged(id, [...urlsBefore, "/blog"]);
 
     redirect(`/admin/blog/${id}`);
   }
