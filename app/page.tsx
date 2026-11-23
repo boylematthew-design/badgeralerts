@@ -10,6 +10,12 @@ import GoogleReviews from "@/components/GoogleReviews";
 import { guidePath } from "@/lib/blog-guides";
 import { jsonLd, professionalServiceSchema } from "@/lib/business-schema";
 
+export const metadata = {
+  title: "Digital marketing consultant in London | Compounding Wins",
+  description:
+    "Matthew Boyle is a London digital marketing consultant with nearly 20 years' experience in SEO, paid media and AI search, plus free guides and tools.",
+};
+
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
 
 // ── What I do — services teaser ─────────────────────────────────

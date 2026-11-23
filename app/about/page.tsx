@@ -4,7 +4,9 @@ import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 
 export const metadata = {
-  title: "About | Compounding Wins",
+  title: "About Matthew Boyle and Compounding Wins",
+  description:
+    "Meet Matthew Boyle, the digital marketing consultant behind Compounding Wins, and why he builds free AI-powered tools and guides for website owners.",
 };
 
 export default function AboutPage() {

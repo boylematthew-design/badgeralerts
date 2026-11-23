@@ -69,6 +69,21 @@ const GUIDE_META: Record<string, GuideMeta> = {
     description:
       "Practical ecommerce SEO tips to grow organic sales, covering site structure, category and product pages, product schema and internal linking.",
   },
+  "digital-marketing-for-plumbers": {
+    title: "Digital marketing for plumbers: SEO and lead generation tips",
+    description:
+      "Practical digital marketing tips for plumbers to win more local jobs, covering Google Maps, reviews, SEO, AI search, paid ads and trade directories.",
+  },
+  "digital-marketing-services-seo-for-electricians": {
+    title: "Digital marketing for electricians: SEO and marketing tips",
+    description:
+      "Practical digital marketing tips for electricians to win more local jobs, covering your website, reviews, Google Maps, AI search, ads and directories.",
+  },
+  "restaurant-digital-marketing-services-seo": {
+    title: "Restaurant marketing guide: SEO and growth strategy tips",
+    description:
+      "Practical restaurant marketing tips to fill more tables, covering Google Maps, delivery apps, TikTok, Instagram, reviews, SEO and AI search.",
+  },
 };
 
 export function getGuideMeta(slug: string): GuideMeta | undefined {

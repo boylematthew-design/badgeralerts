@@ -4,7 +4,9 @@ import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 
 export const metadata = {
-  title: "FAQ | Compounding Wins",
+  title: "FAQ: Compounding Wins website monitoring tool",
+  description:
+    "Answers to common questions about the Compounding Wins website monitoring tool, from how alerts work to email settings and deleting your account.",
 };
 
 const faqs = [
