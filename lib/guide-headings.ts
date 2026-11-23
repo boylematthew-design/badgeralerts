@@ -56,6 +56,22 @@ const GUIDE_HEADINGS: Record<string, GuideHeadings> = {
     pricing: "How much ecommerce SEO expert and agency services cost",
     guide: "A guide to ecommerce SEO that drives more sales",
   },
+  "digital-marketing-for-plumbers": {
+    pricing: "What a digital marketing and SEO expert for plumbers costs",
+    guide: "A practical guide to digital marketing and SEO for plumbers",
+  },
+  "digital-marketing-services-seo-for-electricians": {
+    pricing: "What a digital marketing and SEO expert for electricians costs",
+    guide: "A practical guide to digital marketing and SEO for electricians",
+  },
+  "restaurant-digital-marketing-services-seo": {
+    pricing: "What a restaurant digital marketing and SEO expert costs",
+    guide: "A practical guide to restaurant digital marketing and SEO",
+  },
+  "jewellery-digital-marketing-services-seo": {
+    pricing: "What a jewellery digital marketing and SEO expert costs",
+    guide: "A practical guide to jewellery digital marketing and SEO",
+  },
 };
 
 export function getGuideHeadings(slug: string, topicName: string): GuideHeadings {
