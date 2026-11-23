@@ -1,14 +1,29 @@
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
+import { GUIDE_PRICES } from "@/lib/guide-pricing";
 
 export const metadata = {
   title: "About Matthew Boyle and Compounding Wins",
   description:
-    "Meet Matthew Boyle, the digital marketing consultant behind Compounding Wins, and why he builds free AI-powered tools and guides for website owners.",
+    "Compounding Wins is a London digital marketing agency run by Matthew Boyle, with nearly 20 years' experience in SEO, local SEO, AI search and paid media.",
 };
+
+const specialisms = [
+  "Local SEO and Google Maps marketing",
+  "Technical SEO and ecommerce SEO",
+  "AI search (AIO and GEO), so ChatGPT, Gemini and Google's AI Overviews recommend you",
+  "Reddit, YouTube, TikTok, Instagram and X",
+  "Amazon and Airbnb listing optimisation",
+  "Paid media across Google, Meta and Reddit Ads",
+];
+
+const cardClass = "border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4";
+const headingClass = "font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] leading-[1.15] text-ink mb-4";
+const linkClass = "font-medium text-accent-dark underline underline-offset-2 hover:opacity-80";
 
 export default function AboutPage() {
   return (
@@ -16,13 +31,13 @@ export default function AboutPage() {
       <Navbar />
       <PageHero
         eyebrow="About"
-        title={<>Built by someone who&apos;s{" "} <em>been in your shoes</em></>}
-        intro={<>Built by a digital marketing specialist with nearly 20 years of experience — to give every website owner the kind of insight that usually only comes from hiring a consultant.</>}
+        title={<>Small wins that <em>compound</em></>}
+        intro={<>Compounding Wins is a London digital marketing agency run by Matthew Boyle. I help businesses get found online and turn that visibility into leads and sales.</>}
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
 
         {/* Founder story */}
-        <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4">
+        <div className={cardClass}>
           <div className="flex items-center gap-4 mb-6">
             <Image
               src="/matthew-boyle.png"
@@ -37,61 +52,72 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
-            <p>I&apos;ve spent nearly two decades working in digital marketing — running campaigns, auditing websites, and helping businesses improve their online presence. Over that time, you develop a sharp eye. I can look at a website and quickly spot what&apos;s holding it back: a technical SEO issue here, a content gap there, a competitor quietly picking up ground.</p>
-            <p>The problem is that kind of expertise doesn&apos;t scale. Most business owners are running their company — they don&apos;t have time to stay on top of everything that&apos;s happening online. And hiring someone to do it full-time isn&apos;t always an option.</p>
-            <p>At the start of 2026, I started building AI tools to do what I do — automatically. Tools that can scan a website, analyse what&apos;s going on in the wider landscape, and surface the issues and opportunities that matter. That intelligence is the foundation of Compounding Wins.</p>
+            <p>I&apos;ve spent nearly two decades working in digital marketing: running campaigns, auditing websites and helping businesses improve their online presence. Over that time, you develop a sharp eye. I can look at a website and quickly spot what&apos;s holding it back, whether that&apos;s a technical SEO issue, a content gap or a competitor quietly picking up ground.</p>
+            <p>I started Compounding Wins to give small and growing businesses the kind of expertise that usually only comes with a big agency budget. When you work with Compounding Wins, you work with me directly, and you get straight answers about what will actually make a difference.</p>
+            <p>The name comes from how good marketing really works. It&apos;s rarely one big break. It&apos;s a better Google profile, a few more reviews, a page that finally ranks and a listing that gets recommended by AI, each building on the last until the results add up.</p>
           </div>
         </div>
 
-        {/* Mission */}
-        <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4">
-          <h2 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] leading-[1.15] text-ink mb-4">
-            More than just alerts
-          </h2>
+        {/* What I do */}
+        <div className={cardClass}>
+          <h2 className={headingClass}>How I can help</h2>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
-            <p>Compounding Wins isn&apos;t just about flagging problems. The goal is education. Every alert comes with a full explanation — what&apos;s happening, why it matters, and what you can do about it. Over time, you build a real understanding of your website and how digital marketing actually works.</p>
-            <p>I want Compounding Wins to be a platform that keeps ambitious website owners at the cutting edge — people who want to understand what&apos;s going on, not just be told what to do.</p>
+            <p>Every service comes in two fixed-price options, so you know the cost up front:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <span className="font-medium text-ink">A one-off audit for {GUIDE_PRICES.audit}.</span> I review where you are now and give you a clear document of recommendations that you or your team can put into action.
+              </li>
+              <li>
+                <span className="font-medium text-ink">Monthly support for {GUIDE_PRICES.monthly} a month.</span> I&apos;m hands-on with the day-to-day work, and we have regular check-ins to review progress.
+              </li>
+            </ul>
+            <p>I also offer <Link href="/consulting" className={linkClass}>one-to-one consulting</Link> if you&apos;d rather talk a problem through. My specialisms include:</p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              {specialisms.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+            <p>
+              See all <Link href="/services" className={linkClass}>services</Link>.
+            </p>
           </div>
         </div>
 
-        {/* What's coming */}
-        <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-10">
-          <h2 className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] leading-[1.15] text-ink mb-4">
-            What&apos;s coming
-          </h2>
+        {/* Free resources */}
+        <div className={`${cardClass} mb-10`}>
+          <h2 className={headingClass}>Free guides and tools</h2>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75] mb-6">
-            <p>This is just the start. As the platform grows, I&apos;ll be releasing more AI-powered tools — each one targeting a different part of your digital presence — and building out a video library to go alongside them. Practical, no-nonsense content that explains digital marketing the way a good consultant would explain it to you in person.</p>
-            <p>The ambition is a platform where the tools do the scanning, and the content gives you the knowledge to act on what you find.</p>
+            <p>Not ready to hire anyone? Everything I know goes into the free guides and tools on this site, so you can do a lot of it yourself. The guides are practical, plain-English tips written from hands-on work, and the tools handle the fiddly jobs for you.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "More AI tools", desc: "Expanding coverage across every corner of your digital presence", icon: (
+              { label: "Free guides", desc: "Tips on SEO, Google Maps, social platforms and AI search", href: "/blog", icon: (
+                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" />
+              )},
+              { label: "Free tools", desc: "From a schema generator to a website checker", href: "/tools", icon: (
                 <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
               )},
-              { label: "Video library", desc: "Plain-English explainers on digital marketing topics that matter", icon: (
-                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0 1 21 8.723v6.554a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" />
-              )},
-              { label: "Deeper insights", desc: "Richer data and trend tracking as the platform matures", icon: (
-                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18M7 16l4-4 4 4 4-4" />
+              { label: "Consulting", desc: "One-to-one advice when you want a second opinion", href: "/consulting", icon: (
+                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               )},
             ].map((item) => (
-              <div key={item.label} className="bg-surface rounded-[12px] p-4 text-center">
+              <Link key={item.label} href={item.href} className="bg-surface rounded-[12px] p-4 text-center hover:bg-accent-light transition-colors">
                 <div className="w-8 h-8 rounded-full bg-accent-light flex items-center justify-center mx-auto mb-3">
                   <svg width="14" height="14" viewBox="0 0 24 24" className="text-accent-dark" aria-hidden="true">{item.icon}</svg>
                 </div>
                 <p className="text-[13px] font-medium text-ink mb-1">{item.label}</p>
                 <p className="text-[12px] text-muted leading-[1.5]">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
 
       </main>
       <CtaBand
-        title={<>Ready to see it in action?</>}
-        body={<>Sign up free and get your first alert within days.</>}
-        href="/signup"
-        label="Get started free"
+        title={<>Let&apos;s talk about your business</>}
+        body={<>Book a free 30-minute call or send a message, and I&apos;ll reply within 1 business day.</>}
+        href="/contact"
+        label="Work with me"
       />
       <Footer />
     </div>
