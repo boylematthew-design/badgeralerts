@@ -82,6 +82,7 @@ export function siteSchema() {
               name: founder.name,
               jobTitle: FOUNDER_JOB_TITLE,
               url: authorUrl(founder.slug),
+              image: `${BASE_URL}${founder.photo}`,
               sameAs: [founder.linkedin],
               worksFor: { "@id": ORGANIZATION_ID },
             },

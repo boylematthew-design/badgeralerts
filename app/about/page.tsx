@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -23,12 +24,16 @@ export default function AboutPage() {
         {/* Founder story */}
         <div className="border border-border rounded-[20px] px-8 md:px-10 py-8 mb-4">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-10 h-10 rounded-full bg-ink flex items-center justify-center text-white text-[14px] font-medium flex-shrink-0">
-              M
-            </div>
+            <Image
+              src="/matthew-boyle.png"
+              alt="Photo of Matthew Boyle"
+              width={96}
+              height={96}
+              className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+            />
             <div>
               <p className="text-[14px] font-medium text-ink">Matthew Boyle</p>
-              <p className="text-[13px] text-muted">Founder, Compounding Wins — England, UK</p>
+              <p className="text-[13px] text-muted">Founder, Compounding Wins — London, UK</p>
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">

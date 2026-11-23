@@ -31,7 +31,7 @@ export const TEAM: TeamProfile[] = [
     slug: "matthew-boyle",
     name: "Matthew Boyle",
     role: "Digital marketing consultant",
-    photo: "/matthew-boyle-linkedin.jpg",
+    photo: "/matthew-boyle.png",
     linkedin: "https://www.linkedin.com/in/mattboyle3/",
     otherProfiles: ["https://www.youtube.com/@compoundingwins"],
     intro: [

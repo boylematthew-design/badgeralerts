@@ -129,7 +129,7 @@ export default async function Home() {
               <div className="w-full max-w-[360px] flex items-center justify-between mt-4">
                 <div>
                   <p className="text-[14px] font-medium text-ink">Matthew Boyle</p>
-                  <p className="text-[12.5px] text-muted">England, UK</p>
+                  <p className="text-[12.5px] text-muted">London, UK</p>
                 </div>
                 <a
                   href={LINKEDIN_URL}
