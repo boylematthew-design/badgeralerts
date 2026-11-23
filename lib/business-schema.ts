@@ -26,6 +26,7 @@ const LOGO_ID = `${BASE_URL}/#logo`;
 const FOUNDER_SLUG = "matthew-boyle";
 export const personSchemaId = (slug: string) => `${BASE_URL}/#${slug}`;
 export const FOUNDER_ID = personSchemaId(FOUNDER_SLUG);
+const FOUNDER_JOB_TITLE = "Digital Marketing Consultant";
 
 // Square logo made from app/icon.svg (Google needs at least 112x112px).
 const logo = {
@@ -71,9 +72,20 @@ export function siteSchema() {
         inLanguage: "en-GB",
         publisher: { "@id": ORGANIZATION_ID },
       },
-      // Short version so the @id references resolve on every page; the full Person is on the author page.
+      // Short version so the @id references (e.g. a guide's author) resolve on every page, including
+      // the LinkedIn sameAs. The full Person is on the author page.
       ...(founder
-        ? [{ "@type": "Person", "@id": FOUNDER_ID, name: founder.name, url: authorUrl(founder.slug) }]
+        ? [
+            {
+              "@type": "Person",
+              "@id": FOUNDER_ID,
+              name: founder.name,
+              jobTitle: FOUNDER_JOB_TITLE,
+              url: authorUrl(founder.slug),
+              sameAs: [founder.linkedin],
+              worksFor: { "@id": ORGANIZATION_ID },
+            },
+          ]
         : []),
     ],
   };
@@ -118,7 +130,7 @@ export function personSchema(person: TeamProfile) {
     "@type": "Person",
     "@id": personSchemaId(person.slug),
     name: person.name,
-    jobTitle: isFounder ? "Digital Marketing Consultant" : person.role,
+    jobTitle: isFounder ? FOUNDER_JOB_TITLE : person.role,
     url: authorUrl(person.slug),
     image: `${BASE_URL}${person.photo}`,
     sameAs: [person.linkedin],
