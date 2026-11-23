@@ -40,7 +40,7 @@ async function resolveGuide(slug: string) {
 function guideMeta(guide: { slug: string; title: string; description: string | null }) {
   return (
     getGuideMeta(guide.slug) ?? {
-      title: `${guide.title} | Compounding Wins`,
+      title: guide.title,
       description: guide.description || undefined,
     }
   );
