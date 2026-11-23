@@ -16,12 +16,11 @@ import { getGuideHeadings } from "@/lib/guide-headings";
 import { getServiceForGuide } from "@/lib/services";
 import { getGuideMeta } from "@/lib/guide-meta";
 import { fetchPublishedGuides, findGuideBySlug, guidePath, tipCount } from "@/lib/blog-guides";
+import { BASE_URL, guideSchema, jsonLd } from "@/lib/business-schema";
 
 // Shared by /blog/[slug] (top-level guides) and /blog/[slug]/[child] (guides under a parent).
 // Both routes look the guide up by the last part of the address, so if a guide has been moved
 // or renamed in the admin, any old address permanently redirects (308) to the current one.
-
-const BASE_URL = "https://www.compoundingwins.com";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -37,20 +36,22 @@ async function resolveGuide(slug: string) {
   return { guide, guides, parent, children, path: guidePath(guide, guides) };
 }
 
+// The meta title and description. Shared by the page's <head> and its Article schema, so the two match.
+function guideMeta(guide: { slug: string; title: string; description: string | null }) {
+  return (
+    getGuideMeta(guide.slug) ?? {
+      title: `${guide.title} | Compounding Wins`,
+      description: guide.description || undefined,
+    }
+  );
+}
+
 export async function guideMetadata(slug: string): Promise<Metadata> {
   const found = await resolveGuide(slug);
   if (!found) return { title: "Guide not found | Compounding Wins" };
 
   const { guide, path } = found;
-  const alternates = { canonical: `${BASE_URL}${path}` };
-  const meta = getGuideMeta(guide.slug);
-  if (meta) return { ...meta, alternates };
-
-  return {
-    title: `${guide.title} | Compounding Wins`,
-    description: guide.description || undefined,
-    alternates,
-  };
+  return { ...guideMeta(guide), alternates: { canonical: `${BASE_URL}${path}` } };
 }
 
 export default async function GuidePage({ slug, requestedPath }: { slug: string; requestedPath: string }) {
@@ -60,10 +61,13 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
 
   const { guide, guides, parent, children, path } = found;
 
-  const lastUpdated = new Date(guide.updated_at).toLocaleDateString("en-GB", {
+  // One date drives both the visible "Last updated" and the schema's dateModified, so they can't drift.
+  const updatedAt = new Date(guide.updated_at);
+  const lastUpdated = updatedAt.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "Europe/London",
   });
 
   const { tips, sections } = await fetchGuideTips(supabase, guide.id);
@@ -72,30 +76,27 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
   const headings = getGuideHeadings(guide.slug, topicName);
   const service = getServiceForGuide(guide);
 
-  // Breadcrumb structured data, so Google can show "Guides › Local SEO › Google Maps marketing".
-  const crumbs = [
-    { name: "Guides", url: `${BASE_URL}/blog` },
-    ...(parent ? [{ name: parent.title, url: `${BASE_URL}${guidePath(parent, guides)}` }] : []),
-    { name: guide.title, url: `${BASE_URL}${path}` },
-  ];
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: crumbs.map((crumb, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: crumb.name,
-      item: crumb.url,
-    })),
-  };
+  // Article + breadcrumb structured data. The breadcrumb lets Google show
+  // "Guides › Local SEO › Google Maps marketing". datePublished is the guide's stored created_at,
+  // which never changes once the guide exists.
+  const url = `${BASE_URL}${path}`;
+  const schema = guideSchema({
+    url,
+    headline: guide.title,
+    description: guideMeta(guide).description,
+    datePublished: new Date(guide.created_at).toISOString(),
+    dateModified: updatedAt.toISOString(),
+    crumbs: [
+      { name: "Guides", url: `${BASE_URL}/blog` },
+      ...(parent ? [{ name: parent.title, url: `${BASE_URL}${guidePath(parent, guides)}` }] : []),
+      { name: guide.title, url },
+    ],
+  });
 
   return (
     <div className="bg-paper text-ink">
       <Navbar />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
       <PageHero
         eyebrow="Guide"
         title={<>{guide.title}</>}

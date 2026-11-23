@@ -7,8 +7,7 @@ import CtaBand from "@/components/CtaBand";
 import GuideFaqs from "@/components/GuideFaqs";
 import type { Faq } from "@/lib/guide-faqs";
 import { getTool } from "@/lib/tools";
-
-const BASE_URL = "https://www.compoundingwins.com";
+import { BASE_URL, FOUNDER_ID, ORGANIZATION_ID } from "@/lib/business-schema";
 
 // Shared landing page for every free tool: dark intro, the tool itself, how to use it, FAQs
 // with FAQPage schema, and a closing call to action. Each tool page only supplies its own copy.
@@ -44,7 +43,8 @@ export default function ToolLayout({
     applicationCategory: "BusinessApplication",
     operatingSystem: "Any (runs in your web browser)",
     offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-    creator: { "@type": "Person", name: "Matthew Boyle", url: `${BASE_URL}/about` },
+    creator: { "@id": FOUNDER_ID },
+    publisher: { "@id": ORGANIZATION_ID },
   };
 
   return (

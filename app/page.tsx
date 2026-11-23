@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import GoogleReviews from "@/components/GoogleReviews";
 import { guidePath } from "@/lib/blog-guides";
+import { jsonLd, professionalServiceSchema } from "@/lib/business-schema";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
 
@@ -70,6 +71,7 @@ export default async function Home() {
 
   return (
     <div className="bg-paper text-ink">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(professionalServiceSchema())} />
       <Navbar />
 
       {/* ── HERO ──────────────────────────────────────────────────── */}

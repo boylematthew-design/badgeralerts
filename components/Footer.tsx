@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { footerLinks } from "@/lib/footer-links";
+import { BUSINESS_PHONE, footerLinks } from "@/lib/footer-links";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
 
@@ -15,6 +15,12 @@ export default function Footer() {
             </Link>
             <p className="text-[13px] text-muted leading-[1.55]">
               Digital marketing consulting, guides, and tools.
+            </p>
+            <p className="text-[13px] text-mid">
+              Call{" "}
+              <a href={BUSINESS_PHONE.href} className="font-medium text-accent-dark hover:underline underline-offset-2">
+                {BUSINESS_PHONE.display}
+              </a>
             </p>
             <SocialLinks />
           </div>

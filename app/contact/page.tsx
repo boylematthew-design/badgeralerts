@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import { BUSINESS_PHONE } from "@/lib/footer-links";
 
 const inputClass =
   "w-full px-4 py-3 text-[14px] bg-white border border-border rounded-[10px] text-ink placeholder:text-muted outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition-all";
@@ -99,6 +100,14 @@ export default function ContactPage() {
             </div>
             {[
               {
+                label: "Call us",
+                value: BUSINESS_PHONE.display,
+                href: BUSINESS_PHONE.href,
+                icon: (
+                  <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.49a1 1 0 01-.5 1.21l-2.26 1.13a11.04 11.04 0 005.52 5.52l1.13-2.26a1 1 0 011.21-.5l4.49 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z" />
+                ),
+              },
+              {
                 label: "Email us",
                 value: "hello@compoundingwins.com",
                 icon: (
@@ -128,7 +137,13 @@ export default function ContactPage() {
                   <svg width="16" height="16" viewBox="0 0 24 24" className="text-accent-dark" aria-hidden="true">{item.icon}</svg>
                 </div>
                 <p className="text-[13.5px] font-medium text-ink mb-0.5">{item.label}</p>
-                <p className="text-[13px] text-muted">{item.value}</p>
+                {"href" in item && item.href ? (
+                  <a href={item.href} className="text-[13px] font-medium text-accent-dark hover:underline underline-offset-2">
+                    {item.value}
+                  </a>
+                ) : (
+                  <p className="text-[13px] text-muted">{item.value}</p>
+                )}
               </div>
             ))}
           </div>

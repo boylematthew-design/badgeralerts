@@ -7,6 +7,10 @@ type FooterLink = { label: string; href: string; external?: boolean };
 // lists it in the site's structured data. LinkedIn is Matthew's personal profile, so it goes on him instead.
 export const GOOGLE_MAPS_URL = "https://maps.google.com/?cid=15892319881759668593";
 
+// The business phone number, written one way everywhere it appears (footer, contact page and the
+// structured data in lib/business-schema.ts). It must match the Google Business Profile exactly.
+export const BUSINESS_PHONE = { display: "+44 7495 880583", href: "tel:+447495880583" } as const;
+
 export const socialLinks = [
   { label: "YouTube", href: "https://www.youtube.com/@compoundingwins", icon: "youtube", business: true },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/mattboyle3/", icon: "linkedin", business: false },

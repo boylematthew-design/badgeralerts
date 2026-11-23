@@ -8,9 +8,8 @@ import LinkedInIcon from "@/components/LinkedInIcon";
 import { heroLinkClass } from "@/components/PageHero";
 import { TEAM, getTeamMember } from "@/lib/team";
 import { guidePath } from "@/lib/blog-guides";
-import { personSchemaId } from "@/lib/business-schema";
+import { jsonLd, personSchema } from "@/lib/business-schema";
 
-const BASE_URL = "https://www.compoundingwins.com";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -52,26 +51,10 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
     .eq("published", true);
   const guidePaths = new Map((published ?? []).map((g) => [g.slug, guidePath(g, published ?? [])]));
 
-  // Structured data so Google and AI tools can connect this page, the guides and the LinkedIn
-  // profile to the same real person (an expertise/trust signal).
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": personSchemaId(person.slug), // same id as the site-wide schema, so Google merges them
-    name: person.name,
-    jobTitle: person.role,
-    url: `${BASE_URL}/author/${person.slug}`,
-    image: `${BASE_URL}${person.photo}`,
-    sameAs: [person.linkedin, ...(person.otherProfiles ?? [])],
-    knowsAbout: person.experience.map((e) => e.topic),
-  };
-
   return (
     <div className="bg-paper text-ink">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }}
-      />
+      {/* Full Person, same @id as the site-wide schema so Google merges them (see lib/business-schema.ts). */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(personSchema(person))} />
       <Navbar />
       {/* ── Header (dark band) ──────────────────────────────────── */}
       <section className="bg-ink text-paper">
