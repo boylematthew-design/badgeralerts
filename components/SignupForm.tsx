@@ -84,7 +84,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
           Check your email
         </h3>
         <p className="text-[14px] text-mid leading-[1.6]">
-          We&apos;ve sent a confirmation link to{" "}
+          I&apos;ve sent a confirmation link to{" "}
           <strong className="font-medium text-ink">{formData.email}</strong>.
           Click it to activate your account.
         </p>
@@ -181,7 +181,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
 
       {/* Legal line */}
       <p className="text-[12px] text-muted text-center leading-[1.5]">
-        By clicking Create account, you agree to our{" "}
+        By clicking Create account, you agree to the{" "}
         <Link href="/terms" className="text-mid underline underline-offset-2 decoration-border-strong hover:text-accent-dark transition-colors">
           Terms of Service
         </Link>{" "}
@@ -203,7 +203,7 @@ export default function SignupForm({ initialUrl = "" }: SignupFormProps) {
         {[
           "Free to use",
           "Used by small businesses across the UK",
-          "We'll email you an alert when we find something",
+          "I'll email you an alert when I find something",
         ].map((text) => (
           <div key={text} className="flex items-center gap-2.5 text-[14px] text-ink">
             <div className="w-5 h-5 rounded-full bg-accent-light text-accent-dark flex items-center justify-center flex-shrink-0">

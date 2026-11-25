@@ -25,7 +25,7 @@ export default async function BlogIndexPage() {
       <Navbar />
       <PageHero
         eyebrow="Guides"
-        title={<>Marketing guides, updated{" "} <em>as we learn</em></>}
+        title={<>Marketing guides, updated{" "} <em>as I learn</em></>}
         intro={<>A handful of in-depth guides, each made up of practical tips added regularly. No fluff — just things you can action today.</>}
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">

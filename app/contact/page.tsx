@@ -57,7 +57,7 @@ export default function ContactPage() {
     if (res.ok) {
       setSent(true);
     } else {
-      setError("Something went wrong. Please try again or email us directly.");
+      setError("Something went wrong. Please try again or email me directly.");
     }
     setLoading(false);
   };
@@ -100,7 +100,7 @@ export default function ContactPage() {
             </div>
             {[
               {
-                label: "Call us",
+                label: "Call me",
                 value: BUSINESS_PHONE.display,
                 href: BUSINESS_PHONE.href,
                 icon: (
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 ),
               },
               {
-                label: "Email us",
+                label: "Email me",
                 value: "hello@compoundingwins.com",
                 icon: (
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -116,7 +116,7 @@ export default function ContactPage() {
               },
               {
                 label: "Response time",
-                value: "We aim to reply within 1 business day.",
+                value: "I aim to reply within 1 business day.",
                 icon: (
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 ),
@@ -159,14 +159,14 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Message sent!</h2>
-                  <p className="text-[14px] text-mid mb-6">Thanks for reaching out. We&apos;ll get back to you within 1 business day.</p>
+                  <p className="text-[14px] text-mid mb-6">Thanks for reaching out. I&apos;ll get back to you within 1 business day.</p>
                   <Link href="/" className="text-[14px] text-accent-dark font-medium hover:underline underline-offset-2">
                     Back to home
                   </Link>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-[16px] font-medium text-ink mb-6">Send us a message</h2>
+                  <h2 className="text-[16px] font-medium text-ink mb-6">Send me a message</h2>
                   <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     {/* Honeypot */}
                     <div style={{ display: "none" }} aria-hidden="true">
@@ -203,7 +203,7 @@ export default function ContactPage() {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Tell us how we can help..."
+                        placeholder="Tell me how I can help..."
                         required
                         rows={5}
                         className={`${inputClass} resize-none`}

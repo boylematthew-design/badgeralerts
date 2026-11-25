@@ -25,7 +25,7 @@ export default function Page() {
         faq("Where do I paste the schema code?", "In the HTML of the page, ideally the page the details are about. WordPress, Wix, Squarespace and Shopify all have a custom code or HTML block you can use. Only mark up details that are also visible on the page."),
         faq("Should I show fixed prices or 'from' prices?", "Fixed prices wherever you can. People and AI tools compare businesses on price, and a clear price builds trust. Use 'from' prices for jobs that genuinely vary."),
         faq("Which business type should I pick?", "The most specific one that fits, such as Plumber rather than Local business. If nothing fits, Local business is fine."),
-        faq("Is my information stored anywhere?", "Only in your own browser so the form is there when you come back. Nothing is sent to our servers."),
+        faq("Is my information stored anywhere?", "Only in your own browser so the form is there when you come back. Nothing is sent to my servers."),
       ]}
     >
       <SchemaGenerator />

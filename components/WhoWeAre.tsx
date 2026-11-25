@@ -3,16 +3,16 @@ import Link from "next/link";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { getGuideTeam } from "@/lib/team";
 
-// "Who we are" block on each services page (/services/[slug]). Profiles and per-guide bios live in lib/team.ts,
+// "Who I am" block on each services page (/services/[slug]). Profiles and per-guide bios live in lib/team.ts,
 // so adding a team member there makes a new card appear here automatically.
 export default function WhoWeAre({ slug }: { slug: string }) {
   const team = getGuideTeam(slug);
   if (team.length === 0) return null;
 
   return (
-    <section className="mb-12" aria-labelledby="who-we-are">
-      <h2 id="who-we-are" className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
-        Who we are
+    <section className="mb-12" aria-labelledby="who-i-am">
+      <h2 id="who-i-am" className="font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5">
+        Who I am
       </h2>
       <div className="space-y-4">
         {team.map((person) => (

@@ -26,7 +26,7 @@ export default function Page() {
         faq("Should every filter combination have its own page?", "No. Only create a page when there's search demand, enough products to fill it, and it matches what searchers want. Thin pages with two products can hold the rest of your site back."),
         faq("Does it work with Shopify's product export?", "Yes. It groups Shopify's variant rows into products, reads your option names (like Colour and Size), tags and product type, and uses your lowest variant price."),
         faq("Why add comparison tables to category pages?", "Tables help shoppers compare without opening every product, and AI tools often quote structured comparisons when people ask which product to buy."),
-        faq("Is my product file uploaded?", "No. It's read in your browser and nothing is sent to our servers."),
+        faq("Is my product file uploaded?", "No. It's read in your browser and nothing is sent to my servers."),
       ]}
     >
       <CatalogueToolkit />

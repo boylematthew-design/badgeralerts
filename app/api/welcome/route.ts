@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 <br>
         <p>I've spent the past 20 years working on my own and other's websites. Over that time I have come across a lot of issues and built up knowledge along the way! I decided to build this tool that scans your website and identifies issues, offers improvements & gives suggestions. </p>
 <br>
-        <p>Each time I, and with a little bit of help from AI, find something, we'll send you an alert to your email.</p>
+        <p>Each time I find something (with a little help from AI), I'll send you an alert by email.</p>
 <br>
         <p>If you have questions, or just want to have a chat about your site, just reply to this email — I read every one.</p>
         

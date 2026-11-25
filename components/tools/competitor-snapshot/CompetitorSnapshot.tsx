@@ -49,7 +49,7 @@ export default function CompetitorSnapshot() {
         const res = await fetch("/api/tools/sitemap-pages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ domain: site.domain }) });
         out[keyOf(site)] = await res.json();
       } catch {
-        out[keyOf(site)] = { origin: "", pages: [], error: "Couldn't reach our server." };
+        out[keyOf(site)] = { origin: "", pages: [], error: "Couldn't reach my server." };
       }
     }));
     setResults(out);

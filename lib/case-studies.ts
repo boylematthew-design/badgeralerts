@@ -43,7 +43,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "Building a strong online presence",
         paragraphs: [
-          "The first job was laying the foundations. We made the website SEO-friendly, with clear pages for each service, such as home art hanging, picture hanging, mirror hanging and exhibition installation, each written around what London customers actually search for. Prices and common questions went on the site where anyone could read them. Alongside the website, we got the social media profiles live and listed the brand on trusted directory sites, with the same name, address and phone number everywhere, so Google and customers saw one consistent, credible business.",
+          "The first job was laying the foundations. I made the website SEO-friendly, with clear pages for each service, such as home art hanging, picture hanging, mirror hanging and exhibition installation, each written around what London customers actually search for. Prices and common questions went on the site where anyone could read them. Alongside the website, I got the social media profiles live and listed the brand on trusted directory sites, with the same name, address and phone number everywhere, so Google and customers saw one consistent, credible business.",
         ],
         image: {
           src: `${IMG}/branded-search.webp`,
@@ -69,7 +69,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "Getting listed in the map pack",
         paragraphs: [
-          "For a local service business, the Google map pack is huge. It’s the first thing people see when they search for something like “art hanging in London” or “picture hanging London”. We made sure the Google Business Profile was complete and accurate, with the right services, opening hours, contact details and service area across London, and that it matched the website. Today, Gallows Pole appears at the top of the local results for “art hanging in London”, above established competitors with far more reviews.",
+          "For a local service business, the Google map pack is huge. It’s the first thing people see when they search for something like “art hanging in London” or “picture hanging London”. I made sure the Google Business Profile was complete and accurate, with the right services, opening hours, contact details and service area across London, and that it matched the website. Today, Gallows Pole appears at the top of the local results for “art hanging in London”, above established competitors with far more reviews.",
         ],
         image: {
           src: `${IMG}/map-pack.webp`,
@@ -82,7 +82,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "Helping AI tools recommend Gallows Pole",
         paragraphs: [
-          "More and more people now ask AI tools like ChatGPT for recommendations instead of searching Google. AI tools can only recommend businesses they understand, so we made sure the website and listings clearly answered the questions customers ask: what Gallows Pole does, who it’s for, where it works, what it costs and how it handles valuable artwork. That groundwork is paying off. When someone asks ChatGPT for a professional, insured art hanging service for their London home, Gallows Pole is now the first business it recommends, with its speciality, insurance and starting price all quoted back to the customer.",
+          "More and more people now ask AI tools like ChatGPT for recommendations instead of searching Google. AI tools can only recommend businesses they understand, so I made sure the website and listings clearly answered the questions customers ask: what Gallows Pole does, who it’s for, where it works, what it costs and how it handles valuable artwork. That groundwork is paying off. When someone asks ChatGPT for a professional, insured art hanging service for their London home, Gallows Pole is now the first business it recommends, with its speciality, insurance and starting price all quoted back to the customer.",
         ],
         image: {
           src: `${IMG}/chatgpt-recommendation.webp`,
@@ -95,7 +95,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "The result",
         paragraphs: [
-          "We won’t share the exact figures, but the outcome has been a clear increase in enquiries, which has led to jobs across London and strong reviews left after each one. Every new review, listing and mention builds on the last, giving Gallows Pole a solid base for steady, compounding leads well into the future.",
+          "I won’t share the exact figures, but the outcome has been a clear increase in enquiries, which has led to jobs across London and strong reviews left after each one. Every new review, listing and mention builds on the last, giving Gallows Pole a solid base for steady, compounding leads well into the future.",
         ],
         image: {
           src: `${IMG}/website.webp`,

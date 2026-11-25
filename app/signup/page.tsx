@@ -52,7 +52,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
           </h1>
 
           <p className="text-[15px] text-mid leading-[1.6] mb-8">
-            We&apos;ll keep an eye on your site and email you the moment we spot
+            I&apos;ll keep an eye on your site and email you the moment I spot
             something worth your time.
           </p>
 

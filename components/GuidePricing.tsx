@@ -39,10 +39,10 @@ export default function GuidePricing({
       </h2>
       <p className="text-[14px] md:text-[15px] text-mid leading-[1.6] mb-6">
         The cost of {article} {topicName} expert who provides consultancy and agency services can
-        depend on the scope of the project and what exactly is needed. Below we have listed the
-        prices we charge for the service. If you wish to have more information then{" "}
+        depend on the scope of the project and what exactly is needed. Below I have listed the
+        prices I charge for the service. If you wish to have more information then{" "}
         <Link href="/contact" className="text-accent-dark underline underline-offset-2 hover:opacity-80">
-          contact us
+          contact me
         </Link>
         .
       </p>

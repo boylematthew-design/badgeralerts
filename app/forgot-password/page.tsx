@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
               </div>
               <h1 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Check your email</h1>
               <p className="text-[14px] text-mid leading-[1.6] mb-6">
-                We&apos;ve sent a reset link to <strong className="font-medium text-ink">{email}</strong>. Click the link in that email to set a new password.
+                I&apos;ve sent a reset link to <strong className="font-medium text-ink">{email}</strong>. Click the link in that email to set a new password.
               </p>
               <Link href="/login" className="text-[14px] text-accent-dark font-medium hover:underline underline-offset-2">
                 Back to sign in
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
                 Reset your <em className="not-italic text-accent">password</em>
               </h1>
               <p className="text-[15px] text-mid leading-[1.6] mb-8">
-                Enter your email and we&apos;ll send you a reset link.
+                Enter your email and I&apos;ll send you a reset link.
               </p>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">

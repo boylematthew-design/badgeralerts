@@ -19,7 +19,7 @@ export default function ToolLayout({
   children,
   steps,
   faqs,
-  privacyNote = "Everything runs in your browser. Nothing you enter or upload is sent to our servers.",
+  privacyNote = "Everything runs in your browser. Nothing you enter or upload is sent to my servers.",
   wide = false,
 }: {
   slug: string;

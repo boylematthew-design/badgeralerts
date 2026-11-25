@@ -41,7 +41,7 @@ export default function MapsLeadForm() {
     if (res.ok) {
       setSent(true);
     } else {
-      setError("Something went wrong. Please try again or email us directly.");
+      setError("Something went wrong. Please try again or email me directly.");
     }
     setLoading(false);
   };
@@ -55,7 +55,7 @@ export default function MapsLeadForm() {
           </svg>
         </div>
         <h3 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Thanks — got it!</h3>
-        <p className="text-[14px] text-mid">We&apos;ll be in touch within 1 business day with your free quote.</p>
+        <p className="text-[14px] text-mid">I&apos;ll be in touch within 1 business day with your free quote.</p>
       </div>
     );
   }
@@ -89,7 +89,7 @@ export default function MapsLeadForm() {
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Tell us a bit about your business..."
+          placeholder="Tell me a bit about your business..."
           rows={4}
           className={`${inputClass} resize-none`}
         />

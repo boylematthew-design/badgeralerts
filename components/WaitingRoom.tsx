@@ -32,8 +32,8 @@ export default function WaitingRoom({ name }: { name?: string }) {
       </h2>
 
       <p className="text-[15px] text-mid leading-[1.6] max-w-sm mb-10">
-        We&apos;re scanning your site now. Your alerts will appear here the moment
-        we find something worth your attention.
+        I&apos;m scanning your site now. Your alerts will appear here the moment
+        I find something worth your attention.
       </p>
 
       <div className="w-full max-w-[340px] flex flex-col gap-2.5 text-left">

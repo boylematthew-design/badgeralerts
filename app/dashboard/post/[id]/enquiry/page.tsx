@@ -148,7 +148,7 @@ export default async function EnquiryPage({
                   </svg>
                 </div>
                 <h2 className="text-2xl font-extrabold text-slate-900 mb-2">Enquiry sent!</h2>
-                <p className="text-slate-500 mb-6">One of our experts will be in touch with you soon.</p>
+                <p className="text-slate-500 mb-6">I&apos;ll be in touch with you soon.</p>
                 <Link
                   href="/dashboard"
                   className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl text-sm transition"
@@ -171,7 +171,7 @@ export default async function EnquiryPage({
                         name="message"
                         required
                         rows={6}
-                        placeholder="Describe what you'd like help with and we'll get back to you..."
+                        placeholder="Describe what you'd like help with and I'll get back to you..."
                         className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                       />
                     </div>

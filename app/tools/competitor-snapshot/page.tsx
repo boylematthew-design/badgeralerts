@@ -15,7 +15,7 @@ export default function Page() {
       wide
       title={<>Competitor <em>snapshot</em></>}
       intro={<>See every page your competitors want Google to find, spot the services and locations they cover that you don&apos;t, and jump straight to their ads, reviews and Reddit mentions.</>}
-      privacyNote="We read competitors' public sitemaps from our server. The names you enter are saved in your browser only."
+      privacyNote="I read competitors' public sitemaps from my server. The names you enter are saved in your browser only."
       steps={[
         { title: "Add your site and competitors", body: "Use the businesses that show above you on Google Maps and in search for your main service." },
         { title: "Compare pages", body: "See how many pages each site has and which sections are biggest, such as /services/ or /areas/." },

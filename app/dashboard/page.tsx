@@ -299,7 +299,7 @@ export default async function DashboardPage({
                 </div>
                 <h3 className="text-[16px] font-medium text-ink mb-1.5">All caught up</h3>
                 <p className="text-[14px] text-muted max-w-xs leading-[1.6]">
-                  No alerts in this category yet. We&apos;ll email you when we find something.
+                  No alerts in this category yet. I&apos;ll email you when I find something.
                 </p>
               </div>
             )}

@@ -1,14 +1,14 @@
 import { AUDIT_STEP_COUNT, STEP_TITLES, type ServiceProcess } from "@/lib/service-process";
 
-// "What we do" and "How we work" sections on each services page. Copy lives in lib/service-process.ts.
+// "What I do" and "How I work" sections on each services page. Copy lives in lib/service-process.ts.
 
 const headingClass = "font-heading font-bold tracking-[-0.03em] text-[22px] md:text-[26px] text-ink mb-5";
 
 export function WhatWeDo({ process }: { process: ServiceProcess }) {
   return (
-    <section className="mb-12" aria-labelledby="what-we-do">
-      <h2 id="what-we-do" className={headingClass}>
-        {process.heading ?? "What we do"}
+    <section className="mb-12" aria-labelledby="what-i-do">
+      <h2 id="what-i-do" className={headingClass}>
+        {process.heading ?? "What I do"}
       </h2>
       <div className="border border-border rounded-[20px] px-6 md:px-10 py-7 md:py-9 bg-white">
         <p className="text-[15px] md:text-[16px] text-mid leading-[1.7] mb-5">{process.whatWeDo}</p>
@@ -39,9 +39,9 @@ export function WhatWeDo({ process }: { process: ServiceProcess }) {
 
 export function HowWeWork({ process }: { process: ServiceProcess }) {
   return (
-    <section className="mb-12" aria-labelledby="how-we-work">
-      <h2 id="how-we-work" className={headingClass}>
-        How we work
+    <section className="mb-12" aria-labelledby="how-i-work">
+      <h2 id="how-i-work" className={headingClass}>
+        How I work
       </h2>
       <ol className="space-y-5">
         {process.steps.map((text, i) => (
@@ -61,7 +61,7 @@ export function HowWeWork({ process }: { process: ServiceProcess }) {
       </ol>
       <p className="mt-6 text-[14px] text-muted leading-[1.6] border-l-2 border-accent pl-4">
         Choosing the one-off audit? It covers steps 1 to {AUDIT_STEP_COUNT}, finished with a prioritised action plan you
-        can work through yourself or with us.
+        can work through yourself or with me.
       </p>
     </section>
   );

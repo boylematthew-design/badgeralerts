@@ -308,8 +308,8 @@ export function SeoEmailImage() {
               <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">8:14 AM</span>
             </div>
-            <div className="si-mail-subject">3 high-intent pages we recommend you build</div>
-            <div className="si-mail-preview">We found search queries your customers are typing in right now that your site doesn&apos;t yet rank for — here&apos;s what to build first…</div>
+            <div className="si-mail-subject">3 high-intent pages I recommend you build</div>
+            <div className="si-mail-preview">I found search queries your customers are typing in right now that your site doesn&apos;t yet rank for — here&apos;s what to build first…</div>
             <div className="si-mail-chips">
               <span className="si-chip si-chip-acc">SEO</span>
               <span className="si-chip">Content</span>
@@ -520,7 +520,7 @@ export function TechEmailImage() {
               <span className="si-mail-from">Compounding Wins</span>
               <span className="si-mail-time">10:21 AM</span>
             </div>
-            <div className="si-mail-subject">We found 3 technical issues hurting your site</div>
+            <div className="si-mail-subject">I found 3 technical issues hurting your site</div>
             <div className="si-mail-preview">Your homepage is loading slowly on mobile, and a few key pages are missing meta data Google needs — here&apos;s what to fix first…</div>
             <div className="si-mail-chips">
               <span className="si-chip si-chip-acc">Technical</span>
@@ -602,7 +602,7 @@ export function TechFixGuideImage() {
           </div>
           <div className="si-check-row si-check-on">
             <span className="si-check-box" />
-            <span className="si-check-text">Compress to WebP (we&apos;ll show you how)</span>
+            <span className="si-check-text">Compress to WebP (I&apos;ll show you how)</span>
           </div>
           <div className="si-check-row">
             <span className="si-check-box" />

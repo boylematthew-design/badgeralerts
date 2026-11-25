@@ -125,7 +125,7 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
         <p className="bg-accent-light rounded-[14px] px-5 md:px-6 py-4 text-[14px] md:text-[15px] text-mid leading-[1.6] mb-12">
-          If you are looking for a {service.name} expert and services, we have a separate guide on
+          If you are looking for a {service.name} expert and services, I have a separate guide on
           that where you can learn more:{" "}
           <Link
             href={`/services/${service.slug}`}

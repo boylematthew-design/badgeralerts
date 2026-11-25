@@ -79,7 +79,7 @@ async function runNotifications(request: Request) {
             </p>
             <p style="color:#475569;font-size:15px;line-height:1.6;margin:0;">Many thanks,<br><strong>Compounding Wins</strong></p>
             <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0;">
-            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">This is an automated alert from Compounding Wins. You are receiving this email because you have an active account.<br><br>Don't want to receive alerts anymore? <a href="https://www.compoundingwins.com/unsubscribe?token=${user.unsubscribe_token}" style="color:#10b981;text-decoration:underline;">Unsubscribe here</a> and we'll stop sending you alerts.</p>
+            <p style="color:#94a3b8;font-size:13px;margin:0;line-height:1.6;">This is an automated alert from Compounding Wins. You are receiving this email because you have an active account.<br><br>Don't want to receive alerts anymore? <a href="https://www.compoundingwins.com/unsubscribe?token=${user.unsubscribe_token}" style="color:#10b981;text-decoration:underline;">Unsubscribe here</a> and I'll stop sending you alerts.</p>
           </div>
           <p style="text-align:center;color:#cbd5e1;font-size:12px;margin-top:24px;">© 2026 Compounding Wins. All rights reserved.</p>
         </div>

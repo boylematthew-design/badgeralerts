@@ -99,7 +99,7 @@ export default function WebsiteChecker() {
               {r.bots.map((b) => (
                 <Row key={b.name} level={!b.allowedByRobots ? "bad" : b.blocked ? "bad" : "good"} title={b.name}>
                   {!b.allowedByRobots && "Blocked by your robots.txt. "}
-                  {b.error ? b.error : b.blocked ? `Our test visit was refused (status ${b.status}). A firewall or bot protection may be blocking it.` : `Test visit returned status ${b.status}.`}
+                  {b.error ? b.error : b.blocked ? `My test visit was refused (status ${b.status}). A firewall or bot protection may be blocking it.` : `Test visit returned status ${b.status}.`}
                   {b.allowedByRobots && !b.blocked && " Allowed."}
                 </Row>
               ))}
@@ -108,7 +108,7 @@ export default function WebsiteChecker() {
               ))}
             </ul>
             <p className={`${hint} mt-2`}>
-              Some firewalls also check the crawler&apos;s real IP address, so a real crawler can be treated differently from our test. Robots.txt: {r.robots.status === 200 ? "found" : r.robots.status ? `returned status ${r.robots.status}` : "couldn't be fetched"}.{" "}
+              Some firewalls also check the crawler&apos;s real IP address, so a real crawler can be treated differently from my test. Robots.txt: {r.robots.status === 200 ? "found" : r.robots.status ? `returned status ${r.robots.status}` : "couldn't be fetched"}.{" "}
               <a className="text-accent-dark underline" href="/tools/eli5-robots">Explain my robots.txt in plain English</a>
             </p>
           </section>

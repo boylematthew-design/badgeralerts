@@ -14,7 +14,7 @@ export default function Page() {
       slug="review-request-kit"
       title={<>Google review link <em>&amp; request kit</em></>}
       intro={<>Make your direct Google review link, send customers a request that gets detailed reviews, print QR cards for the table or till, and keep a steady flow of new reviews coming in.</>}
-      privacyNote="Everything runs in your browser, including your customer list. Nothing is sent to our servers."
+      privacyNote="Everything runs in your browser, including your customer list. Nothing is sent to my servers."
       steps={[
         { title: "Get your review link", body: "Paste your Google Place ID (or the review link from your Business Profile). Add your Trustpilot, Checkatrade, Facebook, Yelp or Tripadvisor links too if you have them." },
         { title: "Pick a message", body: "Choose the review site and a message. Each one asks customers to say what you did and what stood out, which gets you longer reviews that rank better and convince more people." },

@@ -80,7 +80,7 @@ export default function TipCaseStudyFields({
               maxLength={MAX_NOTE}
               value={notes[id] ?? ""}
               onChange={(e) => setNotes((n) => ({ ...n, [id]: e.target.value }))}
-              placeholder="e.g. How we set up a simple routine for Gallows Pole to ask every customer for a review."
+              placeholder="e.g. How I set up a simple routine for Gallows Pole to ask every customer for a review."
               className={inputClass}
             />
             <p className="text-xs text-slate-400 mt-1">Left blank, the case study&rsquo;s own summary is shown instead.</p>

@@ -15,7 +15,7 @@ export default async function UnsubscribePage({
   const { token } = await searchParams;
 
   if (!token) {
-    return <Result success={false} message="This unsubscribe link is invalid. Please contact us if you need help." />;
+    return <Result success={false} message="This unsubscribe link is invalid. Please contact me if you need help." />;
   }
 
   const { data: user, error } = await supabase
@@ -25,7 +25,7 @@ export default async function UnsubscribePage({
     .single();
 
   if (error || !user) {
-    return <Result success={false} message="We couldn't find your account. Please contact us if you need help." />;
+    return <Result success={false} message="I couldn't find your account. Please contact me if you need help." />;
   }
 
   if (!user.email_unsubscribed) {

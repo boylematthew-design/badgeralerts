@@ -24,7 +24,7 @@ export default function Page() {
       faqs={[
         faq("Is a birthday club allowed under GDPR?", "Yes, with clear consent. The tick box must be unticked by default, say who will contact them and how, and make it easy to unsubscribe. You also need a privacy notice explaining what you keep and why."),
         faq("Why use Google Forms instead of a sign-up tool?", "It's free, and the data sits in your own Google account, so you own your customer list and aren't tied to any provider."),
-        faq("Do you see my customers' details?", "No. The form and sheet are in your Google account. When you check upcoming dates here, the file is read in your browser and never sent to us."),
+        faq("Do you see my customers' details?", "No. The form and sheet are in your Google account. When you check upcoming dates here, the file is read in your browser and never sent to me."),
         faq("When should I send the birthday message?", "About a week before, so there's time to book a table. Anniversaries work the same way."),
       ]}
     >

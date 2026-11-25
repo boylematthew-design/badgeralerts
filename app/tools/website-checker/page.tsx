@@ -14,7 +14,7 @@ export default function Page() {
       slug="website-checker"
       title={<>Website checker: what <em>Google &amp; AI crawlers</em> see</>}
       intro={<>Enter a page and see it the way crawlers do: whether Googlebot, ChatGPT, Claude and Perplexity can get in, what they can read without JavaScript, and the technical basics that stop pages ranking.</>}
-      privacyNote="We fetch the page you enter from our server to check it, like a search engine would. We don't store the results."
+      privacyNote="I fetch the page you enter from my server to check it, like a search engine would. I don't store the results."
       steps={[
         { title: "Enter a page", body: "Start with your homepage, then your most important service or product pages." },
         { title: "Check crawler access", body: "If robots.txt or a firewall blocks Googlebot or the AI crawlers, nothing else on the page matters. Fix that first." },

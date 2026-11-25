@@ -22,10 +22,10 @@ const SLIDES = [
     titleLine1: "Local",
     titleLine2: "competitor alerts",
     intro:
-      "Here's exactly what happens the moment a close competitor changes their game — and how we hand it straight to you.",
+      "Here's exactly what happens the moment a close competitor changes their game — and how I hand it straight to you.",
     steps: [
       {
-        body: "Our tool scans your competitor websites and picks up that a close competitor is running new local ads.",
+        body: "My tool scans your competitor websites and picks up that a close competitor is running new local ads.",
         caption: "Competitor scan",
         Image: CompetitorScanImage,
       },
@@ -46,20 +46,20 @@ const SLIDES = [
     titleLine1: "SEO",
     titleLine2: "suggestions",
     intro:
-      "We watch what your customers are searching for — and tell you exactly which pages to build to win them.",
+      "I watch what your customers are searching for — and tell you exactly which pages to build to win them.",
     steps: [
       {
-        body: "Our tool scans your site and industry and recommends high-intent pages you can build to bring in traffic and conversions.",
+        body: "My tool scans your site and industry and recommends high-intent pages you can build to bring in traffic and conversions.",
         caption: "Content scan",
         Image: SeoScanImage,
       },
       {
-        body: "We send you an alert with a clear recommendation of what to build next.",
+        body: "I send you an alert with a clear recommendation of what to build next.",
         caption: "Email alert",
         Image: SeoEmailImage,
       },
       {
-        body: "We share an in-depth report with detailed analysis and help you set it up — outline, keywords, the lot.",
+        body: "I share an in-depth report with detailed analysis and help you set it up — outline, keywords, the lot.",
         caption: "Detailed report",
         Image: SeoReportImage,
       },
@@ -70,20 +70,20 @@ const SLIDES = [
     titleLine1: "Technical",
     titleLine2: "audits",
     intro:
-      "We keep a constant eye on the technical health of your site — and tell you the moment something needs your attention.",
+      "I keep a constant eye on the technical health of your site — and tell you the moment something needs your attention.",
     steps: [
       {
-        body: "Our tool scans your site and flags common errors and issues, alerting you straight away.",
+        body: "My tool scans your site and flags common errors and issues, alerting you straight away.",
         caption: "Site crawl",
         Image: TechScanImage,
       },
       {
-        body: "We email you the moment we find something that needs flagging with you.",
+        body: "I email you the moment I find something that needs flagging with you.",
         caption: "Email alert",
         Image: TechEmailImage,
       },
       {
-        body: "We explain the issue in full and recommend a fix to help you improve site performance.",
+        body: "I explain the issue in full and recommend a fix to help you improve site performance.",
         caption: "Fix guide",
         Image: TechFixGuideImage,
       },
@@ -94,20 +94,20 @@ const SLIDES = [
     titleLine1: "Paid media",
     titleLine2: "suggestions",
     intro:
-      "We watch what your competitors are spending money on — so you can spot the ad opportunities they're winning, before they get away.",
+      "I watch what your competitors are spending money on — so you can spot the ad opportunities they're winning, before they get away.",
     steps: [
       {
-        body: "We scan your competitors and find out if any of them are running paid media campaigns you should know about.",
+        body: "I scan your competitors and find out if any of them are running paid media campaigns you should know about.",
         caption: "Competitor ads",
         Image: PaidMediaScanImage,
       },
       {
-        body: "We email you the moment we spot something — with the keywords they're bidding on and what it's likely costing them.",
+        body: "I email you the moment I spot something — with the keywords they're bidding on and what it's likely costing them.",
         caption: "Email alert",
         Image: PaidMediaEmailImage,
       },
       {
-        body: "We walk you through how to set up your own campaign on a sensible budget — and offer to help you launch it.",
+        body: "I walk you through how to set up your own campaign on a sensible budget — and offer to help you launch it.",
         caption: "Suggested campaign",
         Image: PaidMediaDashboardImage,
       },
