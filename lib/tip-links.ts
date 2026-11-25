@@ -70,7 +70,18 @@ export function parseTipLinks(formData: FormData): TipLinkInput[] | null {
 
 // Replaces a tip's links with the given list, in order. Uses the admin (service role) client,
 // so only call it after checking the user is an admin.
+// If the links haven't changed it leaves them alone, because replacing them would count as an
+// edit and move the guide's "Updated" date forward (see supabase/migrations/016).
 export async function saveTipLinks(admin: SupabaseClient, tipId: string, links: TipLinkInput[]) {
+  const { data: existing } = await admin
+    .from("tip_links")
+    .select("url, context, preview_title, preview_description, preview_favicon")
+    .eq("tip_id", tipId)
+    .order("sort_order");
+  const fields = (l: TipLinkInput) =>
+    [l.url, l.context, l.preview_title, l.preview_description, l.preview_favicon].map((v) => v ?? null);
+  if (existing && JSON.stringify(existing.map(fields)) === JSON.stringify(links.map(fields))) return;
+
   await admin.from("tip_links").delete().eq("tip_id", tipId);
   if (links.length === 0) return;
   await admin.from("tip_links").insert(links.map((link, i) => ({ ...link, tip_id: tipId, sort_order: i })));

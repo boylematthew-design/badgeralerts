@@ -20,7 +20,7 @@ The full original project plan is saved at `prototype/projectplan.pdf` (describe
   - Shared copy on every `/services/[slug]` page (`lib/service-process.ts`, `lib/guide-faqs.ts`, `components/ServiceProcess.tsx`, `WhoWeAre.tsx`, `GuidePricing.tsx`, `BookACall.tsx`) → `PAGE_UPDATED.servicePageTemplate`.
   - Copy that appears on many pages (e.g. a site-wide wording change) → bump every affected date.
   - **Don't bump** for invisible changes (code comments, refactors, styling-only tweaks, bug fixes with no visible change). Google only trusts lastmod when it's accurate, so a false date does more harm than none. Never use `new Date()` in the sitemap.
-  - Blog guides need nothing: their date comes from `updated_at` in the database automatically.
+  - Blog guides need nothing: database triggers (`supabase/migrations/016_guide_updated_at_triggers.sql`) set `guides.updated_at` whenever the guide, a published tip, a section or a tip's links really change. Never set `updated_at` by hand in app code: it would make unchanged saves look like edits.
   - Mention which dates were bumped in the summary to the user.
 
 ## Tech stack (agreed)

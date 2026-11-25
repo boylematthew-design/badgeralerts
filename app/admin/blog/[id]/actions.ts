@@ -179,7 +179,6 @@ export async function deleteTip(formData: FormData) {
 
   await admin.from("tips").delete().eq("id", tipId);
 
-  await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");
@@ -276,7 +275,6 @@ export async function reorderTips(
       .eq("id", item.tipId);
   }
 
-  await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", guideId);
 
   revalidatePath(`/admin/blog/${guideId}`);
   revalidatePath("/blog", "layout");

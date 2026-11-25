@@ -88,7 +88,6 @@ export default async function EditGuidePage({
         description: description || null,
         published,
         site,
-        updated_at: new Date().toISOString(),
       })
       .eq("id", id);
 

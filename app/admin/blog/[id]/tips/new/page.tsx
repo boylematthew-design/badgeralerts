@@ -111,7 +111,6 @@ export default async function NewTipPage({
 
     if (newTip) await saveTipLinks(admin, newTip.id, links);
 
-    await admin.from("guides").update({ updated_at: new Date().toISOString() }).eq("id", id);
 
     const { revalidatePath } = await import("next/cache");
     revalidatePath(`/admin/blog/${id}`);
