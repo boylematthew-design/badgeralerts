@@ -24,11 +24,15 @@ export interface TeamProfile {
   defaultBio: string;
   guideBios: Record<string, string>;
   guides?: string[];
+  // Date this profile last changed (YYYY-MM-DD), used as the author page's sitemap lastmod.
+  // Bump it when you edit this person's bio, intro or experience.
+  updated: string;
 }
 
 export const TEAM: TeamProfile[] = [
   {
     slug: "matthew-boyle",
+    updated: "2026-11-25",
     name: "Matthew Boyle",
     role: "Digital marketing consultant",
     photo: "/matthew-boyle.png",
