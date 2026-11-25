@@ -32,7 +32,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title={<>Expert marketing services,{" "} <em>done properly</em></>}
-        intro={<>Nearly 20 years of hands-on experience as a digital marketing expert and consultant, offered as agency-quality services. Every service is available as a one-off audit or ongoing monthly support.</>}
+        intro={<>Over 20 years of hands-on experience as a digital marketing expert and consultant, offered as agency-quality services. Every service is available as a one-off audit or ongoing monthly support.</>}
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
 

@@ -9,11 +9,11 @@ export default function ConsultantCTA() {
         </div>
         <div>
           <p className="text-[14px] font-semibold text-paper">Matthew Boyle</p>
-          <p className="text-[13px] text-muted-dark">Digital Marketing Consultant &middot; ~20 years experience</p>
+          <p className="text-[13px] text-muted-dark">Digital Marketing Consultant &middot; Over 20 years&apos; experience</p>
         </div>
       </div>
       <p className="text-[14px] md:text-[15px] text-muted-dark leading-[1.6] mb-6 max-w-[520px]">
-        Matthew Boyle has over 20 years experience in digital marketing covering a wide range of
+        Matthew Boyle has over 20 years&apos; experience in digital marketing covering a wide range of
         topic areas. He is available for a one-off consultation or ongoing support.
       </p>
       <a

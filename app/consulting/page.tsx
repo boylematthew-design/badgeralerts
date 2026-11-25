@@ -33,7 +33,7 @@ export default function ConsultingPage() {
             />
             <div>
               <p className="text-[14px] font-medium text-ink">Matthew Boyle</p>
-              <p className="text-[13px] text-muted">Digital Marketing Consultant &middot; ~20 years experience</p>
+              <p className="text-[13px] text-muted">Digital Marketing Consultant &middot; Over 20 years&apos; experience</p>
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">

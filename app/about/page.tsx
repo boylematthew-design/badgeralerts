@@ -9,7 +9,7 @@ import { GUIDE_PRICES } from "@/lib/guide-pricing";
 export const metadata = {
   title: "About Matthew Boyle and Compounding Wins",
   description:
-    "Compounding Wins is a London digital marketing agency run by Matthew Boyle, with nearly 20 years' experience in SEO, local SEO, AI search and paid media.",
+    "Compounding Wins is a London digital marketing agency run by Matthew Boyle, with over 20 years' experience in SEO, local SEO, AI search and paid media.",
 };
 
 const specialisms = [
@@ -52,7 +52,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[14px] text-mid leading-[1.75]">
-            <p>I&apos;ve spent nearly two decades working in digital marketing: running campaigns, auditing websites and helping businesses improve their online presence. Over that time, you develop a sharp eye. I can look at a website and quickly spot what&apos;s holding it back, whether that&apos;s a technical SEO issue, a content gap or a competitor quietly picking up ground.</p>
+            <p>I&apos;ve spent over 20 years working in digital marketing: running campaigns, auditing websites and helping businesses improve their online presence. Over that time, you develop a sharp eye. I can look at a website and quickly spot what&apos;s holding it back, whether that&apos;s a technical SEO issue, a content gap or a competitor quietly picking up ground.</p>
             <p>I started Compounding Wins to give small and growing businesses the kind of expertise that usually only comes with a big agency budget. When you work with Compounding Wins, you work with me directly, and you get straight answers about what will actually make a difference.</p>
             <p>The name comes from how good marketing really works. It&apos;s rarely one big break. It&apos;s a better Google profile, a few more reviews, a page that finally ranks and a listing that gets recommended by AI, each building on the last until the results add up.</p>
           </div>

@@ -16,7 +16,7 @@ export const metadata = {
 const faqs = [
   {
     q: "What is Compounding Wins?",
-    a: "Compounding Wins is a London-based digital marketing agency run by Matthew Boyle, who has nearly 20 years' experience. It helps businesses get found online and turn that visibility into leads and sales. Alongside client work, the site has free guides and tools you can use yourself.",
+    a: "Compounding Wins is a London-based digital marketing agency run by Matthew Boyle, who has over 20 years' experience. It helps businesses get found online and turn that visibility into leads and sales. Alongside client work, the site has free guides and tools you can use yourself.",
   },
   {
     q: "What services do you offer?",

@@ -13,7 +13,7 @@ import { jsonLd, professionalServiceSchema } from "@/lib/business-schema";
 export const metadata = {
   title: "Digital marketing consultant in London | Compounding Wins",
   description:
-    "Matthew Boyle is a London digital marketing consultant with nearly 20 years' experience in SEO, paid media and AI search, plus free guides and tools.",
+    "Matthew Boyle is a London digital marketing consultant with over 20 years' experience in SEO, paid media and AI search, plus free guides and tools.",
 };
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mattboyle3/";
@@ -94,7 +94,7 @@ export default async function Home() {
                 <em className="not-italic text-accent">marketing that works</em>
               </h1>
               <p className="text-[16px] md:text-[18px] text-mid leading-[1.6] mb-9 max-w-[460px]">
-                I&apos;m Matthew Boyle — nearly 20 years in digital marketing. SEO, paid media,
+                I&apos;m Matthew Boyle — over 20 years in digital marketing. SEO, paid media,
                 content strategy, and consulting, plus free guides and tools to help you do it
                 yourself.
               </p>

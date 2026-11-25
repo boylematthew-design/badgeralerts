@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 <br>
         <p>I'm Matthew — I run Compounding Wins and I just wanted to drop you a quick note to say welcome.</p>
 <br>
-        <p>I've spent the past 20 years working on my own and other's websites. Over that time I have come across a lot of issues and built up knowledge along the way! I decided to build this tool that scans your website and identifies issues, offers improvements & gives suggestions. </p>
+        <p>I've spent over 20 years working on my own and other people's websites. Over that time I have come across a lot of issues and built up knowledge along the way! I decided to build this tool that scans your website and identifies issues, offers improvements & gives suggestions. </p>
 <br>
         <p>Each time I find something (with a little help from AI), I'll send you an alert by email.</p>
 <br>
