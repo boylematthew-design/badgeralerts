@@ -13,6 +13,15 @@ The full original project plan is saved at `prototype/projectplan.pdf` (describe
 ## Shared data & components
 
 - **Footer links** — stored once in `lib/footer-links.ts`. Both `components/Footer.tsx` (homepage) and `components/DashboardFooter.tsx` (dashboard) import from it. To add/change/remove a footer link, **only edit `lib/footer-links.ts`** — never edit the footer components directly for link changes.
+- **Sitemap lastmod dates — bump them in the same commit as the change.** Code-built pages keep their "last changed" date by hand, and the sitemap (`app/sitemap.ts`) gives it to Google. Whenever a change alters what a visitor reads or uses on one of these pages, set its date to today:
+  - A tool (`app/tools/<slug>`, `components/tools/<slug>`) → that tool's `updated` in `lib/tools.ts`. A new tool gets today's date.
+  - Matthew's profile (`lib/team.ts` intro, bios, experience) → `updated` on that person in `lib/team.ts`.
+  - Homepage, about, contact, services, tools, consulting, FAQ or blog index → the matching key in `PAGE_UPDATED` in `app/sitemap.ts`.
+  - Shared copy on every `/services/[slug]` page (`lib/service-process.ts`, `lib/guide-faqs.ts`, `components/ServiceProcess.tsx`, `WhoWeAre.tsx`, `GuidePricing.tsx`, `BookACall.tsx`) → `PAGE_UPDATED.servicePageTemplate`.
+  - Copy that appears on many pages (e.g. a site-wide wording change) → bump every affected date.
+  - **Don't bump** for invisible changes (code comments, refactors, styling-only tweaks, bug fixes with no visible change). Google only trusts lastmod when it's accurate, so a false date does more harm than none. Never use `new Date()` in the sitemap.
+  - Blog guides need nothing: their date comes from `updated_at` in the database automatically.
+  - Mention which dates were bumped in the summary to the user.
 
 ## Tech stack (agreed)
 
