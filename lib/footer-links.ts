@@ -34,7 +34,13 @@ export const footerLinks: { heading: string; links: FooterLink[] }[] = [
     links: [
       { label: "About", href: "/about" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "/contact" },    ],
+      { label: "Contact", href: "/contact" },
+      {
+        label: "Digital Boost mentor",
+        href: "https://app.digitalboost.org.uk/mentor-details?id=d51acf40-b5e0-446a-a990-46825ad9d85c",
+        external: true,
+      },
+    ],
   },
   {
     heading: "Legal",
