@@ -10,6 +10,7 @@
 // so a slow or failed ping can never block or break a save. Failures are only logged.
 
 import { after } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { guidePath } from "./blog-guides";
 
@@ -48,6 +49,7 @@ export async function submitToIndexNow(urlsOrPaths: string[]): Promise<void> {
 
 // Schedules a submission to run after the current request has responded. Use from server actions.
 export function queueIndexNow(urlsOrPaths: string[]) {
+  revalidatePath("/sitemap.xml"); // so its lastmod dates are fresh straight away
   after(() => submitToIndexNow(urlsOrPaths));
 }
 
@@ -73,6 +75,7 @@ export async function guideUrls(guideId: string): Promise<string[]> {
 // also runs after the response, so the save isn't held up by it. `extra` adds other pages to submit,
 // e.g. "/blog" when the list of guides changes, or a guide's old address after a rename.
 export function queueGuideChanged(guideId: string, extra: string[] = []) {
+  revalidatePath("/sitemap.xml"); // so its lastmod dates are fresh straight away
   after(async () => {
     try {
       await submitToIndexNow([...(await guideUrls(guideId)), ...extra]);

@@ -7,6 +7,10 @@ import { guidePath } from "@/lib/blog-guides";
 
 const BASE_URL = "https://www.compoundingwins.com";
 
+// Vercel caches the sitemap. Admin saves refresh it straight away (lib/indexnow.ts); this rebuilds
+// it at least hourly as a safety net, e.g. after an edit made directly in Supabase.
+export const revalidate = 3600;
+
 // Every URL gets a lastmod (lastModified) that is the date its content really changed. Google only
 // trusts lastmod when it's consistently accurate, so never use new Date() here: that claims every
 // page changed on every crawl, and Google then ignores lastmod for the whole site.
