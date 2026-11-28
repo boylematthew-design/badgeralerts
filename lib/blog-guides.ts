@@ -30,7 +30,7 @@ export function findGuideBySlug<T extends GuideRef & { previous_slugs?: string[]
 export async function fetchPublishedGuides(supabase: SupabaseClient) {
   const { data } = await supabase
     .from("guides")
-    .select("id, slug, title, description, topic_name, parent_id, previous_slugs, created_at, updated_at, tips(count)")
+    .select("id, slug, title, description, topic_name, parent_id, previous_slugs, created_at, published_at, updated_at, tips(count)")
     .eq("site", "badgeralerts")
     .eq("published", true)
     .order("created_at", { ascending: false });

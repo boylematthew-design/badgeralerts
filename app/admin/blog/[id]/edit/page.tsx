@@ -58,6 +58,11 @@ export default async function EditGuidePage({
     if (!title || !slug || !topicName) return;
     if (!SITES.some((s) => s.value === site)) return;
 
+    // Optional "Published date" (YYYY-MM-DD). Blank leaves it to the database, which records the
+    // moment the guide first goes live. A typed date must be real and not in the future.
+    const publishedDate = ((formData.get("published_date") as string) ?? "").trim();
+    if (publishedDate && !isValidPastDate(publishedDate)) return;
+
     const admin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -66,7 +71,7 @@ export default async function EditGuidePage({
     const parentId = await validateParent(admin, { formData, site, guideId: id });
     if (parentId === undefined) return;
 
-    const { data: existing } = await admin.from("guides").select("slug, previous_slugs").eq("id", id).single();
+    const { data: existing } = await admin.from("guides").select("slug, previous_slugs, published_at").eq("id", id).single();
 
     // Its address before this save, so IndexNow also hears about an old address after a rename,
     // or a page that has just been unpublished.
@@ -88,6 +93,10 @@ export default async function EditGuidePage({
         description: description || null,
         published,
         site,
+        // Only when the day was actually changed, so the exact time recorded at publish is kept.
+        ...(publishedDate && publishedDate !== londonDay(existing?.published_at)
+          ? { published_at: `${publishedDate}T12:00:00Z` }
+          : {}),
       })
       .eq("id", id);
 
@@ -194,8 +203,38 @@ export default async function EditGuidePage({
           </label>
         </div>
 
+        <div>
+          <label htmlFor="published_date" className="block text-sm font-bold text-slate-700 mb-2">
+            Published date{" "}
+            <span className="text-slate-400 font-normal">
+              (shown on the guide; set automatically when you first publish, change it only to correct it)
+            </span>
+          </label>
+          <input
+            type="date"
+            name="published_date"
+            id="published_date"
+            defaultValue={londonDay(guide.published_at)}
+            max={londonDay(new Date().toISOString())}
+            className="w-full sm:w-auto border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+        </div>
+
         <SubmitButton />
       </form>
     </div>
   );
+}
+
+// A timestamp as a YYYY-MM-DD day in UK time ("" if there isn't one).
+function londonDay(ts: string | null | undefined): string {
+  return ts ? new Date(ts).toLocaleDateString("en-CA", { timeZone: "Europe/London" }) : "";
+}
+
+// True for a real calendar date in YYYY-MM-DD form that isn't after today (UK time).
+function isValidPastDate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const d = new Date(`${value}T12:00:00Z`);
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== value) return false;
+  return value <= londonDay(new Date().toISOString());
 }

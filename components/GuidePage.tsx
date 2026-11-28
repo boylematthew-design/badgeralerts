@@ -61,14 +61,15 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
 
   const { guide, guides, parent, children, path } = found;
 
-  // One date drives both the visible "Last updated" and the schema's dateModified, so they can't drift.
+  // The same dates drive the visible "Published" / "Last updated" and the schema's datePublished /
+  // dateModified, so they can't drift. published_at is set when the guide first goes live
+  // (migration 017); created_at is only a fallback for a guide without one.
+  const publishedAt = new Date(guide.published_at ?? guide.created_at);
   const updatedAt = new Date(guide.updated_at);
-  const lastUpdated = updatedAt.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Europe/London",
-  });
+  const formatDate = (d: Date) =>
+    d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" });
+  const published = formatDate(publishedAt);
+  const lastUpdated = formatDate(updatedAt);
 
   const { tips, sections } = await fetchGuideTips(supabase, guide.id);
   const topicName = guide.topic_name || guide.title;
@@ -77,14 +78,13 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
   const service = getServiceForGuide(guide);
 
   // Article + breadcrumb structured data. The breadcrumb lets Google show
-  // "Guides › Local SEO › Google Maps marketing". datePublished is the guide's stored created_at,
-  // which never changes once the guide exists.
+  // "Guides › Local SEO › Google Maps marketing".
   const url = `${BASE_URL}${path}`;
   const schema = guideSchema({
     url,
     headline: guide.title,
     description: guideMeta(guide).description,
-    datePublished: new Date(guide.created_at).toISOString(),
+    datePublished: publishedAt.toISOString(),
     dateModified: updatedAt.toISOString(),
     crumbs: [
       { name: "Guides", url: `${BASE_URL}/blog` },
@@ -119,7 +119,17 @@ export default async function GuidePage({ slug, requestedPath }: { slug: string;
         after={
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-6">
             <AuthorByline variant="dark" />
-            <span className="text-[13px] text-muted-dark">Last updated: {lastUpdated}</span>
+            <span className="text-[13px] text-muted-dark">
+              Published: <time dateTime={publishedAt.toISOString()}>{published}</time>
+              {/* Only worth saying when it's a different day from the published date. */}
+              {lastUpdated !== published && (
+                <>
+                  {" "}
+                  <span aria-hidden="true">·</span> Last updated:{" "}
+                  <time dateTime={updatedAt.toISOString()}>{lastUpdated}</time>
+                </>
+              )}
+            </span>
           </div>
         }
       />
