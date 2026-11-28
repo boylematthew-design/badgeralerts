@@ -55,7 +55,7 @@ export default function MapsLeadForm() {
           </svg>
         </div>
         <h3 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Thanks — got it!</h3>
-        <p className="text-[14px] text-mid">I&apos;ll be in touch within 1 business day with your free quote.</p>
+        <p className="text-[14px] text-mid">I&apos;ll be in touch within one working day with your free quote.</p>
       </div>
     );
   }

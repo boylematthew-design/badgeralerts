@@ -116,7 +116,7 @@ export default function ContactPage() {
               },
               {
                 label: "Response time",
-                value: "I aim to reply within 1 business day.",
+                value: "I reply within one working day.",
                 icon: (
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 ),
@@ -159,7 +159,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h2 className="font-heading font-bold tracking-[-0.03em] text-[22px] text-ink mb-2">Message sent!</h2>
-                  <p className="text-[14px] text-mid mb-6">Thanks for reaching out. I&apos;ll get back to you within 1 business day.</p>
+                  <p className="text-[14px] text-mid mb-6">Thanks for reaching out. I&apos;ll get back to you within one working day.</p>
                   <Link href="/" className="text-[14px] text-accent-dark font-medium hover:underline underline-offset-2">
                     Back to home
                   </Link>

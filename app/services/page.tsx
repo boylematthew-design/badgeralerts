@@ -36,6 +36,31 @@ export default async function ServicesPage() {
       />
       <main className="max-w-[760px] mx-auto px-7 md:px-12 py-14 md:py-20">
 
+        {/* Free consultation. /book redirects to the booking tool (see next.config.ts). */}
+        <section
+          aria-labelledby="free-consultation"
+          className="border border-accent-dark/40 rounded-[20px] px-7 md:px-8 py-7 md:py-8 mb-10 md:mb-12"
+        >
+          <h2
+            id="free-consultation"
+            className="font-heading font-bold tracking-[-0.03em] text-[20px] md:text-[24px] text-ink mb-2"
+          >
+            Free 30-minute consultation
+          </h2>
+          <p className="text-[14px] md:text-[15px] text-mid leading-[1.6] mb-5 max-w-[560px]">
+            Book a free 30-minute call with me on Google Meet and we can chat about anything: your
+            website, rankings, ads, AI search or simply where to start. No hard sell, just practical advice.
+          </p>
+          <a
+            href="/book"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-light inline-block text-[15px] px-6 py-3 active:translate-y-px"
+          >
+            Book a free call
+          </a>
+        </section>
+
         {!guides || guides.length === 0 ? (
           <div className="border border-border rounded-[20px] px-8 py-12 text-center mb-16 md:mb-20">
             <p className="text-[15px] text-mid">
@@ -66,7 +91,7 @@ export default async function ServicesPage() {
       </main>
       <CtaBand
         title={<>Not sure which service you need?</>}
-        body={<>Tell me a bit about your business and I&apos;ll point you in the right direction.</>}
+        body={<>Tell me a bit about your business and I&apos;ll point you in the right direction. I reply within one working day.</>}
         href="/contact"
         label="Work with me"
       />

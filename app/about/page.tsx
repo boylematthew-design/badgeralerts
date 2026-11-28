@@ -115,7 +115,7 @@ export default function AboutPage() {
       </main>
       <CtaBand
         title={<>Let&apos;s talk about your business</>}
-        body={<>Book a free 30-minute call or send a message, and I&apos;ll reply within 1 business day.</>}
+        body={<>Book a free 30-minute call or send a message, and I&apos;ll reply within one working day.</>}
         href="/contact"
         label="Work with me"
       />

@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "How do I get started?",
-    a: `Book a free 30-minute call on Google Meet, call ${BUSINESS_PHONE.display}, or send a message through the contact page. I reply within 1 business day.`,
+    a: `Book a free 30-minute call on Google Meet, call ${BUSINESS_PHONE.display}, or send a message through the contact page. I reply within one working day.`,
   },
   {
     q: "Are the guides and tools really free?",
@@ -98,7 +98,7 @@ export default function FAQPage() {
       </main>
       <CtaBand
         title={<>Still have a question?</>}
-        body={<>Book a free call or send a message, and I&apos;ll get back to you within 1 business day.</>}
+        body={<>Book a free call or send a message, and I&apos;ll get back to you within one working day.</>}
         href="/contact"
         label="Get in touch"
       />

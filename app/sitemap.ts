@@ -21,12 +21,12 @@ export const revalidate = 3600;
 // when a newer guide or tool is published.
 const PAGE_UPDATED = {
   home: "2026-11-25",
-  about: "2026-11-25",
-  contact: "2026-11-25",
-  services: "2026-11-25",
+  about: "2026-11-28",
+  contact: "2026-11-28",
+  services: "2026-11-28",
   tools: "2026-10-30",
   consulting: "2026-11-25",
-  faq: "2026-11-25",
+  faq: "2026-11-28",
   blog: "2026-11-25",
   // Shared copy on every /services/[slug] page: what I do, how I work, pricing, FAQs, who I am.
   servicePageTemplate: "2026-11-25",
