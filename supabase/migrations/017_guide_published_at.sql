@@ -8,6 +8,18 @@
 
 alter table guides add column if not exists published_at timestamptz;
 
+-- Correcting the published date is not a content change, so it shouldn't move "Last updated"
+-- (replaces the function from migration 016, now ignoring published_at as well). This must run
+-- before the backfill below, or the backfill would bump every guide's updated_at.
+create or replace function guides_set_updated_at() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  if (to_jsonb(new) - 'updated_at' - 'published_at') is distinct from (to_jsonb(old) - 'updated_at' - 'published_at') then
+    new.updated_at := now();
+  end if;
+  return new;
+end $$;
+
 -- Existing guides: the publish moment was never recorded, so use the best estimate: the later of
 -- when the guide was created and when its first tip was added (a guide wouldn't go live empty).
 -- Correct any you know exactly with the "Published date" field in /admin.
@@ -29,14 +41,3 @@ end $$;
 drop trigger if exists guides_set_published_at on guides;
 create trigger guides_set_published_at before insert or update on guides
   for each row execute function guides_set_published_at();
-
--- Correcting the published date is not a content change, so it shouldn't move "Last updated"
--- (replaces the function from migration 016, now ignoring published_at as well).
-create or replace function guides_set_updated_at() returns trigger
-language plpgsql set search_path = public as $$
-begin
-  if (to_jsonb(new) - 'updated_at' - 'published_at') is distinct from (to_jsonb(old) - 'updated_at' - 'published_at') then
-    new.updated_at := now();
-  end if;
-  return new;
-end $$;
